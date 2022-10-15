@@ -8,3 +8,7 @@ export const testArticle = (article: any) => {
   expect(article.updatedAt).toBeTruthy();
   expect(article.publishedAt).toBeTruthy();
 }
+
+test(' __ Tests running', () => {
+  expect('lfp').toBeTruthy();
+})

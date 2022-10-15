@@ -35,12 +35,12 @@ describe('Categories', () => {
   })
 
   describe('getCategory', () => {
-    it('should fetch categories', async () => {
+    it('should fetch category', async () => {
       const category = await getCategory(id);
       testCategory(category);
     })
 
-    it('should fetch populated categories', async () => {
+    it('should fetch populated category', async () => {
       const category = await getCategory(id, '*');
       testPopulatedCategory(category);
     })
