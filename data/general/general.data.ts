@@ -1,7 +1,8 @@
 import {mapLFPMedia} from '../_lfp/_lfp.data';
 import axios from 'axios';
+import {envLFP} from '../../utils/envLFP';
 
-const GENERAL_ROOT = process.env.API_ROOT + '/general'
+const GENERAL_ROOT = envLFP.API_ROOT + '/general'
 
 export const mapGeneral = (d: any): General => ({
   id: d.id,

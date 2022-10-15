@@ -3,8 +3,9 @@ import {mapAuthor} from '../authors/authors.data';
 import {mapCategory} from '../categories/categories.data';
 import {mapType} from '../types/types.data';
 import axios from 'axios';
+import {envLFP} from '../../utils/envLFP';
 
-const ARTICLES_ROOT = process.env.API_ROOT + '/articles'
+const ARTICLES_ROOT = envLFP.API_ROOT + '/articles'
 
 export const mapArticle = (d: any): Article => ({
   id: d.id,

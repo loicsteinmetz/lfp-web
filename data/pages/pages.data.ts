@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {mapMetadata} from '../_lfp/_lfp.data';
+import {envLFP} from '../../utils/envLFP';
 
-const PAGES_ROOT = process.env.API_ROOT + '/pages'
+const PAGES_ROOT = envLFP.API_ROOT + '/pages'
 
 export const mapPage = (d: any): Page => ({
   id: d.id,

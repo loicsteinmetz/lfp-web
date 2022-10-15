@@ -1,8 +1,9 @@
 import {mapLFPMedia, mapMetadata} from '../_lfp/_lfp.data';
 import {mapArticle} from '../articles/articles.data';
 import axios from 'axios';
+import {envLFP} from '../../utils/envLFP';
 
-const AUTHOR_ROOT = process.env.API_ROOT + '/authors'
+const AUTHOR_ROOT = envLFP.API_ROOT + '/authors'
 
 export const mapAuthor = (d: any): Author => ({
   id: d.id,

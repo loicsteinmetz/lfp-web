@@ -1,8 +1,9 @@
 import axios from 'axios';
 import {mapArticle} from '../articles/articles.data';
 import {mapMetadata} from '../_lfp/_lfp.data';
+import {envLFP} from '../../utils/envLFP';
 
-const TYPES_ROOT = process.env.API_ROOT + '/types';
+const TYPES_ROOT = envLFP.API_ROOT + '/types';
 
 export const mapType = (d: any): Type => ({
   id: d.id,

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import {mapArticle} from '../articles/articles.data';
 import {mapMetadata} from '../_lfp/_lfp.data';
+import {envLFP} from '../../utils/envLFP';
 
-const CATEGORIES_ROOT = process.env.API_ROOT + '/categories';
+const CATEGORIES_ROOT = envLFP.API_ROOT + '/categories';
 
 export const mapCategory = (d: any): Category => ({
   id: d.id,
