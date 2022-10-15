@@ -1,4 +1,7 @@
 import {mapLFPMedia} from '../_lfp/_lfp.data';
+import axios from 'axios';
+
+const GENERAL_ROOT = process.env.API_ROOT + '/general'
 
 export const mapGeneral = (d: any): General => ({
   id: d.id,
@@ -12,3 +15,13 @@ export const mapGeneral = (d: any): General => ({
   logo: d.attributes.logo ? mapLFPMedia(d.attributes.logo) : undefined,
   favicon: d.attributes.favicon ? mapLFPMedia(d.attributes.favicon) : undefined,
 })
+
+export const getGeneral = async (populate?: PopulatedGeneralOption): Promise<General> => {
+  return mapGeneral((await axios.get(
+    GENERAL_ROOT,
+    {
+      params: {
+        populate
+      }
+    })).data.data);
+}
