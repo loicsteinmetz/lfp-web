@@ -7,6 +7,12 @@ type Article = {
   createdAt: Date,
   updatedAt: Date,
   publishedAt: Date,
+
+  // Populated >>>
+  cover?: LFPMedia | null,
+  authors?: Author[],
+  types?: Type[],
+  categories?: Category[],
 }
 
 type PopulatedArticleOption = '*';
