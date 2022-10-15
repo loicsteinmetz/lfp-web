@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {mapArticle} from '../articles/articles.data';
+import {mapMetadata} from '../_lfp/_lfp.data';
 
 const TYPES_ROOT = process.env.API_ROOT + '/types';
 
@@ -11,14 +12,18 @@ export const mapType = (d: any): Type => ({
   articles: d.attributes.articles?.data.map(mapArticle),
 })
 
-export const getTypes = async (populate?: PopulatedTypeOption): Promise<Type[]> => {
-  return (await axios.get(
+export const getTypes = async (populate?: PopulatedTypeOption): Promise<WithMetadata<Type[]>> => {
+  const result = (await axios.get(
     TYPES_ROOT,
     {
       params: {
         populate
       }
-    })).data.data.map(mapType);
+    })).data;
+  return {
+    meta: mapMetadata(result.meta),
+    data: result.data.map(mapType),
+  }
 }
 
 export const getType = async (id: number, populate?: PopulatedTypeOption): Promise<Type> => {

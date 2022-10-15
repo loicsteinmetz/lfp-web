@@ -32,3 +32,15 @@ type LFPMediaFormat = {
   width: number,
   height: number,
 }
+
+type Metadata = {
+  page: number,
+  pageSize: number,
+  pageCount: number,
+  total: number,
+}
+
+type WithMetadata<T> = {
+  meta: Metadata,
+  data: T,
+}

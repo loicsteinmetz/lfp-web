@@ -1,5 +1,6 @@
 import {testArticle} from '../articles/articles.data.test';
 import {getType, getTypes} from './types.data';
+import {testMetadata} from '../_lfp/_lfp.data.test';
 
 export const testType = (type: any) => {
   expect(type.id).toBeTruthy();
@@ -19,7 +20,9 @@ describe('Types', () => {
 
   describe('getTypes', () => {
     it('should fetch types', async () => {
-      const types = await getTypes();
+      const typesRes = await getTypes();
+      testMetadata(typesRes.meta);
+      const types = typesRes.data;
       expect(types.length).toBeGreaterThan(0);
       const type = types[0];
       testType(type);
@@ -27,7 +30,9 @@ describe('Types', () => {
     })
 
     it('should fetch populated types', async () => {
-      const types = await getTypes('*');
+      const typesRes = await getTypes('*');
+      testMetadata(typesRes.meta);
+      const types = typesRes.data;
       expect(types.length).toBeGreaterThan(0);
       const type = types[0];
       testPopulatedType(type);

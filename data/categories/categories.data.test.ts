@@ -1,5 +1,6 @@
 import {getCategories, getCategory} from './categories.data';
 import {testArticle} from '../articles/articles.data.test';
+import {testMetadata} from '../_lfp/_lfp.data.test';
 
 export const testCategory = (category: any) => {
   expect(category.id).toBeTruthy();
@@ -19,7 +20,9 @@ describe('Categories', () => {
 
   describe('getCategories', () => {
     it('should fetch categories', async () => {
-      const categories = await getCategories();
+      const categoriesRes = await getCategories();
+      testMetadata(categoriesRes.meta);
+      const categories = categoriesRes.data;
       expect(categories.length).toBeGreaterThan(0);
       const category = categories[0];
       testCategory(category);
@@ -27,7 +30,9 @@ describe('Categories', () => {
     })
 
     it('should fetch populated categories', async () => {
-      const categories = await getCategories('*');
+      const categoriesRes = await getCategories('*');
+      testMetadata(categoriesRes.meta);
+      const categories = categoriesRes.data;
       expect(categories.length).toBeGreaterThan(0);
       const category = categories[0];
       testPopulatedCategory(category);

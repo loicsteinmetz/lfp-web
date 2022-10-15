@@ -1,3 +1,10 @@
+export const mapMetadata = (d: any): Metadata => ({
+  page: d.pagination.page,
+  pageSize: d.pagination.pageSize,
+  pageCount: d.pagination.pageCount,
+  total: d.pagination.total,
+})
+
 export const mapLFPMedia = (d: any): LFPMedia => ({
   id: d.data.id,
   name: d.data.attributes.name,
