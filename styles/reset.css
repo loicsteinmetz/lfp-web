@@ -1,7 +1,8 @@
-html, body {
+html, body, #__next, #root {
+  height: 100% !important;
   display: flex !important;
   flex-direction: column !important;
-  height: 100% !important;
+  padding: 0 !important;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/

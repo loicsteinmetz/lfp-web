@@ -1,10 +1,11 @@
 import {NextPage} from 'next';
-import Link from 'next/link';
-import {envLFP} from '../utils/envLFP';
+import Layout from '../components/templates/Layout';
 
 const Home: NextPage = () => {
   return (
-    <div>{envLFP.API_ROOT}</div>
+    <Layout>
+      <p>Hello world</p>
+    </Layout>
   )
 }
 
