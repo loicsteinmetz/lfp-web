@@ -6,6 +6,6 @@ const story = {
   component: Layout,
 };
 
-export const Default = () => <Layout/>;
+export const Default = () => <Layout><p>Hello World</p></Layout>;
 
 export default story;
