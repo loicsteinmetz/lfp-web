@@ -1,24 +1,24 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
-import {Devices} from '../theme/breakpoints';
-import {Colors} from '../theme/colors';
+import Banner from '../atoms/media/Banner';
+import HeaderNav from '../molecules/HeaderNav';
 
 export interface HeaderProps {
+  logo: LFPMedia;
+  pages: Page[];
+  categories: Category[];
+  types: Type[];
 }
 
-const Container = styled.div`
-  @media(${Devices.MOBILE}) {
-    height: 200px;
-    width: 100%;
-    background-color: ${Colors.GREY['300']};
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
+const Container = styled.header`
 `
 
-const Header: FC<HeaderProps> = ({}) => {
+const Header: FC<HeaderProps> = ({logo, pages, categories, types}) => {
   return (
-    <Container/>
+    <Container>
+      <Banner/>
+      <HeaderNav logo={logo} pages={pages} categories={categories} types={types}/>
+    </Container>
   )
 }
 
