@@ -5,7 +5,7 @@ const Breakpoints = {
 }
 
 export const Devices = {
-  MOBILE: `(min-width: ${Breakpoints.SMALL})`,
-  TABLET: `(min-width: ${Breakpoints.MEDIUM})`,
-  DESKTOP: `(min-width: ${Breakpoints.LARGE})`,
+  MOBILE: `min-width: ${Breakpoints.SMALL}`,
+  TABLET: `min-width: ${Breakpoints.MEDIUM}`,
+  DESKTOP: `min-width: ${Breakpoints.LARGE}`,
 }

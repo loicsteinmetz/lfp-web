@@ -3,7 +3,7 @@ import Layout from '../components/templates/Layout';
 
 const Home: NextPage = () => {
   return (
-    <Layout>
+    <Layout title="Hello world">
       <p>Hello world</p>
     </Layout>
   )
