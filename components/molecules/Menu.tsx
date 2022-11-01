@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import {Colors} from '../theme/colors';
 import {Spacings} from '../theme/spacings';
 import QuitIcon from '../atoms/icons/QuitIcon';
+import MenuLink from '../atoms/actions/MenuLink';
+import Dropdown from './Dropdown';
+import {Devices} from '../theme/breakpoints';
 
 export interface MenuProps {
   pages: Page[];
@@ -11,9 +14,26 @@ export interface MenuProps {
   types: Type[];
 }
 
-const IconContainer = styled.div`
+const MenuIconContainer = styled.div`
   &:hover {
     cursor: pointer;
+  }
+
+  @media(${Devices.TABLET}) {
+    display: none;
+  }
+`
+
+const QuitIconContainer = styled.div`
+  display: inline-block;
+  margin-bottom: ${Spacings.S2};
+  
+  &:hover {
+    cursor: pointer;
+  }
+
+  @media(${Devices.TABLET}) {
+    display: none;
   }
 `
 
@@ -27,6 +47,13 @@ const MenuContainer = styled.div<{ isOpen: boolean, isVisible: boolean }>`
   transition: left 300ms;
   visibility: ${({isVisible}) => isVisible ? 'visible' : 'hidden'};
   padding: ${Spacings.S2};
+
+  @media(${Devices.TABLET}) {
+    position: initial;
+    visibility: visible;
+    display: flex;
+    width: 100%;
+  }
 `
 
 const Menu = ({pages, categories, types}: MenuProps) => {
@@ -43,21 +70,17 @@ const Menu = ({pages, categories, types}: MenuProps) => {
 
   return (
     <>
-      <IconContainer onClick={() => setIsOpen(true)}>
+      <MenuIconContainer onClick={() => setIsOpen(true)}>
         <MenuIcon alt='menu' size='40px'/>
-      </IconContainer>
+      </MenuIconContainer>
       <MenuContainer isOpen={isOpen} isVisible={isVisible}>
-        <IconContainer onClick={() => setIsOpen(false)}>
+        <QuitIconContainer onClick={() => setIsOpen(false)}>
           <QuitIcon alt='fermer menu' size='40px'/>
-        </IconContainer>
-        {categories.map((category) => (
-          <p key={'cat-' + category.id}>{category.name}</p>
-        ))}
-        {types.map((type) => (
-          <p key={'type-' + type.id}>{type.name}</p>
-        ))}
+        </QuitIconContainer>
+        <Dropdown title={'Thématiques'} id={'categories'} links={categories.map(c => ({href: `/categories/${c.id}`, label: c.name}))}/>
+        <Dropdown title={'Formats'} id={'types'} links={types.map(t => ({href: `/types/${t.id}`, label: t.name}))}/>
         {pages.map((page) => (
-          <p key={'page-' + page.id}>{page.title}</p>
+          <MenuLink key={'page-' + page.id} label={page.title} href={`/pages/${page.slug}`} />
         ))}
       </MenuContainer>
     </>
