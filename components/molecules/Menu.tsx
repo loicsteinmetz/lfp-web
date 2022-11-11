@@ -39,7 +39,7 @@ const QuitIconContainer = styled.div`
 `
 
 const MenuContainer = styled.div<{ isOpen: boolean, isVisible: boolean }>`
-  position: absolute;
+  position: fixed;
   background-color: ${Colors.GREY['0']};
   left: ${({isOpen}) => isOpen ? '0' : '100vw'};
   right: ${({isOpen}) => isOpen ? '0' : '-100vw'};
@@ -48,6 +48,7 @@ const MenuContainer = styled.div<{ isOpen: boolean, isVisible: boolean }>`
   transition: left 300ms, right 300ms;
   visibility: ${({isVisible}) => isVisible ? 'visible' : 'hidden'};
   padding: ${Spacings.S2};
+  z-index: 9999;
 
   @media(${Devices.TABLET}) {
     position: initial;
@@ -75,8 +76,10 @@ const Menu = ({pages, categories, types, general}: MenuProps) => {
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
+      document.body.style.overflow = 'hidden';
     } else {
-      setTimeout(() => setIsVisible(false), 300)
+      setTimeout(() => setIsVisible(false), 300);
+      document.body.style.overflow = 'auto';
     }
   }, [isOpen])
 

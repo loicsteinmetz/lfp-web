@@ -17,7 +17,7 @@ export interface LayoutProps {
 
 const Container = styled.div`
   @media(${Devices.MOBILE}) {
-    background-color: ${Colors.GREY['100']};
+    background-color: ${Colors.GREY['25']};
     height: 100%;
     width: 100%;
     max-width: 1200px;
@@ -32,7 +32,7 @@ const Layout: FC<LayoutProps> = ({title, pages, categories, types, general, chil
         <title>{title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Header logo={general.logo!} pages={pages} categories={categories} types={types} general={general}/>
+      <Header pages={pages} categories={categories} types={types} general={general}/>
       <Container>
         {children}
       </Container>

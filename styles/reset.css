@@ -1,10 +1,3 @@
-html, body, #__next, #root {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  padding: 0 !important;
-}
-
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0-modified | 20110126
    License: none (public domain)
