@@ -7,7 +7,7 @@ import {Colors} from '../theme/colors';
 import Head from 'next/head';
 
 export interface LayoutProps {
-  title: string;
+  title?: string;
   pages: Page[];
   categories: Category[];
   types: Type[];
@@ -29,7 +29,8 @@ const Layout: FC<LayoutProps> = ({title, pages, categories, types, general, chil
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <title>La Fabrique Populaire {title ? `| ${title}` : ''}</title>
+        <link rel="icon" type="image/png" href={general.favicon!.url} />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Header pages={pages} categories={categories} types={types} general={general}/>

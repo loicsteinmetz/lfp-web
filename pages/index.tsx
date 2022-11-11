@@ -18,7 +18,7 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({general, pages, categories, types, articles}) => {
   return (
-    <Layout general={general} pages={pages} title="Hello world" categories={categories} types={types}>
+    <Layout general={general} pages={pages} categories={categories} types={types}>
       <ArticlesList articles={articles} />
     </Layout>
   )
