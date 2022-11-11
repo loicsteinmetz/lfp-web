@@ -120,7 +120,7 @@ const ArticleCard = ({article}: ArticleCardProps) => {
           </Link>
         </CoverContainer>
         <InfoContainer>
-          <Title2>{article.title}</Title2>
+          <Link href={link}><Title2>{article.title}</Title2></Link>
           <Extract>{article.extract}</Extract>
           <Author>{article.authors!.map(author => author.displayName).join(', ')}</Author>
         </InfoContainer>
