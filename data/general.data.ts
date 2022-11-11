@@ -1,6 +1,6 @@
-import {mapLFPMedia} from '../_lfp/_lfp.data';
 import axios from 'axios';
-import {envLFP} from '../../utils/envLFP';
+import {mapLFPMedia} from './_lfp.data';
+import {envLFP} from '../utils/envLFP';
 
 const GENERAL_ROOT = envLFP.API_ROOT + '/general'
 

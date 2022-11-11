@@ -5,7 +5,14 @@ const Typos = {
   color: ${Colors.GREY['800']};
   font-weight: bold;
   font-style: normal;
-  font-size: 15px;
+  font-size: 16px;
+  text-transform: none;
+  `,
+  SUBTITLE1: `
+  color: ${Colors.GREY['800']};
+  font-weight: bold;
+  font-style: normal;
+  font-size: 18px;
   text-transform: none;
   `,
   BODY1: `
@@ -14,6 +21,7 @@ const Typos = {
   font-style: normal;
   font-size: 16px;
   text-transform: none;
+  line-height: 20px;
   `,
   H1: `
   color: ${Colors.GREY['800']};

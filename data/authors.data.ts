@@ -1,7 +1,7 @@
-import {mapLFPMedia, mapMetadata} from '../_lfp/_lfp.data';
-import {mapArticle} from '../articles/articles.data';
 import axios from 'axios';
-import {envLFP} from '../../utils/envLFP';
+import {envLFP} from '../utils/envLFP';
+import {mapLFPMedia, mapMetadata} from './_lfp.data';
+import {mapArticle} from './articles.data';
 
 const AUTHOR_ROOT = envLFP.API_ROOT + '/authors'
 

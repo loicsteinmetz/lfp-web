@@ -44,3 +44,8 @@ type WithMetadata<T> = {
   meta: Metadata,
   data: T,
 }
+
+type ExternalMedia = {
+  source: 'youtube';
+  url: string;
+}

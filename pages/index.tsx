@@ -1,12 +1,12 @@
 import {GetServerSideProps, NextPage} from 'next';
 import Layout from '../components/templates/Layout';
-import {getGeneral} from '../data/general/general.data';
 import {s} from '../utils/serializer';
-import {getPages} from '../data/pages/pages.data';
-import {getCategories} from '../data/categories/categories.data';
-import {getTypes} from '../data/types/types.data';
 import ArticlesList from '../components/organisms/ArticlesList';
-import {getArticles} from '../data/articles/articles.data';
+import {getGeneral} from '../data/general.data';
+import {getPages} from '../data/pages.data';
+import {getCategories} from '../data/categories.data';
+import {getTypes} from '../data/types.data';
+import {getArticles} from '../data/articles.data';
 
 interface HomeProps {
   general: General;

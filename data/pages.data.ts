@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {mapMetadata} from '../_lfp/_lfp.data';
-import {envLFP} from '../../utils/envLFP';
+import {envLFP} from '../utils/envLFP';
+import {mapMetadata} from './_lfp.data';
 
 const PAGES_ROOT = envLFP.API_ROOT + '/pages'
 

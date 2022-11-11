@@ -90,7 +90,6 @@ const InfoContainer = styled.div`
 
 const Extract = styled.p`
   ${typos.BODY1};
-  line-height: 20px;
   margin-bottom: ${Spacings.S2};
 
   @media (${Devices.DESKTOP}) {
@@ -109,7 +108,7 @@ const Author = styled.p`
 `
 
 const ArticleCard = ({article}: ArticleCardProps) => {
-  const link = `/articles/${article.id}`
+  const link = `/articles/${article.slug}`
 
   return (
     <Container>

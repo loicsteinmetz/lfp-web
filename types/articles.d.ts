@@ -13,6 +13,7 @@ type Article = {
   authors?: Author[],
   types?: Type[],
   categories?: Category[],
+  externalMedia?: ExternalMedia[];
 }
 
 type PopulatedArticleOption = '*';

@@ -39,3 +39,8 @@ const mapLFPMediaFormat = (d: any): LFPMediaFormat => ({
   width: d.width,
   height: d.height,
 })
+
+export const mapExternalMedia = (d: any): ExternalMedia => ({
+  source: d.source,
+  url: d.url,
+})

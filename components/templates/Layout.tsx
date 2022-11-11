@@ -5,6 +5,7 @@ import Header from '../organisms/Header';
 import Footer from '../organisms/Footer';
 import {Colors} from '../theme/colors';
 import Head from 'next/head';
+import {Spacings} from '../theme/spacings';
 
 export interface LayoutProps {
   title?: string;
@@ -17,9 +18,8 @@ export interface LayoutProps {
 
 const Container = styled.div`
   @media(${Devices.MOBILE}) {
+    padding: ${Spacings.S2};
     background-color: ${Colors.GREY['25']};
-    height: 100%;
-    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
   }

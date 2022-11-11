@@ -7,7 +7,6 @@ export interface ArticlesListProps {
 }
 
 const Container = styled.div`
-  padding: ${Spacings.S2};
 `
 
 const ArticlesList = ({articles}: ArticlesListProps) => {

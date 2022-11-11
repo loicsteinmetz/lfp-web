@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {mapArticle} from '../articles/articles.data';
-import {mapMetadata} from '../_lfp/_lfp.data';
-import {envLFP} from '../../utils/envLFP';
+import {envLFP} from '../utils/envLFP';
+import {mapArticle} from './articles.data';
+import {mapMetadata} from './_lfp.data';
 
 const TYPES_ROOT = envLFP.API_ROOT + '/types';
 
