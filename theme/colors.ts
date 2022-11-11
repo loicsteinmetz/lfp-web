@@ -1,7 +1,7 @@
 export const Colors = {
   GREY: {
     0: '#FFFFFF',
-    25: '#F2F2F2',
+    25: '#F5F5F5',
     50: '#EEEEEE',
     100: '#E4E4E4',
     200: '#D7D7D7',

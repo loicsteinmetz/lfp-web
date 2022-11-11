@@ -20,7 +20,7 @@ const Container = styled.main`
   @media(${Devices.MOBILE}) {
     padding: ${Spacings.S2};
     background-color: ${Colors.GREY['25']};
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
   }
 `
