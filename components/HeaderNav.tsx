@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import Logo from '../atoms/media/Logo';
 import Menu from './Menu';
 import {Spacings} from '../theme/spacings';
 import Link from 'next/link';
+import Logo from './Logo';
 
 export interface HeaderNavProps {
   logo: LFPMedia;

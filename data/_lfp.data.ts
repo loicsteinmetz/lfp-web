@@ -5,7 +5,7 @@ export const mapMetadata = (d: any): Metadata => ({
   total: d.pagination.total,
 })
 
-export const mapLFPMedia = (d: any): LFPMedia => ({
+export const mapLFPMedia = (d: any): LFPMedia | undefined => d.data ? ({
   id: d.data.id,
   name: d.data.attributes.name,
   alternativeText: d.data.attributes.alternativeText,
@@ -20,7 +20,7 @@ export const mapLFPMedia = (d: any): LFPMedia => ({
   createdAt: new Date(d.data.attributes.createdAt),
   updatedAt: new Date(d.data.attributes.updatedAt),
   formats: mapLFPMediaFormats(d.data.attributes.formats),
-})
+}) : undefined;
 
 const mapLFPMediaFormats = (d: any): LFPMediaFormats => ({
   large: d.large ? mapLFPMediaFormat(d.large) : undefined,

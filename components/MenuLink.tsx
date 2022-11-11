@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import {Spacings} from '../../theme/spacings';
-import {Colors} from '../../theme/colors';
 import Link from 'next/link';
-import typos from '../../theme/typos';
-import {Devices} from '../../theme/breakpoints';
+import typos from '../theme/typos';
+import {Colors} from '../theme/colors';
+import {Spacings} from '../theme/spacings';
+import {Devices} from '../theme/breakpoints';
 
 export interface MenuLinkProps {
   href: string;

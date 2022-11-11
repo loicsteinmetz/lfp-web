@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
 import {Devices} from '../theme/breakpoints';
-import Header from '../organisms/Header';
-import Footer from '../organisms/Footer';
 import {Colors} from '../theme/colors';
 import Head from 'next/head';
 import {Spacings} from '../theme/spacings';
+import Header from './Header';
+import Footer from './Footer';
 
 export interface LayoutProps {
   title?: string;
@@ -16,7 +16,7 @@ export interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Container = styled.div`
+const Container = styled.main`
   @media(${Devices.MOBILE}) {
     padding: ${Spacings.S2};
     background-color: ${Colors.GREY['25']};

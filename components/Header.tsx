@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
-import Banner from '../atoms/media/Banner';
-import HeaderNav from '../molecules/HeaderNav';
+import Banner from './Banner';
+import HeaderNav from './HeaderNav';
 
 export interface HeaderProps {
   pages: Page[];

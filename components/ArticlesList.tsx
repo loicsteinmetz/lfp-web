@@ -1,6 +1,6 @@
-import ArticleCard from '../molecules/ArticleCard';
 import styled from 'styled-components';
 import {Spacings} from '../theme/spacings';
+import ArticleCard from './ArticleCard';
 
 export interface ArticlesListProps {
   articles: Article[];

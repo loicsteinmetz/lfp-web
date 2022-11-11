@@ -2,11 +2,11 @@ import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {Colors} from '../theme/colors';
 import {Spacings} from '../theme/spacings';
-import MenuLink from '../atoms/actions/MenuLink';
 import Dropdown from './Dropdown';
 import {Devices} from '../theme/breakpoints';
-import Icon from '../atoms/icons/Icon';
 import Networks from './Networks';
+import MenuLink from './MenuLink';
+import Icon from './Icon';
 
 export interface MenuProps {
   pages: Page[];

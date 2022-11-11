@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import {Devices} from '../../theme/breakpoints';
+import {Devices} from '../theme/breakpoints';
 
 export interface BannerProps {
   banner: LFPMedia;

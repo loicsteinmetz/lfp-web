@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Icon from '../atoms/icons/Icon';
+import Icon from './Icon';
 
 export interface NetworksProps {
   facebookUrl?: string;
