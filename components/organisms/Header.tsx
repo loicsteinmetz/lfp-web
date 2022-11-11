@@ -4,7 +4,6 @@ import Banner from '../atoms/media/Banner';
 import HeaderNav from '../molecules/HeaderNav';
 
 export interface HeaderProps {
-  logo: LFPMedia;
   pages: Page[];
   categories: Category[];
   types: Type[];
@@ -14,11 +13,11 @@ export interface HeaderProps {
 const Container = styled.header`
 `
 
-const Header: FC<HeaderProps> = ({logo, pages, categories, types, general}) => {
+const Header: FC<HeaderProps> = ({pages, categories, types, general}) => {
   return (
     <Container>
-      <Banner/>
-      <HeaderNav logo={logo} pages={pages} categories={categories} types={types} general={general}/>
+      <Banner banner={general.banner!} logoLg={general.logoLg!}/>
+      <HeaderNav logo={general.logo!} pages={pages} categories={categories} types={types} general={general}/>
     </Container>
   )
 }

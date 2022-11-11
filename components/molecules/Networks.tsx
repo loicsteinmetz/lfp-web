@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Icon from '../atoms/icons/Icon';
-import {Spacings} from '../theme/spacings';
 
 export interface NetworksProps {
   facebookUrl?: string;
@@ -15,6 +14,11 @@ const Container = styled.div`
   
   a {
     outline: none;
+    transition: transform 100ms;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 `
 

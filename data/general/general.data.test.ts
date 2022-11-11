@@ -16,6 +16,7 @@ export const testPopulatedGeneral = (general: any) => {
   testLFPMedia(general.banner);
   testLFPMedia(general.favicon);
   testLFPMedia(general.logo);
+  testLFPMedia(general.logoLg);
 }
 
 describe('General', () => {

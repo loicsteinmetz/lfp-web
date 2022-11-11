@@ -11,6 +11,7 @@ type General = {
   banner?: LFPMedia,
   favicon?: LFPMedia,
   logo?: LFPMedia,
+  logoLg?: LFPMedia,
 }
 
 type PopulatedGeneralOption = '*';
