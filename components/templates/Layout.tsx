@@ -8,10 +8,10 @@ import Head from 'next/head';
 
 export interface LayoutProps {
   title: string;
-  logo: LFPMedia;
   pages: Page[];
   categories: Category[];
   types: Type[];
+  general: General;
   children: React.ReactNode;
 }
 
@@ -25,14 +25,14 @@ const Container = styled.div`
   }
 `
 
-const Layout: FC<LayoutProps> = ({title, logo, pages, categories, types, children}) => {
+const Layout: FC<LayoutProps> = ({title, pages, categories, types, general, children}) => {
   return (
     <>
       <Head>
         <title>{title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Header logo={logo} pages={pages} categories={categories} types={types}/>
+      <Header logo={general.logo!} pages={pages} categories={categories} types={types} general={general}/>
       <Container>
         {children}
       </Container>

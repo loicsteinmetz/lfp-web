@@ -8,16 +8,17 @@ export interface HeaderProps {
   pages: Page[];
   categories: Category[];
   types: Type[];
+  general: General;
 }
 
 const Container = styled.header`
 `
 
-const Header: FC<HeaderProps> = ({logo, pages, categories, types}) => {
+const Header: FC<HeaderProps> = ({logo, pages, categories, types, general}) => {
   return (
     <Container>
       <Banner/>
-      <HeaderNav logo={logo} pages={pages} categories={categories} types={types}/>
+      <HeaderNav logo={logo} pages={pages} categories={categories} types={types} general={general}/>
     </Container>
   )
 }

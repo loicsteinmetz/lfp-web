@@ -15,7 +15,7 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({general, pages, categories, types}) => {
   return (
-    <Layout logo={general.logo!} pages={pages} title="Hello world" categories={categories} types={types}>
+    <Layout general={general} pages={pages} title="Hello world" categories={categories} types={types}>
       <p>Hello world</p>
     </Layout>
   )

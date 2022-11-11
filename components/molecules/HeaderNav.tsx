@@ -9,6 +9,7 @@ export interface HeaderNavProps {
   pages: Page[];
   categories: Category[];
   types: Type[];
+  general: General;
 }
 
 const Container = styled.div`
@@ -18,13 +19,13 @@ const Container = styled.div`
   align-items: center;
 `
 
-const HeaderNav = ({logo, pages, categories, types}: HeaderNavProps) => {
+const HeaderNav = ({logo, pages, categories, types, general}: HeaderNavProps) => {
   return (
     <Container>
       <Link href={'/'}>
         <a><Logo logo={logo}/></a>
       </Link>
-      <Menu pages={pages} categories={categories} types={types}/>
+      <Menu pages={pages} categories={categories} types={types} general={general}/>
     </Container>
   )
 }
