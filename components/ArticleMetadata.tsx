@@ -64,7 +64,7 @@ const ArticleMetadata = ({article, authors}: ArticleMetadataProps) => {
           const authorLink = `/auteurs/${author.slug}`;
           return (
             <AuthorContainer key={`author-${author.id}`} p={(!author.facebook) ? 16 : 0}>
-              <Link href={authorLink}><Avatar picture={author.picture}/></Link>
+              <Link href={authorLink}><a><Avatar picture={author.picture}/></a></Link>
               <Link href={authorLink}><AuthorName>{author.displayName}</AuthorName></Link>
               <Icons>
                 {author.facebook && <Link href={author.facebook}><a target="_blank"><Icon icon={'facebook'} scale={0.4}/></a></Link>}

@@ -27,11 +27,11 @@ interface AuthorProps {
   articles: Article[];
 }
 
-const AuthorContainer = styled.div`
+const AuthorContainer = styled.div<{extraPadding?: boolean}>`
   display: inline-flex;
   align-items: center;
   gap: ${Spacings.S3};
-  padding: 0 ${Spacings.S1} 0 ${Spacings.S2};
+  padding: ${({extraPadding}) => extraPadding ? Spacings.S1 : 0} ${Spacings.S1} ${({extraPadding}) => extraPadding ? Spacings.S1 : 0} ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
   border-radius: 10px;
 
@@ -71,8 +71,8 @@ const Name = styled.h1`
 
 const AuthorPage: NextPage<AuthorProps> = ({general, pages, categories, types, author, articles}) => {
   return (
-    <Layout general={general} pages={pages} categories={categories} types={types}>
-      <AuthorContainer>
+    <Layout general={general} pages={pages} categories={categories} types={types} title={author.displayName}>
+      <AuthorContainer extraPadding={!author.facebook}>
         <Avatar picture={author.picture} size={'lg'}/>
         <Name>{author.displayName}</Name>
         <Icons>

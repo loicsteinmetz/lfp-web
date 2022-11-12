@@ -31,7 +31,7 @@ const Title = styled.h1`
 
 const TypePage: NextPage<TypeProps> = ({general, pages, categories, types, type, articles}) => {
   return (
-    <Layout general={general} pages={pages} categories={categories} types={types}>
+    <Layout general={general} pages={pages} categories={categories} types={types} title={type.name}>
       <Title>{type.name}</Title>
       <Divider/>
       <ArticlesList articles={articles}/>

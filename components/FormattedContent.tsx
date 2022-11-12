@@ -63,6 +63,11 @@ const Container = styled.article`
   img {
     margin: 25px 0;
     width: 100%;
+
+    @media(${Devices.TABLET}) {
+      margin-left: 10%;
+      width: 80%;
+    }
   }
 
   blockquote p {

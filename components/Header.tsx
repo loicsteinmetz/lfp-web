@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import styled from 'styled-components';
 import Banner from './Banner';
 import HeaderNav from './HeaderNav';
+import Link from 'next/link';
 
 export interface HeaderProps {
   pages: Page[];
@@ -23,7 +24,7 @@ const Header: FC<HeaderProps> = ({pages, categories, types, general}) => {
   return (
     <Container>
       <Title>La Fabrique Populaire</Title>
-      <Banner banner={general.banner!} logoLg={general.logoLg!}/>
+      <Link href={'/'}><a><Banner banner={general.banner!} logoLg={general.logoLg!}/></a></Link>
       <HeaderNav logo={general.logo!} pages={pages} categories={categories} types={types} general={general}/>
     </Container>
   )

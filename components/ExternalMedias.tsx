@@ -27,8 +27,9 @@ const IframeContainer = styled.div`
 `
 
 const MediaContainer = styled.div`
-  padding: ${Spacings.S3} ${Spacings.S2} ${Spacings.S2} ${Spacings.S2};
+  padding: 20px 20px 5px 20px;
   background-color: ${Colors.GREY['200']};
+  border-radius: 10px;
 `
 
 const ExternalMedias = ({article}: ExternalMediasProps) => {
