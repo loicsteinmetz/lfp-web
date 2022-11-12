@@ -6,7 +6,7 @@ const Line = styled.div`
   width: 100%;
   height: 1px;
   background-color: ${Colors.GREY['200']};
-  margin-top: ${Spacings.S3};
+  margin: ${Spacings.S3} 0;
 `
 
 const Divider = () => {

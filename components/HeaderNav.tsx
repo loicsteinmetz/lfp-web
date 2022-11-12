@@ -32,13 +32,20 @@ const Container = styled.div`
   }
 `
 
+const LogoContainer = styled.div`
+  margin-right: -30px;
+  z-index: 10;
+`
+
 const HeaderNav = ({logo, pages, categories, types, general}: HeaderNavProps) => {
   return (
     <Flex>
       <Container>
+        <LogoContainer>
         <Link href={'/'}>
           <a><Logo logo={logo}/></a>
         </Link>
+        </LogoContainer>
         <Menu pages={pages} categories={categories} types={types} general={general}/>
       </Container>
     </Flex>

@@ -4,6 +4,7 @@ import typos from '../theme/typos';
 import Icon from './Icon';
 import {Spacings} from '../theme/spacings';
 import {Colors} from '../theme/colors';
+import Link from 'next/link';
 
 export interface ArticleMetadataProps {
   article: Article;
@@ -59,16 +60,19 @@ const ArticleMetadata = ({article, authors}: ArticleMetadataProps) => {
 
   return (
     <Container>
-        {authors.map(author => (
-          <AuthorContainer key={`author-${author.id}`} p={(!author.facebook) ? 16 : 0}>
-            <Avatar picture={author.picture}/>
-            <AuthorName>{author.displayName}</AuthorName>
-            <Icons>
-              {author.facebook && <Icon icon={'facebook'} scale={0.4}/>}
-            </Icons>
-          </AuthorContainer>
-        ))}
-      <PublicationDate>Publié le {date.getDate()}/{date.getMonth()}/{date.getFullYear()}</PublicationDate>
+        {authors.map(author => {
+          const authorLink = `/auteurs/${author.slug}`;
+          return (
+            <AuthorContainer key={`author-${author.id}`} p={(!author.facebook) ? 16 : 0}>
+              <Link href={authorLink}><Avatar picture={author.picture}/></Link>
+              <Link href={authorLink}><AuthorName>{author.displayName}</AuthorName></Link>
+              <Icons>
+                {author.facebook && <Link href={author.facebook}><a target="_blank"><Icon icon={'facebook'} scale={0.4}/></a></Link>}
+              </Icons>
+            </AuthorContainer>
+          )
+        })}
+      <PublicationDate>Publié le {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</PublicationDate>
     </Container>
   )
 }

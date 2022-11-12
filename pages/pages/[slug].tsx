@@ -4,7 +4,6 @@ import {getGeneral} from '../../data/general.data';
 import {findPageBySlug, getPages} from '../../data/pages.data';
 import {getCategories} from '../../data/categories.data';
 import {getTypes} from '../../data/types.data';
-import ArticleContent from '../../components/ArticleContent';
 import Layout from '../../components/Layout';
 import FormattedContent from '../../components/FormattedContent';
 import styled from 'styled-components';
@@ -23,7 +22,7 @@ const Title = styled.h1`
   ${typos.H1};
 `
 
-export default function Page({general, pages, categories, types, page}: PageProps) {
+export default function PagePage({general, pages, categories, types, page}: PageProps) {
   return (
     <Layout pages={pages} categories={categories} types={types} general={general} title={page.title}>
       <Title>{page.title}</Title>

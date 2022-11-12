@@ -8,7 +8,7 @@ import FormattedContent from './FormattedContent';
 import ArticleMetadata from './ArticleMetadata';
 import Divider from './Divider';
 
-export interface ArticleContentProps {
+export interface ArticleProps {
   article: Article;
   authors: Author[];
 }
@@ -39,7 +39,7 @@ const Extract = styled.p`
   margin-bottom: ${Spacings.S2};
 `
 
-const ArticleContent = ({article, authors}: ArticleContentProps) => {
+const Article = ({article, authors}: ArticleProps) => {
   return (
     <Container>
       <Title>{article.title}</Title>
@@ -55,4 +55,4 @@ const ArticleContent = ({article, authors}: ArticleContentProps) => {
   )
 }
 
-export default ArticleContent;
+export default Article;

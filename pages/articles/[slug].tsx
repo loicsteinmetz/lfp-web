@@ -5,9 +5,9 @@ import {getPages} from '../../data/pages.data';
 import {getCategories} from '../../data/categories.data';
 import {getTypes} from '../../data/types.data';
 import {findArticleBySlug} from '../../data/articles.data';
-import ArticleContent from '../../components/ArticleContent';
 import Layout from '../../components/Layout';
 import {getAuthor} from '../../data/authors.data';
+import Article from '../../components/Article';
 
 interface ArticleProps {
   general: General;
@@ -18,10 +18,10 @@ interface ArticleProps {
   authors: Author[];
 }
 
-export default function Article({general, pages, categories, types, article, authors}: ArticleProps) {
+export default function ArticlePage({general, pages, categories, types, article, authors}: ArticleProps) {
   return (
     <Layout pages={pages} categories={categories} types={types} general={general} title={article.title}>
-      <ArticleContent article={article} authors={authors}/>
+      <Article article={article} authors={authors}/>
     </Layout>
   )
 }

@@ -15,6 +15,7 @@ const Container = styled.div`
   margin-bottom: ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
   padding: ${Spacings.S3};
+  border-radius: 5px;
 `
 
 const Title1 = styled.h2`
@@ -27,7 +28,7 @@ const Title1 = styled.h2`
     transition: color 300ms;
   }
 
-  @media (${Devices.TABLET}) {
+  @media (${Devices.DESKTOP}) {
     margin-bottom: ${Spacings.S3};
   }
 
@@ -38,7 +39,6 @@ const Title1 = styled.h2`
 
 const Title2 = styled.h2`
   ${typos.H2};
-  margin-bottom: ${Spacings.S3};
   display: none;
   
   &:hover {
@@ -119,12 +119,37 @@ const Author = styled.p`
   }
 `
 
+const PublicationDate1 = styled.p`
+  margin-top: ${Spacings.S1};
+  margin-bottom: ${Spacings.S2};
+  font-size: 14px;
+  color: ${Colors.GREY['500']};
+
+  @media (${Devices.DESKTOP}) {
+    display: none;
+  }
+`;
+
+const PublicationDate2 = styled.p`
+  margin-top: ${Spacings.S1};
+  margin-bottom: ${Spacings.S2};
+  font-size: 14px;
+  color: ${Colors.GREY['500']};
+  display: none;
+
+  @media (${Devices.DESKTOP}) {
+    display: block;
+  }
+`;
+
 const ArticleCard = ({article}: ArticleCardProps) => {
   const link = `/articles/${article.slug}`
+  const date: Date = new Date(article.publishedAt);
 
   return (
     <Container>
       <Link href={link}><Title1>{article.title}</Title1></Link>
+      <PublicationDate1>Publié le {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</PublicationDate1>
       <FlexContainer>
         <CoverContainer>
           <Link href={link}>
@@ -133,8 +158,11 @@ const ArticleCard = ({article}: ArticleCardProps) => {
         </CoverContainer>
         <InfoContainer>
           <Link href={link}><Title2>{article.title}</Title2></Link>
+          <PublicationDate2>Publié le {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</PublicationDate2>
           <Extract>{article.extract}</Extract>
-          <Authors>{article.authors!.map(author => (<Author key={`author-${author.id}`}>{author.displayName}</Author>))}</Authors>
+          <Authors>{article.authors!.map(author => (
+            <Link href={`/auteurs/${author.slug}`} key={`author-${author.id}`}><Author>{author.displayName}</Author></Link>
+          ))}</Authors>
         </InfoContainer>
       </FlexContainer>
     </Container>

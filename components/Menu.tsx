@@ -48,7 +48,7 @@ const MenuContainer = styled.div<{ isOpen: boolean, isVisible: boolean }>`
   transition: left 300ms, right 300ms;
   visibility: ${({isVisible}) => isVisible ? 'visible' : 'hidden'};
   padding: ${Spacings.S2};
-  z-index: 9999;
+  z-index: 11;
 
   @media(${Devices.TABLET}) {
     position: initial;
@@ -57,6 +57,7 @@ const MenuContainer = styled.div<{ isOpen: boolean, isVisible: boolean }>`
     width: 100%;
     align-items: center;
     padding: 0 ${Spacings.S2};
+    z-index: 9;
   }
 `
 

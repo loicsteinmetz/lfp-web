@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {Colors} from '../theme/colors';
+import {Devices} from '../theme/breakpoints';
 
 type IconType = 'menu' | 'quit' | 'youtube' | 'facebook' | 'mail' | 'avatar' | 'twitter' | 'instagram';
 
@@ -7,6 +8,8 @@ interface IconProps {
   icon: IconType;
   color?: string;
   scale?: number;
+  tabletScale?: number;
+  desktopScale?: number;
 }
 
 interface SvgIconProps {
@@ -53,13 +56,21 @@ const getIcon = (icon: IconType, color: string) => {
   }
 }
 
-const Container = styled.div<{ scale: number }>`
+const Container = styled.div<{ scale: number, tabletScale?: number, desktopScale?: number }>`
   transform: scale(${({scale}) => scale});
+
+  @media(${Devices.TABLET}) {
+    transform: scale(${({tabletScale, scale}) => tabletScale ?? scale});
+  }
+
+  @media(${Devices.DESKTOP}) {
+    transform: scale(${({desktopScale, tabletScale, scale}) => desktopScale ?? (tabletScale ?? scale)});
+  }
 `
 
-const Icon = ({scale = 1, icon, color = Colors.GREY['800']}: IconProps) => {
+const Icon = ({scale = 1, icon, color = Colors.GREY['800'], tabletScale, desktopScale}: IconProps) => {
   return (
-    <Container scale={scale}>
+    <Container scale={scale} tabletScale={tabletScale} desktopScale={desktopScale}>
       {getIcon(icon, color)}
     </Container>
   )
