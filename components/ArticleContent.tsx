@@ -6,6 +6,7 @@ import {Devices} from '../theme/breakpoints';
 import ExternalMedias from './ExternalMedias';
 import FormattedContent from './FormattedContent';
 import ArticleMetadata from './ArticleMetadata';
+import Divider from './Divider';
 
 export interface ArticleContentProps {
   article: Article;
@@ -14,7 +15,7 @@ export interface ArticleContentProps {
 
 const Container = styled.div`
   @media (${Devices.TABLET}) {
-    padding: ${Spacings.S3} ${Spacings.S4};
+    padding: 0 ${Spacings.S4};
   }
 `
 
@@ -34,8 +35,8 @@ const CoverContainer = styled.div`
 `
 
 const Extract = styled.p`
-  ${typos.BODY1};
-  margin-bottom: ${Spacings.S3};
+  ${typos.SUBTITLE1};
+  margin-bottom: ${Spacings.S2};
 `
 
 const ArticleContent = ({article, authors}: ArticleContentProps) => {
@@ -47,6 +48,7 @@ const ArticleContent = ({article, authors}: ArticleContentProps) => {
         <Image src={article.cover!.url} alt={article.cover!.alternativeText} height={article.cover!.height} width={article.cover!.width}/>
       </CoverContainer>
       <Extract>{article.extract}</Extract>
+      <Divider/>
       <ExternalMedias article={article}/>
       <FormattedContent content={article.body}/>
     </Container>

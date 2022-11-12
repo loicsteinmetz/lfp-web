@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {envLFP} from '../utils/envLFP';
 import {mapMetadata} from './_lfp.data';
+import {mapArticle} from './articles.data';
 
 const PAGES_ROOT = envLFP.API_ROOT + '/pages'
 
@@ -36,4 +37,15 @@ export const getPage = async (id: number, populate?: PopulatedPageOption): Promi
         populate
       }
     })).data.data);
+}
+
+export const findPageBySlug = async (slug: string, populate?: PopulatedPageOption): Promise<Page> => {
+  return mapArticle((await axios.get(
+    PAGES_ROOT,
+    {
+      params: {
+        'filters[slug][$eq]': slug,
+        populate
+      }
+    })).data.data[0]);
 }

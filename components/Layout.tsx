@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
 import styled from 'styled-components';
-import {Devices} from '../theme/breakpoints';
 import {Colors} from '../theme/colors';
 import Head from 'next/head';
 import {Spacings} from '../theme/spacings';
 import Header from './Header';
 import Footer from './Footer';
+import {Devices} from '../theme/breakpoints';
 
 export interface LayoutProps {
   title?: string;
@@ -17,11 +17,14 @@ export interface LayoutProps {
 }
 
 const Container = styled.main`
-  @media(${Devices.MOBILE}) {
-    padding: ${Spacings.S2};
-    background-color: ${Colors.GREY['25']};
-    max-width: 1000px;
-    margin: 0 auto;
+  padding: ${Spacings.S3} ${Spacings.S2};
+  background-color: ${Colors.GREY['25']};
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 50vh;
+
+  @media (${Devices.TABLET}) {
+    padding: ${Spacings.S3} ${Spacings.S4};
   }
 `
 
@@ -30,8 +33,8 @@ const Layout: FC<LayoutProps> = ({title, pages, categories, types, general, chil
     <>
       <Head>
         <title>La Fabrique Populaire {title ? `| ${title}` : ''}</title>
-        <link rel="icon" type="image/png" href={general.favicon!.url} />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="icon" type="image/png" href={general.favicon!.url}/>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       </Head>
       <Header pages={pages} categories={categories} types={types} general={general}/>
       <Container>

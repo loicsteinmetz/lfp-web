@@ -56,6 +56,7 @@ const FlexContainer = styled.div`
   @media (${Devices.DESKTOP}) {
     display: flex;
     gap: ${Spacings.S3};
+    align-items: flex-start;
   }
 `
 
@@ -78,13 +79,14 @@ const CoverContainer = styled.div`
   @media (${Devices.DESKTOP}) {
     max-height: 450px;
     margin-bottom: 0;
-    flex: 0.7;
+    flex: 0.6;
   }
 `
 
 const InfoContainer = styled.div`
   @media (${Devices.DESKTOP}) {
-    flex: 0.3;
+    flex: 0.4;
+    margin-top: -10px;
   }
 `
 
@@ -97,9 +99,19 @@ const Extract = styled.p`
   }
 `
 
-const Author = styled.p`
+const Authors = styled.p`
   ${typos.OVERLINE1};
+  text-align: right;
+  margin-right: ${Spacings.S1};
 
+  @media (${Devices.TABLET}) {
+    margin-right: ${Spacings.S2};
+  }
+`
+
+const Author = styled.p`
+  margin-bottom: 5px;
+  
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
@@ -122,7 +134,7 @@ const ArticleCard = ({article}: ArticleCardProps) => {
         <InfoContainer>
           <Link href={link}><Title2>{article.title}</Title2></Link>
           <Extract>{article.extract}</Extract>
-          <Author>{article.authors!.map(author => author.displayName).join(', ')}</Author>
+          <Authors>{article.authors!.map(author => (<Author key={`author-${author.id}`}>{author.displayName}</Author>))}</Authors>
         </InfoContainer>
       </FlexContainer>
     </Container>

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import {Colors} from '../theme/colors';
 import {Spacings} from '../theme/spacings';
+import {Devices} from '../theme/breakpoints';
 
 export interface FormattedContentProps {
   content: string;
@@ -10,6 +11,7 @@ export interface FormattedContentProps {
 
 const Container = styled.article`
   padding: ${Spacings.S2} 0;
+  color: ${Colors.GREY['800']};
   
   h1 {
     font-size: 50px;
@@ -41,21 +43,21 @@ const Container = styled.article`
 
   p {
     font-size: 16px;
-    line-height: 21px;
+    line-height: 24px;
     margin: 10px 0;
   }
 
   a {
     text-decoration: none;
-    ${Colors.PRIMARY['700']};
+    color: ${Colors.PRIMARY['700']};
   }
 
   a:visited {
-    ${Colors.PRIMARY['700']};
+    color: ${Colors.PRIMARY['700']};
   }
 
   a:hover {
-    ${Colors.PRIMARY['500']};
+    color: ${Colors.PRIMARY['500']};
   }
 
   img {
