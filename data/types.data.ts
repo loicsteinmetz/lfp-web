@@ -2,6 +2,7 @@ import axios from 'axios';
 import {envLFP} from '../utils/envLFP';
 import {mapArticle} from './articles.data';
 import {mapMetadata} from './_lfp.data';
+import {mapCategory} from './categories.data';
 
 const TYPES_ROOT = envLFP.API_ROOT + '/types';
 
@@ -11,6 +12,7 @@ export const mapType = (d: any): Type => ({
   createdAt: new Date(d.attributes.createdAt),
   updatedAt: new Date(d.attributes.updatedAt),
   articles: d.attributes.articles?.data.map(mapArticle),
+  slug: d.attributes.slug,
 })
 
 export const getTypes = async (populate?: PopulatedTypeOption): Promise<WithMetadata<Type[]>> => {
@@ -35,4 +37,15 @@ export const getType = async (id: number, populate?: PopulatedTypeOption): Promi
         populate
       }
     })).data.data);
+}
+
+export const findTypeBySlug = async (slug: string, populate?: PopulatedTypeOption): Promise<Type> => {
+  return mapType((await axios.get(
+    TYPES_ROOT,
+    {
+      params: {
+        'filters[slug][$eq]': slug,
+        populate
+      }
+    })).data.data[0]);
 }

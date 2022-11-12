@@ -6,6 +6,7 @@ import {Colors} from '../theme/colors';
 import {Devices} from '../theme/breakpoints';
 import React from 'react';
 import Link from 'next/link';
+import Label from './Label';
 
 export interface ArticleCardProps {
   article: Article;
@@ -16,6 +17,26 @@ const Container = styled.div`
   background-color: ${Colors.GREY['0']};
   padding: ${Spacings.S3};
   border-radius: 5px;
+`
+
+const Labels1 = styled.div`
+  display: flex;
+  gap: ${Spacings.S1};
+  margin-bottom: ${Spacings.S2};
+
+  @media (${Devices.DESKTOP}) {
+    display: none;
+  }
+`
+
+const Labels2 = styled.div`
+  display: none;
+  gap: ${Spacings.S1};
+  margin-bottom: ${Spacings.S2};
+
+  @media (${Devices.DESKTOP}) {
+    display: flex;
+  }
 `
 
 const Title1 = styled.h2`
@@ -40,13 +61,14 @@ const Title1 = styled.h2`
 const Title2 = styled.h2`
   ${typos.H2};
   display: none;
-  
+  margin-bottom: ${Spacings.S2};
+
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
     transition: color 300ms;
   }
-  
+
   @media (${Devices.DESKTOP}) {
     display: block;
   }
@@ -99,7 +121,7 @@ const Extract = styled.p`
   }
 `
 
-const Authors = styled.p`
+const Authors = styled.div`
   ${typos.OVERLINE1};
   text-align: right;
   margin-right: ${Spacings.S1};
@@ -111,7 +133,7 @@ const Authors = styled.p`
 
 const Author = styled.p`
   margin-bottom: 5px;
-  
+
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
@@ -149,20 +171,36 @@ const ArticleCard = ({article}: ArticleCardProps) => {
   return (
     <Container>
       <Link href={link}><Title1>{article.title}</Title1></Link>
+      <Labels1>
+        {article.categories && article.categories.map(category => (
+          <Label key={`article-${article.id}-cat-${category.id}`} label={category.name} url={`/thematiques/${category.slug}`}/>
+        ))}
+        {article.types && article.types.map(type => (
+          <Label type={'grey'} key={`article-${article.id}-type-${type.id}`} label={type.name} url={`/formats/${type.slug}`}/>
+        ))}
+      </Labels1>
       <PublicationDate1>Publié le {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</PublicationDate1>
       <FlexContainer>
         <CoverContainer>
-          <Link href={link}>
-            <Image src={article.cover!.url} height={article.cover!.height} width={article.cover!.width} alt={article.cover!.alternativeText}/>
-          </Link>
+          <Link href={link}><Image src={article.cover!.url} height={article.cover!.height} width={article.cover!.width} alt={article.cover!.alternativeText}/></Link>
         </CoverContainer>
         <InfoContainer>
           <Link href={link}><Title2>{article.title}</Title2></Link>
+          <Labels2>
+            {article.categories && article.categories.map(category => (
+              <Label key={`article-${article.id}-cat-${category.id}`} label={category.name} url={`/thematiques/${category.slug}`}/>
+            ))}
+            {article.types && article.types.map(type => (
+              <Label type={'grey'} key={`article-${article.id}-type-${type.id}`} label={type.name} url={`/formats/${type.slug}`}/>
+            ))}
+          </Labels2>
           <PublicationDate2>Publié le {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</PublicationDate2>
           <Extract>{article.extract}</Extract>
-          <Authors>{article.authors!.map(author => (
-            <Link href={`/auteurs/${author.slug}`} key={`author-${author.id}`}><Author>{author.displayName}</Author></Link>
-          ))}</Authors>
+          <Authors>
+            {article.authors!.map(author => (
+              <Link href={`/auteurs/${author.slug}`} key={`author-${author.id}`}><Author>{author.displayName}</Author></Link>
+            ))}
+          </Authors>
         </InfoContainer>
       </FlexContainer>
     </Container>

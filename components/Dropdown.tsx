@@ -6,12 +6,13 @@ import {useCallback, useEffect, useState} from 'react';
 import Link from 'next/link';
 import {Devices} from '../theme/breakpoints';
 
-const EVENT = 'dropdown-open';
+export const DROPDOWN_EVENT = 'dropdown-open';
 
 export interface DropdownProps {
   title: string;
   links: {href: string, label: string}[];
   id: string;
+  onClick?: () => void;
 }
 
 const Container = styled.div`
@@ -37,7 +38,7 @@ const ItemsContainer = styled.div<{isOpen: boolean, itemsNumber: number}>`
     margin-top: ${Spacings.S2};
     margin-left: -${Spacings.S2};
     background-color: ${Colors.GREY['0']};
-    padding: 0 ${Spacings.S2};
+    padding: 0 ${Spacings.S2} ${Spacings.S2} ${Spacings.S2};
     width: 150px;
   }
 `
@@ -87,11 +88,11 @@ const ItemText = styled.a`
   }
 `
 
-const Dropdown = ({title, links, id}: DropdownProps) => {
+const Dropdown = ({title, links, id, onClick}: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleEvent = useCallback(() => {
-    window.addEventListener(EVENT, (e) => {
+    window.addEventListener(DROPDOWN_EVENT, (e) => {
       if ((e as CustomEvent).detail !== id && isOpen) {
         setIsOpen(false);
       }
@@ -104,7 +105,7 @@ const Dropdown = ({title, links, id}: DropdownProps) => {
 
   useEffect(() => {
     if (isOpen) {
-      window.dispatchEvent(new CustomEvent(EVENT, {detail: id}))
+      window.dispatchEvent(new CustomEvent(DROPDOWN_EVENT, {detail: id}))
     }
   }, [isOpen, id]);
 
@@ -115,7 +116,7 @@ const Dropdown = ({title, links, id}: DropdownProps) => {
       </HeaderContainer>
       <ItemsContainer isOpen={isOpen} itemsNumber={links.length}>
         {links.map((link, index) => (
-          <Link key={title + '-' + index} href={link.href}><ItemText>{link.label}</ItemText></Link>
+          <Link key={title + '-' + index} href={link.href}><ItemText onClick={onClick}>{link.label}</ItemText></Link>
         ))}
       </ItemsContainer>
     </Container>

@@ -42,9 +42,7 @@ const HeaderNav = ({logo, pages, categories, types, general}: HeaderNavProps) =>
     <Flex>
       <Container>
         <LogoContainer>
-        <Link href={'/'}>
-          <a><Logo logo={logo}/></a>
-        </Link>
+        <Link href={'/'}><a><Logo logo={logo}/></a></Link>
         </LogoContainer>
         <Menu pages={pages} categories={categories} types={types} general={general}/>
       </Container>

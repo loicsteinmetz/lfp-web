@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {Colors} from '../theme/colors';
 import {Spacings} from '../theme/spacings';
-import Dropdown from './Dropdown';
+import Dropdown, {DROPDOWN_EVENT} from './Dropdown';
 import {Devices} from '../theme/breakpoints';
 import Networks from './Networks';
 import MenuLink from './MenuLink';
@@ -84,6 +84,11 @@ const Menu = ({pages, categories, types, general}: MenuProps) => {
     }
   }, [isOpen])
 
+  const onAction = () => {
+    setIsOpen(false);
+    window.dispatchEvent(new CustomEvent(DROPDOWN_EVENT, {detail: 'no-id'}));
+  }
+
   return (
     <>
       <MenuIconContainer onClick={() => setIsOpen(true)}>
@@ -93,10 +98,10 @@ const Menu = ({pages, categories, types, general}: MenuProps) => {
         <QuitIconContainer onClick={() => setIsOpen(false)}>
             <Icon icon={'quit'}/>
         </QuitIconContainer>
-        <Dropdown title={'Thématiques'} id={'categories'} links={categories.map(c => ({href: `/categories/${c.id}`, label: c.name}))}/>
-        <Dropdown title={'Formats'} id={'types'} links={types.map(t => ({href: `/types/${t.id}`, label: t.name}))}/>
+        <Dropdown onClick={onAction} title={'Thématiques'} id={'categories'} links={categories.map(c => ({href: `/thematiques/${c.slug}`, label: c.name}))}/>
+        <Dropdown onClick={onAction} title={'Formats'} id={'types'} links={types.map(t => ({href: `/formats/${t.slug}`, label: t.name}))}/>
         {pages.map((page) => (
-          <MenuLink key={'page-' + page.id} label={page.title} href={`/pages/${page.slug}`} />
+          <MenuLink key={'page-' + page.id} label={page.title} href={`/pages/${page.slug}`} onClick={onAction}/>
         ))}
         <NetworksContainer>
           <Networks youtubeUrl={general.youtube} facebookUrl={general.facebook} email={general.email}/>

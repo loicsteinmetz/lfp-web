@@ -8,6 +8,7 @@ import {Devices} from '../theme/breakpoints';
 export interface MenuLinkProps {
   href: string;
   label: string;
+  onClick?: () => void;
 }
 
 const Container = styled.div`
@@ -34,12 +35,10 @@ const Text = styled.a`
   }
 `
 
-const MenuLink = ({href, label}: MenuLinkProps) => {
+const MenuLink = ({href, label, onClick}: MenuLinkProps) => {
   return (
-    <Container>
-      <Link href={href}>
-        <Text>{label}</Text>
-      </Link>
+    <Container onClick={onClick}>
+      <Link href={href}><Text>{label}</Text></Link>
     </Container>
   )
 }

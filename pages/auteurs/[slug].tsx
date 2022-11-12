@@ -18,7 +18,7 @@ import Icon from '../../components/Icon';
 import Divider from '../../components/Divider';
 import {Devices} from '../../theme/breakpoints';
 
-interface HomeProps {
+interface AuthorProps {
   general: General;
   pages: Page[];
   categories: Category[];
@@ -69,7 +69,7 @@ const Name = styled.h1`
   }
 `
 
-const AuteurPage: NextPage<HomeProps> = ({general, pages, categories, types, author, articles}) => {
+const AuthorPage: NextPage<AuthorProps> = ({general, pages, categories, types, author, articles}) => {
   return (
     <Layout general={general} pages={pages} categories={categories} types={types}>
       <AuthorContainer>
@@ -85,7 +85,7 @@ const AuteurPage: NextPage<HomeProps> = ({general, pages, categories, types, aut
   )
 }
 
-export const getServerSideProps: GetServerSideProps<HomeProps, { slug: string }> = async (context) => {
+export const getServerSideProps: GetServerSideProps<AuthorProps, { slug: string }> = async (context) => {
   const general = s(await getGeneral('*'));
   const pages = s((await getPages()).data);
   const categories = s((await getCategories()).data);
@@ -95,5 +95,5 @@ export const getServerSideProps: GetServerSideProps<HomeProps, { slug: string }>
   return {props: {general, pages, categories, types, author, articles}}
 }
 
-export default AuteurPage;
+export default AuthorPage;
 

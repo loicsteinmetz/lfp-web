@@ -11,6 +11,7 @@ export const mapCategory = (d: any): Category => ({
   createdAt: new Date(d.attributes.createdAt),
   updatedAt: new Date(d.attributes.updatedAt),
   articles: d.attributes.articles?.data.map(mapArticle),
+  slug: d.attributes.slug,
 })
 
 export const getCategories = async (populate?: PopulatedCategoryOption): Promise<WithMetadata<Category[]>> => {
@@ -35,4 +36,15 @@ export const getCategory = async (id: number, populate?: PopulatedCategoryOption
         populate
       }
     })).data.data);
+}
+
+export const findCategoryBySlug = async (slug: string, populate?: PopulatedCategoryOption): Promise<Category> => {
+  return mapCategory((await axios.get(
+    CATEGORIES_ROOT,
+    {
+      params: {
+        'filters[slug][$eq]': slug,
+        populate
+      }
+    })).data.data[0]);
 }
