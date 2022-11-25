@@ -9,6 +9,7 @@ import ArticleMetadata from './ArticleMetadata';
 import Divider from './Divider';
 import Label from './Label';
 import React from 'react';
+import {Colors} from '../theme/colors';
 
 export interface ArticleProps {
   article: Article;
@@ -16,6 +17,8 @@ export interface ArticleProps {
 }
 
 const Container = styled.div`
+  margin: ${Spacings.S1} 0;
+  
   @media (${Devices.TABLET}) {
     padding: 0 ${Spacings.S4};
   }
@@ -30,6 +33,10 @@ const Title = styled.h2`
   ${typos.H2};
   margin-top: ${Spacings.S1};
   margin-bottom: ${Spacings.S2};
+
+  @media (${Devices.TABLET}) {
+    ${typos.H1};
+  }
 `
 
 const CoverContainer = styled.div`
@@ -39,6 +46,16 @@ const CoverContainer = styled.div`
   align-items: center;
   overflow: hidden;
   margin-bottom: ${Spacings.S3};
+`
+
+const InfoContainer = styled.div`
+  padding: 0 ${Spacings.S2};
+  background-color: ${Colors.GREY['100']};
+  margin: 50px 0;
+
+  @media (${Devices.TABLET}) {
+    padding: 0 ${Spacings.S3};
+  }
 `
 
 const Extract = styled.p`
@@ -62,10 +79,20 @@ const Article = ({article, authors}: ArticleProps) => {
       <CoverContainer>
         <Image src={article.cover!.url} alt={article.cover!.alternativeText} height={article.cover!.height} width={article.cover!.width}/>
       </CoverContainer>
+      {article.info &&
+        <InfoContainer>
+          <FormattedContent content={article.info}/>
+        </InfoContainer>
+      }
       <Extract>{article.extract}</Extract>
       <Divider/>
       <ExternalMedias article={article}/>
       <FormattedContent content={article.body}/>
+      {article.footer &&
+        <InfoContainer>
+          <FormattedContent content={article.footer}/>
+        </InfoContainer>
+      }
     </Container>
   )
 }

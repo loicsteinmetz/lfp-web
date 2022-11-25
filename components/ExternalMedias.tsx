@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {Colors} from '../theme/colors';
 import {Spacings} from '../theme/spacings';
-import typos from '../theme/typos';
+import {Devices} from '../theme/breakpoints';
 
 export interface ExternalMediasProps {
   article: Article;
@@ -23,13 +23,19 @@ const IframeContainer = styled.div`
     right: 0;
     width: 100%;
     height: 100%;
+    border-radius: 8px;
   }
 `
 
 const MediaContainer = styled.div`
-  padding: 20px 20px 5px 20px;
+  padding: 18px 18px 1px 18px;
   background-color: ${Colors.GREY['200']};
   border-radius: 10px;
+  margin-bottom: ${Spacings.S2};
+
+  @media(${Devices.TABLET}) {
+    margin-bottom: ${Spacings.S3};
+  }
 `
 
 const ExternalMedias = ({article}: ExternalMediasProps) => {

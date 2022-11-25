@@ -4,6 +4,8 @@ type Article = {
   slug: string,
   extract: string,
   body: string,
+  footer: string,
+  info: string,
   createdAt: Date,
   updatedAt: Date,
   publishedAt: Date,

@@ -12,6 +12,7 @@ import typos from '../../theme/typos';
 import Divider from '../../components/Divider';
 import {Devices} from '../../theme/breakpoints';
 import {PaginatedPageProps} from '../../components/Pagination';
+import {Spacings} from '../../theme/spacings';
 
 interface TypeProps extends PaginatedPageProps {
   general: General;
@@ -24,6 +25,7 @@ interface TypeProps extends PaginatedPageProps {
 
 const Title = styled.h1`
   ${typos.H2};
+  margin-top: ${Spacings.S2};
 
   @media (${Devices.TABLET}) {
     ${typos.H1};

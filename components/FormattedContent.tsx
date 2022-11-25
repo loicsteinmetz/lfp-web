@@ -12,6 +12,7 @@ export interface FormattedContentProps {
 const Container = styled.article`
   padding: ${Spacings.S2} 0;
   color: ${Colors.GREY['800']};
+  margin: -20px 0;
   
   h1 {
     font-size: 50px;
@@ -58,6 +59,24 @@ const Container = styled.article`
 
   a:hover {
     color: ${Colors.PRIMARY['500']};
+  }
+  
+  ul, ol {
+    margin: 20px;
+  }
+  
+  li {
+    margin-left: 20px;
+    
+    &:before {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 1px;
+      background-color: ${Colors.GREY['800']};
+      margin-left: -25px;
+      margin-top: 10px;
+    }
   }
 
   img {

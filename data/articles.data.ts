@@ -21,7 +21,9 @@ export const mapArticle = (d: any): Article => ({
   authors: d.attributes.authors?.data.map(mapAuthor),
   categories: d.attributes.categories?.data.map(mapCategory),
   types: d.attributes.types?.data.map(mapType),
-  externalMedia: d.attributes.external_media ? d.attributes.external_media.map(mapExternalMedia) : undefined
+  externalMedia: d.attributes.external_media ? d.attributes.external_media.map(mapExternalMedia) : undefined,
+  info: d.attributes.info,
+  footer: d.attributes.footer,
 })
 
 export const getArticles = async (page: string | string[], populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {

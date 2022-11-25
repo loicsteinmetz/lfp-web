@@ -17,7 +17,7 @@ export interface LayoutProps {
 }
 
 const Container = styled.main`
-  padding: ${Spacings.S3} ${Spacings.S2};
+  padding: ${Spacings.S2} ${Spacings.S2} ${Spacings.S3} ${Spacings.S2};
   background-color: ${Colors.GREY['25']};
   max-width: 900px;
   margin: 0 auto;

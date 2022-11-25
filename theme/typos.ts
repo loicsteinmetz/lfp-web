@@ -35,7 +35,7 @@ const Typos = {
   color: ${Colors.GREY['800']};
   font-weight: regular;
   font-style: normal;
-  font-size: 38px;
+  font-size: 32px;
   text-transform: none;
   `
 }

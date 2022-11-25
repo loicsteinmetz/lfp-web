@@ -15,8 +15,12 @@ export interface ArticleCardProps {
 const Container = styled.div`
   margin-bottom: ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
-  padding: ${Spacings.S3};
+  padding: ${Spacings.S2};
   border-radius: 5px;
+
+  @media (${Devices.TABLET}) {
+    padding: ${Spacings.S3};
+  }
 `
 
 const Labels1 = styled.div`
@@ -108,7 +112,6 @@ const CoverContainer = styled.div`
 const InfoContainer = styled.div`
   @media (${Devices.DESKTOP}) {
     flex: 0.4;
-    margin-top: -10px;
   }
 `
 

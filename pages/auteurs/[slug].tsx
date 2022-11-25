@@ -35,6 +35,7 @@ const AuthorContainer = styled.div<{ extraPadding?: boolean }>`
   padding: ${({extraPadding}) => extraPadding ? Spacings.S1 : 0} ${Spacings.S1} ${({extraPadding}) => extraPadding ? Spacings.S1 : 0} ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
   border-radius: 10px;
+  margin-top: ${Spacings.S2};
 
   @media (${Devices.TABLET}) {
     padding: ${Spacings.S2};
@@ -49,7 +50,7 @@ const Icons = styled.div`
     margin-top: 3px;
 
     @media (${Devices.TABLET}) {
-      margin-top: 15px;
+      margin-top: 8px;
     }
 
     &:hover {
