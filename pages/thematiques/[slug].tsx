@@ -39,13 +39,13 @@ const CategoryPage: NextPage<CategoryProps> = ({general, pages, categories, type
   )
 }
 
-export const getServerSideProps: GetServerSideProps<CategoryProps, { slug: string }> = async (context) => {
+export const getServerSideProps: GetServerSideProps<CategoryProps, { slug: string, page: string }> = async (context) => {
   const general = s(await getGeneral('*'));
   const pages = s((await getPages()).data);
   const categories = s((await getCategories()).data);
   const types = s((await getTypes()).data);
   const category = s((await findCategoryBySlug(context.params!.slug)));
-  const articles = s((await findArticlesByCategory(category.id, '*')).data);
+  const articles = s((await findArticlesByCategory(category.id, context.query?.page ?? '1', '*')).data);
   return {props: {general, pages, categories, types, category, articles}}
 }
 

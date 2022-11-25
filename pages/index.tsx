@@ -24,12 +24,12 @@ const Home: NextPage<HomeProps> = ({general, pages, categories, types, articles}
   )
 }
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+export const getServerSideProps: GetServerSideProps<HomeProps, {page: string}> = async (context) => {
   const general = s(await getGeneral('*'));
   const pages = s((await getPages()).data);
   const categories = s((await getCategories()).data);
   const types = s((await getTypes()).data);
-  const articles = s((await getArticles('*')).data);
+  const articles = s((await getArticles(context.query?.page ?? '1', '*')).data);
   return {props: {general, pages, categories, types, articles}}
 }
 

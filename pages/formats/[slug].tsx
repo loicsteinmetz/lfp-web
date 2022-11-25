@@ -39,13 +39,13 @@ const TypePage: NextPage<TypeProps> = ({general, pages, categories, types, type,
   )
 }
 
-export const getServerSideProps: GetServerSideProps<TypeProps, { slug: string }> = async (context) => {
+export const getServerSideProps: GetServerSideProps<TypeProps, { slug: string, page: string }> = async (context) => {
   const general = s(await getGeneral('*'));
   const pages = s((await getPages()).data);
   const categories = s((await getCategories()).data);
   const types = s((await getTypes()).data);
   const type = s((await findTypeBySlug(context.params!.slug)));
-  const articles = s((await findArticlesByType(type.id, '*')).data);
+  const articles = s((await findArticlesByType(type.id, context.query?.page ?? '1', '*')).data);
   return {props: {general, pages, categories, types, type, articles}}
 }
 

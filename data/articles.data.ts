@@ -23,13 +23,15 @@ export const mapArticle = (d: any): Article => ({
   externalMedia: d.attributes.external_media ? d.attributes.external_media.map(mapExternalMedia) : undefined
 })
 
-export const getArticles = async (populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
+export const getArticles = async (page: string | string[], populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
   const result = (await axios.get(
     ARTICLES_ROOT,
     {
       params: {
         sort: 'publishedAt:desc',
         populate,
+        'pagination[page]': page,
+        'pagination[pageSize]': 1, // TODO
       }
     })).data;
   return {
@@ -59,7 +61,7 @@ export const findArticleBySlug = async (slug: string, populate?: PopulatedArticl
     })).data.data[0]);
 }
 
-export const findArticlesByCategory = async (catId: number, populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
+export const findArticlesByCategory = async (catId: number, page: string | string[], populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
   const result = (await axios.get(
     ARTICLES_ROOT,
     {
@@ -67,6 +69,8 @@ export const findArticlesByCategory = async (catId: number, populate?: Populated
         populate,
         'filters[categories][id][$eq]': catId,
         sort: 'publishedAt:desc',
+        'pagination[page]': page,
+        'pagination[pageSize]': 1, // TODO
       }
     })).data;
   return {
@@ -75,7 +79,7 @@ export const findArticlesByCategory = async (catId: number, populate?: Populated
   }
 }
 
-export const findArticlesByType = async (typedId: number, populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
+export const findArticlesByType = async (typedId: number, page: string | string[], populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
   const result = (await axios.get(
     ARTICLES_ROOT,
     {
@@ -83,6 +87,8 @@ export const findArticlesByType = async (typedId: number, populate?: PopulatedAr
         populate,
         'filters[types][id][$eq]': typedId,
         sort: 'publishedAt:desc',
+        'pagination[page]': page,
+        'pagination[pageSize]': 1, // TODO
       }
     })).data;
   return {
@@ -91,7 +97,7 @@ export const findArticlesByType = async (typedId: number, populate?: PopulatedAr
   }
 }
 
-export const findArticlesByAuthor = async (authorId: number, populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
+export const findArticlesByAuthor = async (authorId: number, page: string | string[], populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
   const result = (await axios.get(
     ARTICLES_ROOT,
     {
@@ -99,6 +105,8 @@ export const findArticlesByAuthor = async (authorId: number, populate?: Populate
         populate,
         'filters[authors][id][$eq]': authorId,
         sort: 'publishedAt:desc',
+        'pagination[page]': page,
+        'pagination[pageSize]': 1, // TODO
       }
     })).data;
   return {

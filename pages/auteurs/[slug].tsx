@@ -85,13 +85,13 @@ const AuthorPage: NextPage<AuthorProps> = ({general, pages, categories, types, a
   )
 }
 
-export const getServerSideProps: GetServerSideProps<AuthorProps, { slug: string }> = async (context) => {
+export const getServerSideProps: GetServerSideProps<AuthorProps, { slug: string, page: string }> = async (context) => {
   const general = s(await getGeneral('*'));
   const pages = s((await getPages()).data);
   const categories = s((await getCategories()).data);
   const types = s((await getTypes()).data);
   const author = s((await findAuthorBySlug(context.params!.slug, '*')));
-  const articles = s((await findArticlesByAuthor(author.id, '*')).data);
+  const articles = s((await findArticlesByAuthor(author.id, context.query?.page ?? '1', '*')).data);
   return {props: {general, pages, categories, types, author, articles}}
 }
 
