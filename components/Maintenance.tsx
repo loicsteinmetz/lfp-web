@@ -3,6 +3,8 @@ import Head from 'next/head';
 import React from 'react';
 import styled from 'styled-components';
 import {Devices} from '../theme/breakpoints';
+import {Colors} from '../theme/colors';
+import {Spacings} from '../theme/spacings';
 
 export interface MaintenanceProps {
   general: General;
@@ -21,6 +23,7 @@ const Container = styled.div`
   left: 0;
   right: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   
@@ -43,6 +46,17 @@ const ImageContainer = styled.div`
   text-align: center;
 `
 
+const Label = styled.p`
+  text-align: center;
+  font-size: 20px;
+  color: ${Colors.PRIMARY['500']};
+  font-weight: bold;
+  padding: ${Spacings.S2} ${Spacings.S3};
+  background-color: ${Colors.GREY['0']};
+  position: absolute;
+  bottom: 10%;
+`
+
 const Maintenance = ({general}: MaintenanceProps) => {
   return (
     <>
@@ -57,6 +71,7 @@ const Maintenance = ({general}: MaintenanceProps) => {
         <ImageContainer>
           <Image src={general.logoLg!.url} alt="La Fabrique Populaire" height={general.logoLg!.height} width={general.logoLg!.width}/>
         </ImageContainer>
+        <Label>En maintenance</Label>
       </Container>
     </>
   )

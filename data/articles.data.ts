@@ -37,7 +37,6 @@ export const getArticles = async (page: string | string[], populate?: PopulatedA
         'pagination[pageSize]': PAGE_SIZE,
       }
     })).data;
-  console.log(result)
   return {
     meta: mapMetadata(result.meta),
     data: result.data.map(mapArticle),
