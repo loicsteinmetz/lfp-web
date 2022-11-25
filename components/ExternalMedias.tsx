@@ -28,7 +28,6 @@ const IframeContainer = styled.div`
 `
 
 const MediaContainer = styled.div`
-  padding: 18px 18px 1px 18px;
   background-color: ${Colors.GREY['200']};
   border-radius: 10px;
   margin-bottom: ${Spacings.S2};
