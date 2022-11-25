@@ -6,6 +6,7 @@ import {mapType} from './types.data';
 import axios from 'axios';
 
 const ARTICLES_ROOT = envLFP.API_ROOT + '/articles'
+const PAGE_SIZE = 1;
 
 export const mapArticle = (d: any): Article => ({
   id: d.id,
@@ -31,9 +32,10 @@ export const getArticles = async (page: string | string[], populate?: PopulatedA
         sort: 'publishedAt:desc',
         populate,
         'pagination[page]': page,
-        'pagination[pageSize]': 1, // TODO
+        'pagination[pageSize]': PAGE_SIZE,
       }
     })).data;
+  console.log(result)
   return {
     meta: mapMetadata(result.meta),
     data: result.data.map(mapArticle),
@@ -70,7 +72,7 @@ export const findArticlesByCategory = async (catId: number, page: string | strin
         'filters[categories][id][$eq]': catId,
         sort: 'publishedAt:desc',
         'pagination[page]': page,
-        'pagination[pageSize]': 1, // TODO
+        'pagination[pageSize]': PAGE_SIZE,
       }
     })).data;
   return {
@@ -88,7 +90,7 @@ export const findArticlesByType = async (typedId: number, page: string | string[
         'filters[types][id][$eq]': typedId,
         sort: 'publishedAt:desc',
         'pagination[page]': page,
-        'pagination[pageSize]': 1, // TODO
+        'pagination[pageSize]': PAGE_SIZE,
       }
     })).data;
   return {
@@ -106,7 +108,7 @@ export const findArticlesByAuthor = async (authorId: number, page: string | stri
         'filters[authors][id][$eq]': authorId,
         sort: 'publishedAt:desc',
         'pagination[page]': page,
-        'pagination[pageSize]': 1, // TODO
+        'pagination[pageSize]': PAGE_SIZE,
       }
     })).data;
   return {

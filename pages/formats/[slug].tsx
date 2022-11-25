@@ -11,8 +11,9 @@ import styled from 'styled-components';
 import typos from '../../theme/typos';
 import Divider from '../../components/Divider';
 import {Devices} from '../../theme/breakpoints';
+import {PaginatedPageProps} from '../../components/Pagination';
 
-interface TypeProps {
+interface TypeProps extends PaginatedPageProps {
   general: General;
   pages: Page[];
   categories: Category[];
@@ -29,12 +30,12 @@ const Title = styled.h1`
   }
 `
 
-const TypePage: NextPage<TypeProps> = ({general, pages, categories, types, type, articles}) => {
+const TypePage: NextPage<TypeProps> = ({general, pages, categories, types, type, articles, currentPage, totalPages}) => {
   return (
     <Layout general={general} pages={pages} categories={categories} types={types} title={type.name}>
       <Title>{type.name}</Title>
       <Divider/>
-      <ArticlesList articles={articles}/>
+      <ArticlesList articles={articles} currentPage={currentPage} totalPages={totalPages}/>
     </Layout>
   )
 }
@@ -45,8 +46,11 @@ export const getServerSideProps: GetServerSideProps<TypeProps, { slug: string, p
   const categories = s((await getCategories()).data);
   const types = s((await getTypes()).data);
   const type = s((await findTypeBySlug(context.params!.slug)));
-  const articles = s((await findArticlesByType(type.id, context.query?.page ?? '1', '*')).data);
-  return {props: {general, pages, categories, types, type, articles}}
+  const articlesRes = await findArticlesByType(type.id, context.query?.page ?? '1', '*');
+  const articles = s(articlesRes.data);
+  const totalPages = articlesRes.meta.pageCount;
+  const currentPage = articlesRes.meta.page;
+  return {props: {general, pages, categories, types, type, articles, currentPage, totalPages}}
 }
 
 export default TypePage;

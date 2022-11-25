@@ -17,8 +17,9 @@ import Link from 'next/link';
 import Icon from '../../components/Icon';
 import Divider from '../../components/Divider';
 import {Devices} from '../../theme/breakpoints';
+import {PaginatedPageProps} from '../../components/Pagination';
 
-interface AuthorProps {
+interface AuthorProps extends PaginatedPageProps {
   general: General;
   pages: Page[];
   categories: Category[];
@@ -69,7 +70,7 @@ const Name = styled.h1`
   }
 `
 
-const AuthorPage: NextPage<AuthorProps> = ({general, pages, categories, types, author, articles}) => {
+const AuthorPage: NextPage<AuthorProps> = ({general, pages, categories, types, author, articles, currentPage, totalPages}) => {
   return (
     <Layout general={general} pages={pages} categories={categories} types={types} title={author.displayName}>
       <AuthorContainer extraPadding={!author.facebook}>
@@ -80,7 +81,7 @@ const AuthorPage: NextPage<AuthorProps> = ({general, pages, categories, types, a
         </Icons>
       </AuthorContainer>
       <Divider/>
-      <ArticlesList articles={articles}/>
+      <ArticlesList articles={articles} currentPage={currentPage} totalPages={totalPages}/>
     </Layout>
   )
 }
@@ -91,8 +92,11 @@ export const getServerSideProps: GetServerSideProps<AuthorProps, { slug: string,
   const categories = s((await getCategories()).data);
   const types = s((await getTypes()).data);
   const author = s((await findAuthorBySlug(context.params!.slug, '*')));
-  const articles = s((await findArticlesByAuthor(author.id, context.query?.page ?? '1', '*')).data);
-  return {props: {general, pages, categories, types, author, articles}}
+  const articlesRes = await findArticlesByAuthor(author.id, context.query?.page ?? '1', '*');
+  const articles = s(articlesRes.data);
+  const totalPages = articlesRes.meta.pageCount;
+  const currentPage = articlesRes.meta.page;
+  return {props: {general, pages, categories, types, author, articles, currentPage, totalPages}}
 }
 
 export default AuthorPage;

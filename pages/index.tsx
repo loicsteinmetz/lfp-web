@@ -14,24 +14,28 @@ interface HomeProps {
   categories: Category[];
   types: Type[];
   articles: Article[];
+  totalPages: number;
+  currentPage: number;
 }
 
-const Home: NextPage<HomeProps> = ({general, pages, categories, types, articles}) => {
+const Home: NextPage<HomeProps> = ({general, pages, categories, types, articles, currentPage, totalPages}) => {
   return (
     <Layout general={general} pages={pages} categories={categories} types={types}>
-      <ArticlesList articles={articles} />
+      <ArticlesList articles={articles} currentPage={currentPage} totalPages={totalPages}/>
     </Layout>
   )
 }
 
-export const getServerSideProps: GetServerSideProps<HomeProps, {page: string}> = async (context) => {
+export const getServerSideProps: GetServerSideProps<HomeProps, { page: string }> = async (context) => {
   const general = s(await getGeneral('*'));
   const pages = s((await getPages()).data);
   const categories = s((await getCategories()).data);
   const types = s((await getTypes()).data);
-  const articles = s((await getArticles(context.query?.page ?? '1', '*')).data);
-  return {props: {general, pages, categories, types, articles}}
+  const articlesRes = await getArticles(context.query?.page ?? '1', '*');
+  const articles = s(articlesRes.data);
+  const totalPages = articlesRes.meta.pageCount;
+  const currentPage = articlesRes.meta.page;
+  return {props: {general, pages, categories, types, articles, currentPage, totalPages}}
 }
 
 export default Home;
-
