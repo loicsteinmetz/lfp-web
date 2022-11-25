@@ -7,7 +7,6 @@ import {getTypes} from '../data/types.data';
 import {getArticles} from '../data/articles.data';
 import Layout from '../components/Layout';
 import ArticlesList from '../components/ArticlesList';
-import Maintenance from '../components/Maintenance';
 
 interface HomeProps {
   general: General;
@@ -20,10 +19,6 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({general, pages, categories, types, articles, currentPage, totalPages}) => {
-  if (general.maintenance) {
-    return <Maintenance general={general}/>
-  }
-
   return (
     <Layout general={general} pages={pages} categories={categories} types={types}>
       <ArticlesList articles={articles} currentPage={currentPage} totalPages={totalPages}/>

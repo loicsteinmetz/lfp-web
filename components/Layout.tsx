@@ -6,6 +6,7 @@ import {Spacings} from '../theme/spacings';
 import Header from './Header';
 import Footer from './Footer';
 import {Devices} from '../theme/breakpoints';
+import Maintenance from './Maintenance';
 
 export interface LayoutProps {
   title?: string;
@@ -29,6 +30,10 @@ const Container = styled.main`
 `
 
 const Layout: FC<LayoutProps> = ({title, pages, categories, types, general, children}) => {
+  if (general.maintenance) {
+    return <Maintenance general={general}/>
+  }
+
   return (
     <>
       <Head>
