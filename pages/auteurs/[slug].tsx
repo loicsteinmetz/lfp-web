@@ -7,7 +7,7 @@ import {s} from '../../utils/serializer';
 import ArticlesList from '../../components/ArticlesList';
 import Layout from '../../components/Layout';
 import {findAuthorBySlug} from '../../data/authors.data';
-import {getArticle} from '../../data/articles.data';
+import {findArticlesByAuthor} from '../../data/articles.data';
 import styled from 'styled-components';
 import Avatar from '../../components/Avatar';
 import {Spacings} from '../../theme/spacings';
@@ -27,7 +27,7 @@ interface AuthorProps {
   articles: Article[];
 }
 
-const AuthorContainer = styled.div<{extraPadding?: boolean}>`
+const AuthorContainer = styled.div<{ extraPadding?: boolean }>`
   display: inline-flex;
   align-items: center;
   gap: ${Spacings.S3};
@@ -50,7 +50,7 @@ const Icons = styled.div`
     @media (${Devices.TABLET}) {
       margin-top: 15px;
     }
-    
+
     &:hover {
       cursor: pointer;
       transform: scale(1.1);
@@ -62,7 +62,7 @@ const Name = styled.h1`
   margin-left: -15px;
   margin-top: -3px;
   ${typos.SUBTITLE1};
-  
+
   @media (${Devices.TABLET}) {
     ${typos.H2};
     margin-left: 0;
@@ -91,7 +91,7 @@ export const getServerSideProps: GetServerSideProps<AuthorProps, { slug: string 
   const categories = s((await getCategories()).data);
   const types = s((await getTypes()).data);
   const author = s((await findAuthorBySlug(context.params!.slug, '*')));
-  const articles = await Promise.all(author.articles.map(async (a: any) => s(((await getArticle(a.id, '*'))))));
+  const articles = s((await findArticlesByAuthor(author.id, '*')).data);
   return {props: {general, pages, categories, types, author, articles}}
 }
 

@@ -28,7 +28,8 @@ export const getArticles = async (populate?: PopulatedArticleOption): Promise<Wi
     ARTICLES_ROOT,
     {
       params: {
-        populate
+        sort: 'publishedAt:desc',
+        populate,
       }
     })).data;
   return {
@@ -56,4 +57,52 @@ export const findArticleBySlug = async (slug: string, populate?: PopulatedArticl
         populate
       }
     })).data.data[0]);
+}
+
+export const findArticlesByCategory = async (catId: number, populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
+  const result = (await axios.get(
+    ARTICLES_ROOT,
+    {
+      params: {
+        populate,
+        'filters[categories][id][$eq]': catId,
+        sort: 'publishedAt:desc',
+      }
+    })).data;
+  return {
+    meta: mapMetadata(result.meta),
+    data: result.data.map(mapArticle),
+  }
+}
+
+export const findArticlesByType = async (typedId: number, populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
+  const result = (await axios.get(
+    ARTICLES_ROOT,
+    {
+      params: {
+        populate,
+        'filters[types][id][$eq]': typedId,
+        sort: 'publishedAt:desc',
+      }
+    })).data;
+  return {
+    meta: mapMetadata(result.meta),
+    data: result.data.map(mapArticle),
+  }
+}
+
+export const findArticlesByAuthor = async (authorId: number, populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
+  const result = (await axios.get(
+    ARTICLES_ROOT,
+    {
+      params: {
+        populate,
+        'filters[authors][id][$eq]': authorId,
+        sort: 'publishedAt:desc',
+      }
+    })).data;
+  return {
+    meta: mapMetadata(result.meta),
+    data: result.data.map(mapArticle),
+  }
 }

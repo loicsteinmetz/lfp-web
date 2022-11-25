@@ -6,7 +6,7 @@ import {findTypeBySlug, getTypes} from '../../data/types.data';
 import {s} from '../../utils/serializer';
 import ArticlesList from '../../components/ArticlesList';
 import Layout from '../../components/Layout';
-import {getArticle} from '../../data/articles.data';
+import {findArticlesByType} from '../../data/articles.data';
 import styled from 'styled-components';
 import typos from '../../theme/typos';
 import Divider from '../../components/Divider';
@@ -44,8 +44,8 @@ export const getServerSideProps: GetServerSideProps<TypeProps, { slug: string }>
   const pages = s((await getPages()).data);
   const categories = s((await getCategories()).data);
   const types = s((await getTypes()).data);
-  const type = s((await findTypeBySlug(context.params!.slug, '*')));
-  const articles = await Promise.all(type.articles.map(async (a: any) => s(((await getArticle(a.id, '*'))))));
+  const type = s((await findTypeBySlug(context.params!.slug)));
+  const articles = s((await findArticlesByType(type.id, '*')).data);
   return {props: {general, pages, categories, types, type, articles}}
 }
 
