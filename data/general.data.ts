@@ -16,6 +16,7 @@ export const mapGeneral = (d: any): General => ({
   logo: d.attributes.logo ? mapLFPMedia(d.attributes.logo) : undefined,
   logoLg: d.attributes.logo ? mapLFPMedia(d.attributes.logo_lg) : undefined,
   favicon: d.attributes.favicon ? mapLFPMedia(d.attributes.favicon) : undefined,
+  maintenance: d.attributes.maintenance,
 })
 
 export const getGeneral = async (populate?: PopulatedGeneralOption): Promise<General> => {

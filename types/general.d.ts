@@ -6,6 +6,7 @@ type General = {
   createdAt: Date,
   updatedAt: Date,
   publishedAt: Date,
+  maintenance: boolean,
 
   // Populated >>>
   banner?: LFPMedia,
