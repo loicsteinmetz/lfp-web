@@ -71,7 +71,7 @@ const Maintenance = ({general}: MaintenanceProps) => {
         <ImageContainer>
           <Image src={general.logoLg!.url} alt="La Fabrique Populaire" height={general.logoLg!.height} width={general.logoLg!.width}/>
         </ImageContainer>
-        <Label>En maintenance</Label>
+        <Label>Bientôt ...!</Label>
       </Container>
     </>
   )
