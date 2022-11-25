@@ -4,6 +4,7 @@ import {Spacings} from '../theme/spacings';
 import Link from 'next/link';
 import Logo from './Logo';
 import {Devices} from '../theme/breakpoints';
+import {Colors} from '../theme/colors';
 
 export interface HeaderNavProps {
   logo: LFPMedia;
@@ -25,6 +26,10 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (${Devices.TABLET}) {
+    border-bottom: 3px solid ${Colors.PRIMARY['500']};
+  }
 
   @media (${Devices.DESKTOP}) {
     width: 100%;

@@ -32,6 +32,7 @@ const ItemsContainer = styled.div<{isOpen: boolean, itemsNumber: number}>`
   max-height: ${({isOpen, itemsNumber}) => isOpen ? itemsNumber * 50 + 'px' : '0px'};
   overflow: hidden;
   transition: max-height 350ms;
+  pointer-events: ${({isOpen}) => isOpen ? 'all' : 'none'};
 
   @media(${Devices.TABLET}) {
     position: absolute;

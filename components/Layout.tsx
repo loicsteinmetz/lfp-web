@@ -40,7 +40,7 @@ const Layout: FC<LayoutProps> = ({title, pages, categories, types, general, chil
       <Container>
         {children}
       </Container>
-      <Footer/>
+      <Footer general={general}/>
     </>
   )
 }

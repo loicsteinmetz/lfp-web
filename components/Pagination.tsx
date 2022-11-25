@@ -21,7 +21,7 @@ const Container = styled.div`
 `
 
 const Page = styled.p<{active: boolean}>`
-  font-size: 18px;
+  font-size: 16px;
   color: ${({active}) => active ? Colors.PRIMARY['500'] : Colors.GREY['500']};
   font-weight: bold;
   
@@ -32,7 +32,7 @@ const Page = styled.p<{active: boolean}>`
 `
 
 const PrevNext = styled.p<{active: boolean}>`
-  font-size: 15px;
+  font-size: 13px;
   margin: 0 10px;
   pointer-events: ${({active}) => active ? 'all' : 'none'};
   color: ${({active}) => active ? Colors.GREY['500'] : Colors.GREY['200']};
