@@ -21,6 +21,7 @@ interface CategoryProps extends PaginatedPageProps {
   types: Type[];
   category: Category;
   articles: Article[];
+  url: string;
 }
 
 const Title = styled.h1`
@@ -32,9 +33,9 @@ const Title = styled.h1`
   }
 `
 
-const CategoryPage: NextPage<CategoryProps> = ({general, pages, categories, types, category, articles, totalPages, currentPage}) => {
+const CategoryPage: NextPage<CategoryProps> = ({url, general, pages, categories, types, category, articles, totalPages, currentPage}) => {
   return (
-    <Layout general={general} pages={pages} categories={categories} types={types} title={category.name}>
+    <Layout url={url} general={general} pages={pages} categories={categories} types={types} title={category.name}>
       <Title>{category.name}</Title>
       <Divider/>
       <ArticlesList articles={articles} totalPages={totalPages} currentPage={currentPage}/>
@@ -43,6 +44,7 @@ const CategoryPage: NextPage<CategoryProps> = ({general, pages, categories, type
 }
 
 export const getServerSideProps: GetServerSideProps<CategoryProps, { slug: string, page: string }> = async (context) => {
+  const url = context.req.headers.host + context.resolvedUrl;
   const general = s(await getGeneral('*'));
   const pages = s((await getPages()).data);
   const categories = s((await getCategories()).data);
@@ -52,7 +54,7 @@ export const getServerSideProps: GetServerSideProps<CategoryProps, { slug: strin
   const articles = s(articlesRes.data);
   const totalPages = articlesRes.meta.pageCount;
   const currentPage = articlesRes.meta.page;
-  return {props: {general, pages, categories, types, category, articles, totalPages, currentPage}}
+  return {props: {general, pages, categories, types, category, articles, totalPages, currentPage, url}}
 }
 
 export default CategoryPage;

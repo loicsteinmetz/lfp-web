@@ -22,6 +22,7 @@ export const mapArticle = (d: any): Article => ({
   categories: d.attributes.categories?.data.map(mapCategory),
   types: d.attributes.types?.data.map(mapType),
   externalMedia: d.attributes.external_media ? d.attributes.external_media.map(mapExternalMedia) : undefined,
+  keywords: d.attributes.keywords ? d.attributes.keywords.map((k: any) => k.keyword) : undefined,
   info: d.attributes.info,
   footer: d.attributes.footer,
 })

@@ -16,15 +16,16 @@ interface PageProps {
   categories: Category[];
   types: Type[];
   page: Page;
+  url: string;
 }
 
 const Title = styled.h1`
   ${typos.H1};
 `
 
-export default function PagePage({general, pages, categories, types, page}: PageProps) {
+export default function PagePage({url, general, pages, categories, types, page}: PageProps) {
   return (
-    <Layout pages={pages} categories={categories} types={types} general={general} title={page.title}>
+    <Layout url={url} pages={pages} categories={categories} types={types} general={general} title={page.title}>
       <Title>{page.title}</Title>
       <Divider/>
       <FormattedContent content={page.body}/>
@@ -33,10 +34,11 @@ export default function PagePage({general, pages, categories, types, page}: Page
 }
 
 export const getServerSideProps: GetServerSideProps<PageProps, {slug: string}> = async (context) => {
+  const url = context.req.headers.host + context.resolvedUrl;
   const general = s(await getGeneral('*'));
   const pages = s((await getPages()).data);
   const categories = s((await getCategories()).data);
   const types = s((await getTypes()).data);
   const page = s((await findPageBySlug(context.params!.slug)));
-  return {props: {general, pages, categories, types, page}}
+  return {props: {general, pages, categories, types, page, url}}
 }

@@ -26,6 +26,7 @@ interface AuthorProps extends PaginatedPageProps {
   types: Type[];
   author: Author;
   articles: Article[];
+  url: string;
 }
 
 const AuthorContainer = styled.div<{ extraPadding?: boolean }>`
@@ -71,9 +72,9 @@ const Name = styled.h1`
   }
 `
 
-const AuthorPage: NextPage<AuthorProps> = ({general, pages, categories, types, author, articles, currentPage, totalPages}) => {
+const AuthorPage: NextPage<AuthorProps> = ({url, general, pages, categories, types, author, articles, currentPage, totalPages}) => {
   return (
-    <Layout general={general} pages={pages} categories={categories} types={types} title={author.displayName}>
+    <Layout url={url} general={general} pages={pages} categories={categories} types={types} title={author.displayName}>
       <AuthorContainer extraPadding={!author.facebook}>
         <Avatar picture={author.picture} size={'lg'}/>
         <Name>{author.displayName}</Name>
@@ -88,6 +89,7 @@ const AuthorPage: NextPage<AuthorProps> = ({general, pages, categories, types, a
 }
 
 export const getServerSideProps: GetServerSideProps<AuthorProps, { slug: string, page: string }> = async (context) => {
+  const url = context.req.headers.host + context.resolvedUrl;
   const general = s(await getGeneral('*'));
   const pages = s((await getPages()).data);
   const categories = s((await getCategories()).data);
@@ -97,7 +99,7 @@ export const getServerSideProps: GetServerSideProps<AuthorProps, { slug: string,
   const articles = s(articlesRes.data);
   const totalPages = articlesRes.meta.pageCount;
   const currentPage = articlesRes.meta.page;
-  return {props: {general, pages, categories, types, author, articles, currentPage, totalPages}}
+  return {props: {general, pages, categories, types, author, articles, currentPage, totalPages, url}}
 }
 
 export default AuthorPage;

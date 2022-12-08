@@ -21,6 +21,7 @@ interface TypeProps extends PaginatedPageProps {
   types: Type[];
   type: Type;
   articles: Article[];
+  url: string;
 }
 
 const Title = styled.h1`
@@ -32,9 +33,9 @@ const Title = styled.h1`
   }
 `
 
-const TypePage: NextPage<TypeProps> = ({general, pages, categories, types, type, articles, currentPage, totalPages}) => {
+const TypePage: NextPage<TypeProps> = ({url, general, pages, categories, types, type, articles, currentPage, totalPages}) => {
   return (
-    <Layout general={general} pages={pages} categories={categories} types={types} title={type.name}>
+    <Layout url={url} general={general} pages={pages} categories={categories} types={types} title={type.name}>
       <Title>{type.name}</Title>
       <Divider/>
       <ArticlesList articles={articles} currentPage={currentPage} totalPages={totalPages}/>
@@ -52,7 +53,8 @@ export const getServerSideProps: GetServerSideProps<TypeProps, { slug: string, p
   const articles = s(articlesRes.data);
   const totalPages = articlesRes.meta.pageCount;
   const currentPage = articlesRes.meta.page;
-  return {props: {general, pages, categories, types, type, articles, currentPage, totalPages}}
+  const url = context.req.headers.host + context.resolvedUrl;
+  return {props: {general, pages, categories, types, type, articles, currentPage, totalPages, url}}
 }
 
 export default TypePage;

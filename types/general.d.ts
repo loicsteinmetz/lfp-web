@@ -7,12 +7,14 @@ type General = {
   updatedAt: Date,
   publishedAt: Date,
   maintenance: boolean,
+  description: string,
 
   // Populated >>>
   banner?: LFPMedia,
   favicon?: LFPMedia,
   logo?: LFPMedia,
   logoLg?: LFPMedia,
+  cover?: LFPMedia,
 }
 
 type PopulatedGeneralOption = '*';

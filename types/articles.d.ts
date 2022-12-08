@@ -16,6 +16,7 @@ type Article = {
   types?: Type[],
   categories?: Category[],
   externalMedia?: ExternalMedia[];
+  keywords?: string[];
 }
 
 type PopulatedArticleOption = '*';
