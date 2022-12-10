@@ -6,7 +6,7 @@ import {mapType} from './types.data';
 import axios from 'axios';
 
 const ARTICLES_ROOT = envLFP.API_ROOT + '/articles'
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 10;
 
 export const mapArticle = (d: any): Article => ({
   id: d.id,
