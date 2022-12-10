@@ -1,8 +1,6 @@
 import Image from 'next/image';
-import Head from 'next/head';
 import React from 'react';
 import styled from 'styled-components';
-import {Devices} from '../theme/breakpoints';
 import {Colors} from '../theme/colors';
 import {Spacings} from '../theme/spacings';
 
@@ -26,10 +24,10 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
 `
 
-const BackgroundContainer = styled.div<{backgroundUrl: string}>`
+const BackgroundContainer = styled.div<{ backgroundUrl: string }>`
   background-image: url("${({backgroundUrl}) => backgroundUrl}");
   background-position: center;
   background-size: cover;
@@ -59,21 +57,13 @@ const Label = styled.p`
 
 const Maintenance = ({general}: MaintenanceProps) => {
   return (
-    <>
-      <Head>
-        <title>La Fabrique Populaire</title>
-        <link rel="icon" type="image/png" href={general.favicon!.url}/>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-      </Head>
-      <Title>La Fabrique Populaire</Title>
-      <Container>
-        <BackgroundContainer backgroundUrl={general.banner!.url}/>
-        <ImageContainer>
-          <Image src={general.logoLg!.url} alt="La Fabrique Populaire" height={general.logoLg!.height} width={general.logoLg!.width}/>
-        </ImageContainer>
-        <Label>Bientôt ...!</Label>
-      </Container>
-    </>
+    <Container>
+      <BackgroundContainer backgroundUrl={general.banner!.url}/>
+      <ImageContainer>
+        <Image src={general.logoLg!.url} alt="La Fabrique Populaire" height={general.logoLg!.height} width={general.logoLg!.width}/>
+      </ImageContainer>
+      <Label>Bientôt ...!</Label>
+    </Container>
   )
 }
 
