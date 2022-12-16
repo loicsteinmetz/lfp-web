@@ -3,6 +3,8 @@ type General = {
   facebook: string,
   youtube: string,
   email: string,
+  instagram: string,
+  twitter: string,
   createdAt: Date,
   updatedAt: Date,
   publishedAt: Date,

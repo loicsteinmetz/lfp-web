@@ -29,40 +29,35 @@ interface AuthorProps extends PaginatedPageProps {
   url: string;
 }
 
-const AuthorContainer = styled.div<{ extraPadding?: boolean }>`
+const AuthorContainer = styled.div`
   display: inline-flex;
   align-items: center;
-  gap: ${Spacings.S3};
-  padding: ${({extraPadding}) => extraPadding ? Spacings.S1 : 0} ${Spacings.S1} ${({extraPadding}) => extraPadding ? Spacings.S1 : 0} ${Spacings.S2};
+  gap: ${Spacings.S2};
+  padding: ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
   border-radius: 10px;
   margin-top: ${Spacings.S2};
 
   @media (${Devices.TABLET}) {
-    padding: ${Spacings.S2};
+    padding: ${Spacings.S2} ${Spacings.S3} ${Spacings.S2} ${Spacings.S2};
     border-radius: 20px;
+    gap: ${Spacings.S3};
   }
 `
 
 const Icons = styled.div`
-  margin-left: -10px;
+  display: flex;
+  gap: ${Spacings.S1};
 
   svg {
-    margin-top: 3px;
-
     @media (${Devices.TABLET}) {
-      margin-top: 8px;
-    }
-
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.1);
+      margin-top: 4px;
+      gap: ${Spacings.S2};
     }
   }
 `
 
 const Name = styled.h1`
-  margin-left: -15px;
   margin-top: -3px;
   ${typos.SUBTITLE1};
 
@@ -75,11 +70,13 @@ const Name = styled.h1`
 const AuthorPage: NextPage<AuthorProps> = ({url, general, pages, categories, types, author, articles, currentPage, totalPages}) => {
   return (
     <Layout url={url} general={general} pages={pages} categories={categories} types={types} title={author.displayName}>
-      <AuthorContainer extraPadding={!author.facebook}>
+      <AuthorContainer>
         <Avatar picture={author.picture} size={'lg'}/>
         <Name>{author.displayName}</Name>
         <Icons>
-          {author.facebook && <Link href={author.facebook}><a target="_blank"><Icon icon={'facebook'} scale={0.6}/></a></Link>}
+          {author.facebook && <Link href={author.facebook}><a target="_blank"><Icon icon={'facebook'} scale={0.4} tabletScale={0.6}/></a></Link>}
+          {author.instagram && <Link href={author.instagram}><a target="_blank"><Icon icon={'instagram'} scale={0.4} tabletScale={0.6}/></a></Link>}
+          {author.twitter && <Link href={author.twitter}><a target="_blank"><Icon icon={'twitter'} scale={0.4} tabletScale={0.6}/></a></Link>}
         </Icons>
       </AuthorContainer>
       <Divider/>

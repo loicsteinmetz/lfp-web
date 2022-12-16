@@ -55,7 +55,7 @@ const Avatar = ({picture, size = 'sm'}: AvatarProps) => {
       </Rounded>
     ) : (
       <Rounded size={size}>
-        <Icon icon={'avatar'} scale={0.5} tabletScale={size === 'lg' ? 0.8 : 0.5} color={Colors.GREY['400']}/>
+        <Icon icon={'avatar'} scale={0.4} tabletScale={size === 'lg' ? 0.9 : 0.4} color={Colors.GREY['400']} hoverColor={Colors.GREY['400']}/>
       </Rounded>
     )
 }

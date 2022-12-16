@@ -9,6 +9,8 @@ export const mapGeneral = (d: any): General => ({
   facebook: d.attributes.facebook,
   youtube: d.attributes.youtube,
   email: d.attributes.email,
+  twitter: d.attributes.twitter,
+  instagram: d.attributes.instagram,
   createdAt: d.attributes.createdAt,
   updatedAt: d.attributes.updatedAt,
   publishedAt: d.attributes.publishedAt,

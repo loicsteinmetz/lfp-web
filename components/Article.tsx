@@ -27,6 +27,7 @@ const Container = styled.div`
 const Labels = styled.div`
   display: flex;
   gap: ${Spacings.S1};
+  margin-bottom: ${Spacings.S2};
 `
 
 const Title = styled.h2`

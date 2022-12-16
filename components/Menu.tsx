@@ -20,7 +20,7 @@ const MenuIconContainer = styled.div`
     cursor: pointer;
   }
 
-  @media(${Devices.TABLET}) {
+  @media (${Devices.TABLET}) {
     display: none;
   }
 `
@@ -28,12 +28,12 @@ const MenuIconContainer = styled.div`
 const QuitIconContainer = styled.div`
   display: inline-block;
   margin-bottom: ${Spacings.S2};
-  
+
   &:hover {
     cursor: pointer;
   }
 
-  @media(${Devices.TABLET}) {
+  @media (${Devices.TABLET}) {
     display: none;
   }
 `
@@ -50,7 +50,7 @@ const MenuContainer = styled.div<{ isOpen: boolean, isVisible: boolean }>`
   padding: ${Spacings.S2};
   z-index: 11;
 
-  @media(${Devices.TABLET}) {
+  @media (${Devices.TABLET}) {
     position: initial;
     visibility: visible;
     display: flex;
@@ -64,7 +64,7 @@ const MenuContainer = styled.div<{ isOpen: boolean, isVisible: boolean }>`
 const NetworksContainer = styled.div`
   margin-top: ${Spacings.S3};
 
-  @media(${Devices.TABLET}) {
+  @media (${Devices.TABLET}) {
     margin-top: 0;
     margin-left: auto;
   }
@@ -96,7 +96,7 @@ const Menu = ({pages, categories, types, general}: MenuProps) => {
       </MenuIconContainer>
       <MenuContainer isOpen={isOpen} isVisible={isVisible}>
         <QuitIconContainer onClick={() => setIsOpen(false)}>
-            <Icon icon={'quit'}/>
+          <Icon icon={'quit'}/>
         </QuitIconContainer>
         <Dropdown onClick={onAction} title={'Thématiques'} id={'categories'} links={categories.map(c => ({href: `/thematiques/${c.slug}`, label: c.name}))}/>
         <Dropdown onClick={onAction} title={'Formats'} id={'types'} links={types.map(t => ({href: `/formats/${t.slug}`, label: t.name}))}/>
@@ -104,7 +104,8 @@ const Menu = ({pages, categories, types, general}: MenuProps) => {
           <MenuLink key={'page-' + page.id} label={page.title} href={`/pages/${page.slug}`} onClick={onAction}/>
         ))}
         <NetworksContainer>
-          <Networks youtubeUrl={general.youtube} facebookUrl={general.facebook} email={general.email}/>
+          <Networks youtubeUrl={general.youtube} facebookUrl={general.facebook} instagramUrl={general.instagram} twitterUrl={general.twitter}
+                    email={general.email}/>
         </NetworksContainer>
       </MenuContainer>
     </>

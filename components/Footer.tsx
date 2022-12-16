@@ -19,7 +19,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: ${Spacings.S2} ${Spacings.S2} ${Spacings.S3} ${Spacings.S2};
+    padding: ${Spacings.S3} ${Spacings.S2} ${Spacings.S3} ${Spacings.S2};
     text-align: center;
     justify-content: space-between;
   }
@@ -44,7 +44,8 @@ const Legal = styled.p`
 const Footer: FC<FooterProps> = ({general}) => {
   return (
     <Container>
-      <Networks email={general.email} facebookUrl={general.facebook} youtubeUrl={general.youtube} theme={'light'}/>
+      <Networks youtubeUrl={general.youtube} facebookUrl={general.facebook} instagramUrl={general.instagram} twitterUrl={general.twitter}
+                email={general.email} theme={'light'}/>
       <Legal>Mentions Légales - &copy; 2022 - La Fabrique Populaire. Tous droits réservés.</Legal>
     </Container>
   )

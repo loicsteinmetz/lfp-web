@@ -5,6 +5,7 @@ import Icon from './Icon';
 import {Spacings} from '../theme/spacings';
 import {Colors} from '../theme/colors';
 import Link from 'next/link';
+import {Devices} from '../theme/breakpoints';
 
 export interface ArticleMetadataProps {
   article: Article;
@@ -13,18 +14,31 @@ export interface ArticleMetadataProps {
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-bottom: ${Spacings.S1};
+  gap: ${Spacings.S2};
+
+  @media (${Devices.TABLET}) {
+    margin-bottom: ${Spacings.S2};
+  }
+`
+
+const AuthorsContainer = styled.div`
+  display: inline-flex;
   gap: ${Spacings.S1};
   margin-bottom: ${Spacings.S2};
   flex-wrap: wrap;
+  align-items: center;
 `
 
-const AuthorContainer = styled.div<{p?: number}>`
+const AuthorContainer = styled.div`
   display: inline-flex;
-  padding: ${({p}) => p ? p/2 : 0}px ${({p}) => p ?? 0}px ${({p}) => p ? p/2 : 0}px 10px;
+  padding: ${Spacings.S1};
   border-radius: 10px;
   background-color: ${Colors.GREY['0']};
   align-items: center;
+  flex-wrap: wrap;
 `
 
 const AuthorName = styled.p`
@@ -37,17 +51,16 @@ const AuthorName = styled.p`
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
   }
+
+  @media (${Devices.TABLET}) {
+    font-size: 15px;
+  }
 `
 
 const Icons = styled.div`
-  margin-bottom: -3px;
-
-  svg {
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.1);
-    }
-  }
+  margin-left: ${Spacings.S2};
+  display: inline-flex;
+  gap: ${Spacings.S1};
 `
 
 const PublicationDate = styled.p`
@@ -60,19 +73,23 @@ const ArticleMetadata = ({article, authors}: ArticleMetadataProps) => {
 
   return (
     <Container>
+      <PublicationDate>Publié le {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</PublicationDate>
+      <AuthorsContainer>
         {authors.map(author => {
           const authorLink = `/auteurs/${author.slug}`;
           return (
-            <AuthorContainer key={`author-${author.id}`} p={(!author.facebook) ? 16 : 0}>
+            <AuthorContainer key={`author-${author.id}`}>
               <Link href={authorLink}><a><Avatar picture={author.picture}/></a></Link>
               <Link href={authorLink}><AuthorName>{author.displayName}</AuthorName></Link>
               <Icons>
                 {author.facebook && <Link href={author.facebook}><a target="_blank"><Icon icon={'facebook'} scale={0.4}/></a></Link>}
+                {author.instagram && <Link href={author.instagram}><a target="_blank"><Icon icon={'instagram'} scale={0.4}/></a></Link>}
+                {author.twitter && <Link href={author.twitter}><a target="_blank"><Icon icon={'twitter'} scale={0.4}/></a></Link>}
               </Icons>
             </AuthorContainer>
           )
         })}
-      <PublicationDate>Publié le {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</PublicationDate>
+      </AuthorsContainer>
     </Container>
   )
 }

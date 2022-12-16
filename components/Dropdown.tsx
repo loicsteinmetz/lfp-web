@@ -39,7 +39,7 @@ const ItemsContainer = styled.div<{isOpen: boolean, itemsNumber: number}>`
     margin-top: ${Spacings.S2};
     margin-left: -${Spacings.S2};
     background-color: ${Colors.GREY['0']};
-    padding: 0 ${Spacings.S2} ${Spacings.S2} ${Spacings.S2};
+    padding: 0 ${Spacings.S2} ${Spacings.S1} ${Spacings.S2};
     width: 150px;
   }
 `
