@@ -4,6 +4,7 @@ import {Devices} from '../theme/breakpoints';
 import {Colors} from '../theme/colors';
 import {Spacings} from '../theme/spacings';
 import Networks from './Networks';
+import Link from 'next/link';
 
 export interface FooterProps {
   general: General;
@@ -39,6 +40,10 @@ const Container = styled.div`
 const Legal = styled.p`
   color: ${Colors.GREY['25']};
   font-size: 14px;
+  
+  a {
+    color: ${Colors.GREY['25']};
+  }
 `
 
 const Footer: FC<FooterProps> = ({general}) => {
@@ -46,7 +51,7 @@ const Footer: FC<FooterProps> = ({general}) => {
     <Container>
       <Networks youtubeUrl={general.youtube} facebookUrl={general.facebook} instagramUrl={general.instagram} twitterUrl={general.twitter}
                 email={general.email} theme={'light'}/>
-      <Legal>Mentions Légales - &copy; 2022 - La Fabrique Populaire. Tous droits réservés.</Legal>
+      <Legal><Link href="/mentions-legales">Mentions Légales</Link> - &copy; 2022 - La Fabrique Populaire. Tous droits réservés.</Legal>
     </Container>
   )
 }
