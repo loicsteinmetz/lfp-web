@@ -17,7 +17,7 @@ export interface ArticleProps {
 }
 
 const Container = styled.div`
-  margin: ${Spacings.S1} 0;
+  margin: ${Spacings.S1} 0 ${Spacings.S3} 0;
   
   @media (${Devices.TABLET}) {
     padding: 0 ${Spacings.S4};
@@ -94,6 +94,7 @@ const Article = ({article, authors}: ArticleProps) => {
           <FormattedContent content={article.footer}/>
         </InfoContainer>
       }
+      <Divider/>
     </Container>
   )
 }

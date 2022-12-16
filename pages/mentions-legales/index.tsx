@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import typos from '../../theme/typos';
 import Divider from '../../components/Divider';
 import {getLegal} from '../../data/legal.data';
+import {Spacings} from '../../theme/spacings';
 
 interface PageProps {
   general: General;
@@ -20,6 +21,10 @@ interface PageProps {
   url: string;
 }
 
+const Container = styled.div`
+  margin-bottom: ${Spacings.S3};
+`
+
 const Title = styled.h1`
   ${typos.H1};
 `
@@ -27,9 +32,12 @@ const Title = styled.h1`
 export default function PagePage({url, general, pages, categories, types, legal}: PageProps) {
   return (
     <Layout url={url} pages={pages} categories={categories} types={types} general={general} title={'Mentions légales'}>
-      <Title>Mentions légales</Title>
-      <Divider/>
-      <FormattedContent content={legal.content}/>
+      <Container>
+        <Title>Mentions légales</Title>
+        <Divider/>
+        <FormattedContent content={legal.content}/>
+        <Divider/>
+      </Container>
     </Layout>
   )
 }

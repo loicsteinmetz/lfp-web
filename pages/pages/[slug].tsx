@@ -9,6 +9,8 @@ import FormattedContent from '../../components/FormattedContent';
 import styled from 'styled-components';
 import typos from '../../theme/typos';
 import Divider from '../../components/Divider';
+import React from 'react';
+import {Spacings} from '../../theme/spacings';
 
 interface PageProps {
   general: General;
@@ -19,6 +21,10 @@ interface PageProps {
   url: string;
 }
 
+const Container = styled.div`
+  margin-bottom: ${Spacings.S3};
+`
+
 const Title = styled.h1`
   ${typos.H1};
 `
@@ -26,9 +32,12 @@ const Title = styled.h1`
 export default function PagePage({url, general, pages, categories, types, page}: PageProps) {
   return (
     <Layout url={url} pages={pages} categories={categories} types={types} general={general} title={page.title}>
-      <Title>{page.title}</Title>
-      <Divider/>
-      <FormattedContent content={page.body}/>
+      <Container>
+        <Title>{page.title}</Title>
+        <Divider/>
+        <FormattedContent content={page.body}/>
+        <Divider/>
+      </Container>
     </Layout>
   )
 }

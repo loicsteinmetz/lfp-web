@@ -10,7 +10,7 @@ export interface FormattedContentProps {
 }
 
 const Container = styled.article`
-  padding: ${Spacings.S2} 0 ${Spacings.S4} 0;
+  padding: ${Spacings.S2} 0;
   color: ${Colors.GREY['800']};
   margin: -20px 0;
   
