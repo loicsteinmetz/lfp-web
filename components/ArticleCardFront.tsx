@@ -100,7 +100,7 @@ const ArticleCardFront = ({article}: ArticleCardFrontProps) => {
   const link = `/articles/${article.slug}`;
   const date: Date = new Date(article.publishedAt);
 
-  if (windowDimensions.width < Breakpoints.MEDIUM) {
+  if (windowDimensions && windowDimensions.width < Breakpoints.MEDIUM) {
     return <ArticleCard article={article}/>
   } else {
     return (
