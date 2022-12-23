@@ -126,11 +126,14 @@ const Extract = styled.p`
 
 const Authors = styled.div`
   ${typos.OVERLINE1};
-  text-align: right;
   margin-right: ${Spacings.S1};
 
   @media (${Devices.TABLET}) {
     margin-right: ${Spacings.S2};
+  }
+
+  @media (${Devices.DESKTOP}) {
+    text-align: right;
   }
 `
 
