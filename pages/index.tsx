@@ -22,7 +22,7 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({url, general, pages, categories, types, articles, currentPage, totalPages}) => {
   return (
     <Layout url={url} general={general} pages={pages} categories={categories} types={types}>
-      <ArticlesList articles={articles} currentPage={currentPage} totalPages={totalPages}/>
+      <ArticlesList articles={articles} currentPage={currentPage} totalPages={totalPages} frontPageDisplay={true}/>
     </Layout>
   )
 }

@@ -2,15 +2,17 @@ import styled from 'styled-components';
 import ArticleCard from './ArticleCard';
 import Pagination, {PaginatedPageProps} from './Pagination';
 import {useEffect, useState} from 'react';
+import ArticleCardFront from './ArticleCardFront';
 
 export interface ArticlesListProps extends PaginatedPageProps {
   articles: Article[];
+  frontPageDisplay?: boolean;
 }
 
 const Container = styled.div`
 `
 
-const ArticlesList = ({articles, currentPage, totalPages}: ArticlesListProps) => {
+const ArticlesList = ({articles, frontPageDisplay, currentPage, totalPages}: ArticlesListProps) => {
   const [rootUrl, setRootUrl] = useState('');
 
   useEffect(() => {
@@ -19,8 +21,12 @@ const ArticlesList = ({articles, currentPage, totalPages}: ArticlesListProps) =>
 
   return (
     <Container>
-      {articles.map((article) => {
-        return <ArticleCard key={`article-${article.id}`} article={article}/>
+      {articles.map((article, i) => {
+        if (i === 0 && frontPageDisplay) {
+          return <ArticleCardFront key={`article-${article.id}`} article={article}/>
+        } else {
+          return <ArticleCard key={`article-${article.id}`} article={article}/>
+        }
       })}
       <Pagination currentPage={currentPage} totalPages={totalPages} rootUrl={rootUrl}/>
     </Container>
