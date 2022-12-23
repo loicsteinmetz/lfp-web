@@ -44,13 +44,18 @@ const Labels2 = styled.div`
 `
 
 const Title1 = styled.h2`
-  ${typos.H2};
+  ${typos.OVERLINE1};
+  font-size: 21px;
   margin-bottom: ${Spacings.S2};
 
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
     transition: color 300ms;
+  }
+
+  @media (${Devices.TABLET}) {
+    ${typos.H2};
   }
 
   @media (${Devices.DESKTOP}) {

@@ -48,13 +48,24 @@ const SubContainer = styled.div`
   padding: ${Spacings.S2} ${Spacings.S3};
 `
 
-const Title = styled.h2`
-  ${typos.H2};
+const TitleWrapper = styled.div`
   position: absolute;
-  margin: ${Spacings.S3} ${Spacings.S3} 30px ${Spacings.S3};
-  padding: ${Spacings.S1} ${Spacings.S3};
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+
+  @media (${Devices.TABLET}) {
+    margin-bottom: 50px;
+  }
+`
+
+const Title = styled.h2`
+  ${typos.OVERLINE1};
+  font-size: 21px;
+  padding: ${Spacings.S1} ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
   display: inline-block;
+  max-width: 70%;
   text-align: center;
 
   &:hover {
@@ -64,7 +75,7 @@ const Title = styled.h2`
   }
 
   @media (${Devices.TABLET}) {
-    margin-bottom: 50px;
+    ${typos.H2};
     padding: ${Spacings.S2} ${Spacings.S3};
   }
 `
@@ -141,7 +152,9 @@ const ArticleCardFront = ({article}: ArticleCardFrontProps) => {
                    alt={article.cover!.alternativeText}/>
           </Link>
           <Link href={link}>
-            <Title>{article.title}</Title>
+            <TitleWrapper>
+              <Title>{article.title}</Title>
+            </TitleWrapper>
           </Link>
         </CoverContainer>
         <SubContainer>
