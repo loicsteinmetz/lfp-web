@@ -106,7 +106,7 @@ const Article = ({article, authors, relatedArticles}: ArticleProps) => {
       {relatedArticles.length > 0 && (
         <>
           <Subject>Sur les mêmes sujets...</Subject>
-          <ArticlesList articles={relatedArticles.filter(a => a.id !== article.id)}/>
+          <ArticlesList articles={relatedArticles}/>
         </>
       )}
     </Container>

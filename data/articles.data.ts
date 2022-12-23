@@ -120,10 +120,9 @@ export const findArticlesByAuthor = async (authorId: number, page: string | stri
   }
 }
 
-export const findRelatedArticles = async (subjectsId: number[], populate?: PopulatedArticleOption): Promise<Article[]> => {
+export const findRelatedArticles = async (subjectsId: number[], articleId: number, populate?: PopulatedArticleOption): Promise<Article[]> => {
   let result: Article[] = [];
-  await Promise.all(
-    subjectsId.map(async s => {
+    for (const s of subjectsId) {
       result = [...result, ...(
         (await axios.get(
             ARTICLES_ROOT,
@@ -136,6 +135,8 @@ export const findRelatedArticles = async (subjectsId: number[], populate?: Popul
               }
             })
         ).data.data.map(mapArticle))]
-    }));
-  return result;
+    }
+  return result
+    .filter(a => a.id !== articleId)
+    .filter((v, i, s) => s.indexOf(s.find(a => a.id === v.id)!) === i);
 }

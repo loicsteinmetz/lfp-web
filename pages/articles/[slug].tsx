@@ -46,6 +46,6 @@ export const getServerSideProps: GetServerSideProps<ArticleProps, {slug: string}
   const types = s((await getTypes()).data);
   const article = s((await findArticleBySlug(context.params!.slug, '*')));
   const authors = await Promise.all(article.authors.map(async (a: any) => s(((await getAuthor(a.id, '*'))))));
-  const relatedArticles = s((await findRelatedArticles(article.subjectsId, '*')));
+  const relatedArticles = s((await findRelatedArticles(article.subjectsId, article.id, '*')));
   return {props: {general, pages, categories, types, article, authors, url, relatedArticles}}
 }
