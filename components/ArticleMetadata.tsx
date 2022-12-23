@@ -59,6 +59,7 @@ const AuthorName = styled.p`
 
 const Icons = styled.div`
   margin-left: ${Spacings.S2};
+  margin-top: 1px;
   display: inline-flex;
   gap: ${Spacings.S1};
 `
