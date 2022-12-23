@@ -25,6 +25,7 @@ export const mapArticle = (d: any): Article => ({
   keywords: d.attributes.keywords ? d.attributes.keywords.map((k: any) => k.keyword) : undefined,
   info: d.attributes.info,
   footer: d.attributes.footer,
+  subjectsId: d.attributes.subjects?.data.map((s: any) => s.id),
 })
 
 export const getArticles = async (page: string | string[], populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {
@@ -117,4 +118,24 @@ export const findArticlesByAuthor = async (authorId: number, page: string | stri
     meta: mapMetadata(result.meta),
     data: result.data.map(mapArticle),
   }
+}
+
+export const findRelatedArticles = async (subjectsId: number[], populate?: PopulatedArticleOption): Promise<Article[]> => {
+  let result: Article[] = [];
+  await Promise.all(
+    subjectsId.map(async s => {
+      result = [...result, ...(
+        (await axios.get(
+            ARTICLES_ROOT,
+            {
+              params: {
+                populate,
+                'filters[subjects][id][$eq]': s,
+                sort: 'publishedAt:desc',
+                'pagination[pageSize]': 50,
+              }
+            })
+        ).data.data.map(mapArticle))]
+    }));
+  return result;
 }

@@ -4,8 +4,8 @@ import Link from 'next/link';
 import {Colors} from '../theme/colors';
 
 export interface PaginatedPageProps {
-  currentPage: number;
-  totalPages: number;
+  currentPage?: number;
+  totalPages?: number;
 }
 
 export interface PaginationProps extends PaginatedPageProps {
@@ -45,7 +45,7 @@ const PrevNext = styled.p<{active: boolean}>`
 `
 
 const Pagination = ({currentPage, totalPages, rootUrl}: PaginationProps) => {
-  if (totalPages < 2) return null;
+  if (!totalPages || !currentPage || totalPages < 2) return null;
 
   return (
     <Container>

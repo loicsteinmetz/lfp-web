@@ -10,10 +10,12 @@ import Divider from './Divider';
 import Label from './Label';
 import React from 'react';
 import {Colors} from '../theme/colors';
+import ArticlesList from './ArticlesList';
 
 export interface ArticleProps {
   article: Article;
   authors: Author[];
+  relatedArticles: Article[];
 }
 
 const Container = styled.div`
@@ -64,7 +66,13 @@ const Extract = styled.p`
   margin-bottom: ${Spacings.S2};
 `
 
-const Article = ({article, authors}: ArticleProps) => {
+const Subject = styled.h2`
+  ${typos.H2};
+  margin-top: ${Spacings.S1};
+  margin-bottom: ${Spacings.S3};
+`
+
+const Article = ({article, authors, relatedArticles}: ArticleProps) => {
   return (
     <Container>
       <Labels>
@@ -95,6 +103,12 @@ const Article = ({article, authors}: ArticleProps) => {
         </InfoContainer>
       }
       <Divider/>
+      {relatedArticles.length > 0 && (
+        <>
+          <Subject>Sur les mêmes sujets...</Subject>
+          <ArticlesList articles={relatedArticles.filter(a => a.id !== article.id)}/>
+        </>
+      )}
     </Container>
   )
 }
