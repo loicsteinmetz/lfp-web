@@ -13,13 +13,13 @@ export interface BaseProps {
   url: string;
 }
 
-interface HomeProps extends BaseProps {
+interface HomePageProps extends BaseProps {
   articles: Article[];
   totalPages: number;
   currentPage: number;
 }
 
-const Home: NextPage<HomeProps> = ({url, general, pages, categories, types, articles, currentPage, totalPages}) => {
+const HomePage: NextPage<HomePageProps> = ({url, general, pages, categories, types, articles, currentPage, totalPages}) => {
   return (
     <Layout url={url} general={general} pages={pages} categories={categories} types={types}>
       <ArticlesList articles={articles} currentPage={currentPage} totalPages={totalPages} frontPageDisplay={true}/>
@@ -27,7 +27,7 @@ const Home: NextPage<HomeProps> = ({url, general, pages, categories, types, arti
   )
 }
 
-export const getServerSideProps: GetServerSideProps<HomeProps, { page: string }> = async (context) => {
+export const getServerSideProps: GetServerSideProps<HomePageProps, { page: string }> = async (context) => {
   return await provideData(
     context,
     async () => {
@@ -40,4 +40,4 @@ export const getServerSideProps: GetServerSideProps<HomeProps, { page: string }>
   );
 }
 
-export default Home;
+export default HomePage;

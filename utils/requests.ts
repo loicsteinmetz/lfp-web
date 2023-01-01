@@ -21,7 +21,7 @@ async function getBase(context: GetServerSidePropsContext) {
     const types = s((await getTypes()).data);
     return {url, general, pages, categories, types};
   } catch (e) {
-    if (e instanceof AxiosError && e.response?.status === 404) {
+    if ((e as any).response?.status === 404) {
       throw new ServerError();
     }
     throw e;
