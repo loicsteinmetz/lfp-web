@@ -1,9 +1,5 @@
 import {GetServerSideProps} from 'next';
 import {s} from '../../utils/serializer';
-import {getGeneral} from '../../data/general.data';
-import {findPageBySlug, getPages} from '../../data/pages.data';
-import {getCategories} from '../../data/categories.data';
-import {getTypes} from '../../data/types.data';
 import Layout from '../../components/Layout';
 import FormattedContent from '../../components/FormattedContent';
 import styled from 'styled-components';
@@ -11,14 +7,11 @@ import typos from '../../theme/typos';
 import Divider from '../../components/Divider';
 import {getLegal} from '../../data/legal.data';
 import {Spacings} from '../../theme/spacings';
+import {provideData} from '../../utils/requests';
+import {BaseProps} from '../index';
 
-interface PageProps {
-  general: General;
-  pages: Page[];
-  categories: Category[];
-  types: Type[];
+interface PageProps extends BaseProps {
   legal: Legal;
-  url: string;
 }
 
 const Container = styled.div`
@@ -42,12 +35,12 @@ export default function PagePage({url, general, pages, categories, types, legal}
   )
 }
 
-export const getServerSideProps: GetServerSideProps<PageProps, {slug: string}> = async (context) => {
-  const url = context.req.headers.host + context.resolvedUrl;
-  const general = s(await getGeneral('*'));
-  const pages = s((await getPages()).data);
-  const categories = s((await getCategories()).data);
-  const types = s((await getTypes()).data);
-  const legal = s(await getLegal());
-  return {props: {general, pages, categories, types, legal, url}}
+export const getServerSideProps: GetServerSideProps<PageProps, { slug: string }> = async (context) => {
+  return await provideData(
+    context,
+    async () =>  {
+      const legal = s(await getLegal());
+      return {legal};
+    }
+  );
 }

@@ -4,6 +4,7 @@ import {mapAuthor} from './authors.data';
 import {mapCategory} from './categories.data';
 import {mapType} from './types.data';
 import axios from 'axios';
+import {NotFoundError} from '../utils/requests';
 
 const ARTICLES_ROOT = envLFP.API_ROOT + '/articles'
 const PAGE_SIZE = 10;
@@ -55,15 +56,17 @@ export const getArticle = async (id: number, populate?: PopulatedArticleOption):
     })).data.data);
 }
 
-export const findArticleBySlug = async (slug: string, populate?: PopulatedArticleOption): Promise<Article> => {
-  return mapArticle((await axios.get(
+export const getArticleBySlug = async (slug: string, populate?: PopulatedArticleOption): Promise<Article> => {
+  const article = (await axios.get(
     ARTICLES_ROOT,
     {
       params: {
         'filters[slug][$eq]': slug,
         populate
       }
-    })).data.data[0]);
+    })).data.data[0];
+  if (!article) throw new NotFoundError();
+  return mapArticle(article);
 }
 
 export const findArticlesByCategory = async (catId: number, page: string | string[], populate?: PopulatedArticleOption): Promise<WithMetadata<Article[]>> => {

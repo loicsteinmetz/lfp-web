@@ -3,6 +3,7 @@ import {envLFP} from '../utils/envLFP';
 import {mapArticle} from './articles.data';
 import {mapMetadata} from './_lfp.data';
 import {mapCategory} from './categories.data';
+import {NotFoundError} from '../utils/requests';
 
 const TYPES_ROOT = envLFP.API_ROOT + '/types';
 
@@ -29,23 +30,15 @@ export const getTypes = async (populate?: PopulatedTypeOption): Promise<WithMeta
   }
 }
 
-export const getType = async (id: number, populate?: PopulatedTypeOption): Promise<Type> => {
-  return mapType((await axios.get(
-    `${TYPES_ROOT}/${id}`,
-    {
-      params: {
-        populate
-      }
-    })).data.data);
-}
-
-export const findTypeBySlug = async (slug: string, populate?: PopulatedTypeOption): Promise<Type> => {
-  return mapType((await axios.get(
+export const getTypeBySlug = async (slug: string, populate?: PopulatedTypeOption): Promise<Type> => {
+  const type = (await axios.get(
     TYPES_ROOT,
     {
       params: {
         'filters[slug][$eq]': slug,
         populate
       }
-    })).data.data[0]);
+    })).data.data[0];
+  if (!type) throw new NotFoundError();
+  return mapType(type);
 }

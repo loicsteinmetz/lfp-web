@@ -1,6 +1,5 @@
 import Article from './Article';
 import React from 'react';
-import useWindowDimensions from '../utils/windowDimensions';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -139,7 +138,6 @@ const Extract = styled.p`
 `
 
 const ArticleCardFront = ({article}: ArticleCardFrontProps) => {
-  const windowDimensions = useWindowDimensions();
   const link = `/articles/${article.slug}`;
   const date: Date = new Date(article.publishedAt);
 

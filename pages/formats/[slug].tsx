@@ -1,8 +1,5 @@
 import {GetServerSideProps, NextPage} from 'next';
-import {getGeneral} from '../../data/general.data';
-import {getPages} from '../../data/pages.data';
-import {getCategories} from '../../data/categories.data';
-import {findTypeBySlug, getTypes} from '../../data/types.data';
+import {getTypeBySlug} from '../../data/types.data';
 import {s} from '../../utils/serializer';
 import ArticlesList from '../../components/ArticlesList';
 import Layout from '../../components/Layout';
@@ -13,15 +10,12 @@ import Divider from '../../components/Divider';
 import {Devices} from '../../theme/breakpoints';
 import {PaginatedPageProps} from '../../components/Pagination';
 import {Spacings} from '../../theme/spacings';
+import {provideData} from '../../utils/requests';
+import {BaseProps} from '../index';
 
-interface TypeProps extends PaginatedPageProps {
-  general: General;
-  pages: Page[];
-  categories: Category[];
-  types: Type[];
+interface TypeProps extends PaginatedPageProps, BaseProps {
   type: Type;
   articles: Article[];
-  url: string;
 }
 
 const Title = styled.h1`
@@ -44,17 +38,17 @@ const TypePage: NextPage<TypeProps> = ({url, general, pages, categories, types, 
 }
 
 export const getServerSideProps: GetServerSideProps<TypeProps, { slug: string, page: string }> = async (context) => {
-  const general = s(await getGeneral('*'));
-  const pages = s((await getPages()).data);
-  const categories = s((await getCategories()).data);
-  const types = s((await getTypes()).data);
-  const type = s((await findTypeBySlug(context.params!.slug)));
-  const articlesRes = await findArticlesByType(type.id, context.query?.page ?? '1', '*');
-  const articles = s(articlesRes.data);
-  const totalPages = articlesRes.meta.pageCount;
-  const currentPage = articlesRes.meta.page;
-  const url = context.req.headers.host + context.resolvedUrl;
-  return {props: {general, pages, categories, types, type, articles, currentPage, totalPages, url}}
+  return await provideData(
+    context,
+    async () => {
+      const type = s((await getTypeBySlug(context.params!.slug)));
+      const articlesRes = await findArticlesByType(type.id, context.query?.page ?? '1', '*');
+      const articles = s(articlesRes.data);
+      const totalPages = articlesRes.meta.pageCount;
+      const currentPage = articlesRes.meta.page;
+      return {type, articles, currentPage, totalPages};
+    }
+  );
 }
 
 export default TypePage;

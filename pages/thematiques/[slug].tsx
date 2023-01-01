@@ -1,8 +1,5 @@
 import {GetServerSideProps, NextPage} from 'next';
-import {getGeneral} from '../../data/general.data';
-import {getPages} from '../../data/pages.data';
-import {findCategoryBySlug, getCategories} from '../../data/categories.data';
-import {getTypes} from '../../data/types.data';
+import {getCategoryBySlug} from '../../data/categories.data';
 import {s} from '../../utils/serializer';
 import ArticlesList from '../../components/ArticlesList';
 import Layout from '../../components/Layout';
@@ -13,15 +10,12 @@ import Divider from '../../components/Divider';
 import {Devices} from '../../theme/breakpoints';
 import {PaginatedPageProps} from '../../components/Pagination';
 import {Spacings} from '../../theme/spacings';
+import {provideData} from '../../utils/requests';
+import {BaseProps} from '../index';
 
-interface CategoryProps extends PaginatedPageProps {
-  general: General;
-  pages: Page[];
-  categories: Category[];
-  types: Type[];
+interface CategoryProps extends PaginatedPageProps, BaseProps {
   category: Category;
   articles: Article[];
-  url: string;
 }
 
 const Title = styled.h1`
@@ -44,17 +38,17 @@ const CategoryPage: NextPage<CategoryProps> = ({url, general, pages, categories,
 }
 
 export const getServerSideProps: GetServerSideProps<CategoryProps, { slug: string, page: string }> = async (context) => {
-  const url = context.req.headers.host + context.resolvedUrl;
-  const general = s(await getGeneral('*'));
-  const pages = s((await getPages()).data);
-  const categories = s((await getCategories()).data);
-  const types = s((await getTypes()).data);
-  const category = s((await findCategoryBySlug(context.params!.slug)));
-  const articlesRes = await findArticlesByCategory(category.id, context.query?.page ?? '1', '*');
-  const articles = s(articlesRes.data);
-  const totalPages = articlesRes.meta.pageCount;
-  const currentPage = articlesRes.meta.page;
-  return {props: {general, pages, categories, types, category, articles, totalPages, currentPage, url}}
+  return await provideData(
+    context,
+    async () => {
+      const category = s((await getCategoryBySlug(context.params!.slug)));
+      const articlesRes = await findArticlesByCategory(category.id, context.query?.page ?? '1', '*');
+      const articles = s(articlesRes.data);
+      const totalPages = articlesRes.meta.pageCount;
+      const currentPage = articlesRes.meta.page;
+      return {category, articles, totalPages, currentPage};
+    }
+  );
 }
 
 export default CategoryPage;

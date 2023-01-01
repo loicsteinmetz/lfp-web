@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {mapLFPMedia} from './_lfp.data';
 import {envLFP} from '../utils/envLFP';
+import {NotFoundError} from '../utils/requests';
 
 const GENERAL_ROOT = envLFP.API_ROOT + '/general'
 
@@ -24,11 +25,13 @@ export const mapGeneral = (d: any): General => ({
 })
 
 export const getGeneral = async (populate?: PopulatedGeneralOption): Promise<General> => {
-  return mapGeneral((await axios.get(
+  const general =(await axios.get(
     GENERAL_ROOT,
     {
       params: {
         populate
       }
-    })).data.data);
+    })).data.data;
+  if (!general) throw new NotFoundError();
+  return mapGeneral(general);
 }

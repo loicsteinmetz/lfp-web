@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {envLFP} from '../utils/envLFP';
 import {mapMetadata} from './_lfp.data';
-import {mapArticle} from './articles.data';
+import {NotFoundError} from '../utils/requests';
 
 const PAGES_ROOT = envLFP.API_ROOT + '/pages'
 
@@ -29,23 +29,15 @@ export const getPages = async (populate?: PopulatedPageOption): Promise<WithMeta
   }
 }
 
-export const getPage = async (id: number, populate?: PopulatedPageOption): Promise<Page> => {
-  return mapPage((await axios.get(
-    `${PAGES_ROOT}/${id}`,
-    {
-      params: {
-        populate
-      }
-    })).data.data);
-}
-
-export const findPageBySlug = async (slug: string, populate?: PopulatedPageOption): Promise<Page> => {
-  return mapArticle((await axios.get(
+export const getPageBySlug = async (slug: string, populate?: PopulatedPageOption): Promise<Page> => {
+  const page = (await axios.get(
     PAGES_ROOT,
     {
       params: {
         'filters[slug][$eq]': slug,
         populate
       }
-    })).data.data[0]);
+    })).data.data[0];
+  if (!page) throw new NotFoundError();
+  return mapPage(page);
 }

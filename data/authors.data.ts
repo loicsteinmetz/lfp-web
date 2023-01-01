@@ -3,6 +3,7 @@ import {envLFP} from '../utils/envLFP';
 import {mapLFPMedia, mapMetadata} from './_lfp.data';
 import {mapArticle} from './articles.data';
 import {A} from '@storybook/components';
+import {NotFoundError} from '../utils/requests';
 
 const AUTHOR_ROOT = envLFP.API_ROOT + '/authors'
 
@@ -20,37 +21,27 @@ export const mapAuthor = (d: any): Author => ({
   articles: d.attributes.articles?.data.map(mapArticle),
 })
 
-export const getAuthors = async (populate?: PopulatedAuthorOption): Promise<WithMetadata<Author[]>> => {
-  const result = (await axios.get(
-    AUTHOR_ROOT,
-    {
-      params: {
-        populate
-      }
-    })).data;
-  return {
-    meta: mapMetadata(result.meta),
-    data: result.data.map(mapAuthor),
-  }
-}
-
 export const getAuthor = async (id: number, populate?: PopulatedAuthorOption): Promise<Author> => {
-  return mapAuthor((await axios.get(
+  const author = (await axios.get(
     `${AUTHOR_ROOT}/${id}`,
     {
       params: {
         populate
       }
-    })).data.data);
+    })).data.data;
+  if (!author) throw new NotFoundError();
+  return mapAuthor(author);
 }
 
-export const findAuthorBySlug = async (slug: string, populate?: PopulatedAuthorOption): Promise<Author> => {
-  return mapAuthor((await axios.get(
+export const getAuthorBySlug = async (slug: string, populate?: PopulatedAuthorOption): Promise<Author> => {
+  const author = (await axios.get(
     AUTHOR_ROOT,
     {
       params: {
         'filters[slug][$eq]': slug,
         populate
       }
-    })).data.data[0]);
+    })).data.data[0];
+  if (!author) throw new NotFoundError();
+  return mapAuthor(author);
 }

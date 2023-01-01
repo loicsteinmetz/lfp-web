@@ -2,6 +2,7 @@ import axios from 'axios';
 import {mapArticle} from './articles.data';
 import {envLFP} from '../utils/envLFP';
 import {mapMetadata} from './_lfp.data';
+import {NotFoundError} from '../utils/requests';
 
 const CATEGORIES_ROOT = envLFP.API_ROOT + '/categories';
 
@@ -28,23 +29,15 @@ export const getCategories = async (populate?: PopulatedCategoryOption): Promise
   }
 }
 
-export const getCategory = async (id: number, populate?: PopulatedCategoryOption): Promise<Category> => {
-  return mapCategory((await axios.get(
-    `${CATEGORIES_ROOT}/${id}`,
-    {
-      params: {
-        populate
-      }
-    })).data.data);
-}
-
-export const findCategoryBySlug = async (slug: string, populate?: PopulatedCategoryOption): Promise<Category> => {
-  return mapCategory((await axios.get(
+export const getCategoryBySlug = async (slug: string, populate?: PopulatedCategoryOption): Promise<Category> => {
+  const category = (await axios.get(
     CATEGORIES_ROOT,
     {
       params: {
         'filters[slug][$eq]': slug,
         populate
       }
-    })).data.data[0]);
+    })).data.data[0];
+  if (!category) throw new NotFoundError();
+  return mapCategory(category);
 }

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import {Spacings} from '../theme/spacings';
 import Link from 'next/link';
 import {Colors} from '../theme/colors';
+import {BaseProps} from '../pages';
 
 export interface PaginatedPageProps {
   currentPage?: number;

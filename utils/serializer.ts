@@ -1,1 +1,1 @@
-export const s = (data: any) => JSON.parse(JSON.stringify(data));
+export const s = <T>(data: T): typeof data => JSON.parse(JSON.stringify(data));

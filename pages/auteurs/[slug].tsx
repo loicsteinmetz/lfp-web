@@ -1,12 +1,8 @@
 import {GetServerSideProps, NextPage} from 'next';
-import {getGeneral} from '../../data/general.data';
-import {getPages} from '../../data/pages.data';
-import {getCategories} from '../../data/categories.data';
-import {getTypes} from '../../data/types.data';
 import {s} from '../../utils/serializer';
 import ArticlesList from '../../components/ArticlesList';
 import Layout from '../../components/Layout';
-import {findAuthorBySlug} from '../../data/authors.data';
+import {getAuthorBySlug} from '../../data/authors.data';
 import {findArticlesByAuthor} from '../../data/articles.data';
 import styled from 'styled-components';
 import Avatar from '../../components/Avatar';
@@ -18,15 +14,12 @@ import Icon from '../../components/Icon';
 import Divider from '../../components/Divider';
 import {Devices} from '../../theme/breakpoints';
 import {PaginatedPageProps} from '../../components/Pagination';
+import {provideData} from '../../utils/requests';
+import {BaseProps} from '../index';
 
-interface AuthorProps extends PaginatedPageProps {
-  general: General;
-  pages: Page[];
-  categories: Category[];
-  types: Type[];
+interface AuthorProps extends PaginatedPageProps, BaseProps {
   author: Author;
   articles: Article[];
-  url: string;
 }
 
 const AuthorContainer = styled.div`
@@ -86,17 +79,17 @@ const AuthorPage: NextPage<AuthorProps> = ({url, general, pages, categories, typ
 }
 
 export const getServerSideProps: GetServerSideProps<AuthorProps, { slug: string, page: string }> = async (context) => {
-  const url = context.req.headers.host + context.resolvedUrl;
-  const general = s(await getGeneral('*'));
-  const pages = s((await getPages()).data);
-  const categories = s((await getCategories()).data);
-  const types = s((await getTypes()).data);
-  const author = s((await findAuthorBySlug(context.params!.slug, '*')));
-  const articlesRes = await findArticlesByAuthor(author.id, context.query?.page ?? '1', '*');
-  const articles = s(articlesRes.data);
-  const totalPages = articlesRes.meta.pageCount;
-  const currentPage = articlesRes.meta.page;
-  return {props: {general, pages, categories, types, author, articles, currentPage, totalPages, url}}
+  return await provideData(
+    context,
+    async () => {
+      const author = s((await getAuthorBySlug(context.params!.slug, '*')));
+      const articlesRes = await findArticlesByAuthor(author.id, context.query?.page ?? '1', '*');
+      const articles = s(articlesRes.data);
+      const totalPages = articlesRes.meta.pageCount;
+      const currentPage = articlesRes.meta.page;
+      return {author, articles, currentPage, totalPages}
+    }
+  );
 }
 
 export default AuthorPage;
