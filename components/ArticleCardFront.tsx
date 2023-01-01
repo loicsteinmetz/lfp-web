@@ -9,6 +9,7 @@ import typos from '../theme/typos';
 import Divider from './Divider';
 import Label from './Label';
 import {Devices} from '../theme/breakpoints';
+import {formatDate} from '../utils/date';
 
 export interface ArticleCardFrontProps {
   article: Article;
@@ -85,6 +86,7 @@ const Infos = styled.div`
   gap: ${Spacings.S1};
   margin-bottom: ${Spacings.S2};
   align-items: flex-start;
+  flex-wrap: wrap;
 
   @media (${Devices.TABLET}) {
     flex-direction: row;
@@ -112,6 +114,8 @@ const Authors = styled.div`
   
   @media (${Devices.TABLET}) {
     margin-left: ${Spacings.S1};
+    display: flex;
+    gap: 5px;
   }
 `
 
@@ -166,12 +170,18 @@ const ArticleCardFront = ({article}: ArticleCardFrontProps) => {
               ))}
             </Labels>
             <Authors>
-              {article.authors!.map(author => (
-                <Link href={`/auteurs/${author.slug}`} key={`author-${author.id}`}><Author>{author.displayName}</Author></Link>
+              {article.authors!.map((author, i) => (
+                <>
+                  <Link href={`/auteurs/${author.slug}`} key={`author-${author.id}`}>
+                    <Author>{author.displayName}{i !== article.authors!.length - 1 && (',')}</Author>
+                  </Link>
+                </>
               ))}
             </Authors>
-            <HorizontalSeparator/>
-            <PublicationDate>Publié le {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</PublicationDate>
+            {(article.authors!.length > 0 || article.types!.length > 0 || article.categories!.length > 0) &&
+              <HorizontalSeparator/>
+            }
+            <PublicationDate>Publié le {formatDate(date)}</PublicationDate>
           </Infos>
           <Extract>{article.extract}</Extract>
         </SubContainer>

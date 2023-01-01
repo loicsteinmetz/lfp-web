@@ -7,6 +7,7 @@ import {Devices} from '../theme/breakpoints';
 import React from 'react';
 import Link from 'next/link';
 import Label from './Label';
+import {formatDate} from '../utils/date';
 
 export interface ArticleCardProps {
   article: Article;
@@ -190,7 +191,7 @@ const ArticleCard = ({article}: ArticleCardProps) => {
           <Label type={'grey'} key={`article-${article.id}-type-${type.id}`} label={type.name} url={`/formats/${type.slug}`}/>
         ))}
       </Labels1>
-      <PublicationDate1>Publié le {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</PublicationDate1>
+      <PublicationDate1>Publié le {formatDate(date)}</PublicationDate1>
       <FlexContainer>
         <CoverContainer>
           <Link href={link}><Image src={article.cover!.url} height={article.cover!.height} width={article.cover!.width} alt={article.cover!.alternativeText}/></Link>
@@ -205,7 +206,7 @@ const ArticleCard = ({article}: ArticleCardProps) => {
               <Label type={'grey'} key={`article-${article.id}-type-${type.id}`} label={type.name} url={`/formats/${type.slug}`}/>
             ))}
           </Labels2>
-          <PublicationDate2>Publié le {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</PublicationDate2>
+          <PublicationDate2>Publié le {formatDate(date)}</PublicationDate2>
           <Extract>{article.extract}</Extract>
           <Authors>
             {article.authors!.map(author => (

@@ -6,6 +6,7 @@ import {Spacings} from '../theme/spacings';
 import {Colors} from '../theme/colors';
 import Link from 'next/link';
 import {Devices} from '../theme/breakpoints';
+import {formatDate} from '../utils/date';
 
 export interface ArticleMetadataProps {
   article: Article;
@@ -66,7 +67,7 @@ const Icons = styled.div`
 
 const PublicationDate = styled.p`
   color: ${Colors.GREY['400']};
-  font-size: 12px;
+  font-size: 14px;
 `
 
 const ArticleMetadata = ({article, authors}: ArticleMetadataProps) => {
@@ -74,7 +75,7 @@ const ArticleMetadata = ({article, authors}: ArticleMetadataProps) => {
 
   return (
     <Container>
-      <PublicationDate>Publié le {date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</PublicationDate>
+      <PublicationDate>Publié le {formatDate(date)}</PublicationDate>
       <AuthorsContainer>
         {authors.map(author => {
           const authorLink = `/auteurs/${author.slug}`;

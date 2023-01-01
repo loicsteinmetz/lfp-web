@@ -63,6 +63,9 @@ const Container = styled.article`
   
   ul, ol {
     margin: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
   
   li {
