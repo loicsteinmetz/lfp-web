@@ -28,6 +28,7 @@ const Labels1 = styled.div`
   display: flex;
   gap: ${Spacings.S1};
   margin-bottom: ${Spacings.S2};
+  flex-wrap: wrap;
 
   @media (${Devices.DESKTOP}) {
     display: none;
@@ -38,6 +39,7 @@ const Labels2 = styled.div`
   display: none;
   gap: ${Spacings.S1};
   margin-bottom: ${Spacings.S2};
+  flex-wrap: wrap;
 
   @media (${Devices.DESKTOP}) {
     display: flex;
@@ -99,17 +101,17 @@ const CoverContainer = styled.div`
   align-items: center;
   overflow: hidden;
   margin-bottom: ${Spacings.S2};
+  border-radius: 3px;
 
   &:hover {
     cursor: pointer;
   }
 
   @media (${Devices.TABLET}) {
-    max-height: 350px;
+    max-height: 300px;
   }
 
   @media (${Devices.DESKTOP}) {
-    max-height: 450px;
     margin-bottom: 0;
     flex: 0.6;
   }
@@ -117,16 +119,16 @@ const CoverContainer = styled.div`
 
 const InfoContainer = styled.div`
   @media (${Devices.DESKTOP}) {
-    flex: 0.4;
+    flex: 0.5;
   }
 `
 
 const Extract = styled.p`
   ${typos.BODY1};
-  margin-bottom: ${Spacings.S2};
+  margin-top: ${Spacings.S2};
 
   @media (${Devices.DESKTOP}) {
-    margin-bottom: ${Spacings.S3};
+    margin-top: ${Spacings.S3};
   }
 `
 
@@ -136,10 +138,6 @@ const Authors = styled.div`
 
   @media (${Devices.TABLET}) {
     margin-right: ${Spacings.S2};
-  }
-
-  @media (${Devices.DESKTOP}) {
-    text-align: right;
   }
 `
 
@@ -207,7 +205,6 @@ const ArticleCard = ({article}: ArticleCardProps) => {
             ))}
           </Labels2>
           <PublicationDate2>Publié le {formatDate(date)}</PublicationDate2>
-          <Extract>{article.extract}</Extract>
           <Authors>
             {article.authors!.map(author => (
               <Link href={`/auteurs/${author.slug}`} key={`author-${author.id}`}><Author>{author.displayName}</Author></Link>
@@ -215,6 +212,7 @@ const ArticleCard = ({article}: ArticleCardProps) => {
           </Authors>
         </InfoContainer>
       </FlexContainer>
+      <Extract>{article.extract}</Extract>
     </Container>
   )
 }

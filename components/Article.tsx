@@ -30,6 +30,7 @@ const Labels = styled.div`
   display: flex;
   gap: ${Spacings.S1};
   margin-bottom: ${Spacings.S2};
+  flex-wrap: wrap;
 `
 
 const Title = styled.h2`
@@ -105,7 +106,7 @@ const Article = ({article, authors, relatedArticles}: ArticleProps) => {
       <Divider/>
       {relatedArticles.length > 0 && (
         <>
-          <Subject>Sur les mêmes sujets...</Subject>
+          <Subject>Sur le même sujet...</Subject>
           <ArticlesList articles={relatedArticles}/>
         </>
       )}

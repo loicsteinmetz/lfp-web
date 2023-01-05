@@ -5,16 +5,17 @@ import {mapCategory} from './categories.data';
 import {mapType} from './types.data';
 import axios from 'axios';
 import {NotFoundError} from '../utils/requests';
+import {str} from '../utils/serializer';
 
 const ARTICLES_ROOT = envLFP.API_ROOT + '/articles'
 const PAGE_SIZE = 10;
 
 export const mapArticle = (d: any): Article => ({
   id: d.id,
-  title: d.attributes.title,
+  title: str(d.attributes.title),
   slug: d.attributes.slug,
-  extract: d.attributes.extract,
-  body: d.attributes.body,
+  extract: str(d.attributes.extract),
+  body: str(d.attributes.body),
   createdAt: new Date(d.attributes.createdAt),
   updatedAt: new Date(d.attributes.updatedAt),
   publishedAt: new Date(d.attributes.publishedAt),
@@ -24,8 +25,8 @@ export const mapArticle = (d: any): Article => ({
   types: d.attributes.types?.data.map(mapType),
   externalMedia: d.attributes.external_media ? d.attributes.external_media.map(mapExternalMedia) : undefined,
   keywords: d.attributes.keywords ? d.attributes.keywords.map((k: any) => k.keyword) : undefined,
-  info: d.attributes.info,
-  footer: d.attributes.footer,
+  info: str(d.attributes.info),
+  footer: str(d.attributes.footer),
   subjectsId: d.attributes.subjects?.data.map((s: any) => s.id),
 })
 

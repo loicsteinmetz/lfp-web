@@ -49,7 +49,11 @@ const CoverContainer = styled.div`
 
 const SubContainer = styled.div`
   margin-bottom: ${Spacings.S2};
-  padding: ${Spacings.S2} ${Spacings.S3};
+  padding: ${Spacings.S1} ${Spacings.S2} ${Spacings.S2} ${Spacings.S2};
+
+  @media (${Devices.TABLET}) {
+    padding: ${Spacings.S2} ${Spacings.S3} ${Spacings.S2} ${Spacings.S3};
+  }
 `
 
 const TitleWrapper = styled.div`
@@ -102,6 +106,7 @@ const Labels = styled.div`
   display: flex;
   gap: ${Spacings.S1};
   margin-bottom: ${Spacings.S1};
+  flex-wrap: wrap;
 
   @media (${Devices.TABLET}) {
     margin-bottom: 0;

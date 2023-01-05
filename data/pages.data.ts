@@ -2,14 +2,15 @@ import axios from 'axios';
 import {envLFP} from '../utils/envLFP';
 import {mapMetadata} from './_lfp.data';
 import {NotFoundError} from '../utils/requests';
+import {str} from '../utils/serializer';
 
 const PAGES_ROOT = envLFP.API_ROOT + '/pages'
 
 export const mapPage = (d: any): Page => ({
   id: d.id,
-  title: d.attributes.title,
+  title: str(d.attributes.title),
   slug: d.attributes.slug,
-  body: d.attributes.body,
+  body: str(d.attributes.body),
   createdAt: new Date(d.attributes.createdAt),
   updatedAt: new Date(d.attributes.updatedAt),
   publishedAt: new Date(d.attributes.publishedAt),
