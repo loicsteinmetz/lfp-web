@@ -34,12 +34,16 @@ const CoverContainer = styled.div`
   justify-content: end;
   align-items: center;
   margin-bottom: ${Spacings.S2};
-  max-height: 550px;
+  max-height: 350px;
 
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
     transition: color 300ms;
+  }
+
+  @media (${Devices.TABLET}) {
+    max-height: 550px;
   }
 `
 
