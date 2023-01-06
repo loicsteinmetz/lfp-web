@@ -39,22 +39,13 @@ export const getArticles = async (page: string | string[], populate?: PopulatedA
         populate,
         'pagination[page]': page,
         'pagination[pageSize]': PAGE_SIZE,
+        'filters[public][$eq]': true,
       }
     })).data;
   return {
     meta: mapMetadata(result.meta),
     data: result.data.map(mapArticle),
   }
-}
-
-export const getArticle = async (id: number, populate?: PopulatedArticleOption): Promise<Article> => {
-  return mapArticle((await axios.get(
-    `${ARTICLES_ROOT}/${id}`,
-    {
-      params: {
-        populate
-      }
-    })).data.data);
 }
 
 export const getArticleBySlug = async (slug: string, populate?: PopulatedArticleOption): Promise<Article> => {
@@ -80,6 +71,7 @@ export const findArticlesByCategory = async (catId: number, page: string | strin
         sort: 'publishedAt:desc',
         'pagination[page]': page,
         'pagination[pageSize]': PAGE_SIZE,
+        'filters[public][$eq]': true,
       }
     })).data;
   return {
@@ -98,6 +90,7 @@ export const findArticlesByType = async (typedId: number, page: string | string[
         sort: 'publishedAt:desc',
         'pagination[page]': page,
         'pagination[pageSize]': PAGE_SIZE,
+        'filters[public][$eq]': true,
       }
     })).data;
   return {
@@ -116,6 +109,7 @@ export const findArticlesByAuthor = async (authorId: number, page: string | stri
         sort: 'publishedAt:desc',
         'pagination[page]': page,
         'pagination[pageSize]': PAGE_SIZE,
+        'filters[public][$eq]': true,
       }
     })).data;
   return {
@@ -136,6 +130,7 @@ export const findRelatedArticles = async (subjectsId: number[], articleId: numbe
                 'filters[subjects][id][$eq]': s,
                 sort: 'publishedAt:desc',
                 'pagination[pageSize]': 50,
+                'filters[public][$eq]': true,
               }
             })
         ).data.data.map(mapArticle))]
