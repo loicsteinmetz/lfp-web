@@ -104,6 +104,13 @@ const Container = styled.article`
     margin: 25px 0;
     text-align: center;
   }
+  
+  hr {
+    border-width: 0;
+    height: 1px;
+    background-color: ${Colors.GREY['200']};
+    margin: ${Spacings.S3} 0;
+  }
 `
 
 const FormattedContent = ({content}: FormattedContentProps) => {
