@@ -4,6 +4,8 @@ import ReactMarkdown from 'react-markdown';
 import {Colors} from '../theme/colors';
 import {Spacings} from '../theme/spacings';
 import {Devices} from '../theme/breakpoints';
+import Image from 'next/image';
+import typos from '../theme/typos';
 
 export interface FormattedContentProps {
   content: string;
@@ -83,13 +85,22 @@ const Container = styled.article`
   }
 
   img {
-    margin: 25px 0;
+    margin-top: 25px;
     width: 100%;
 
     @media(${Devices.TABLET}) {
       margin-left: 10%;
       width: 80%;
     }
+  }
+  
+  .caption {
+    margin-top: 5px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 12px;
+    font-style: italic;
+    color: ${Colors.GREY['700']};
   }
 
   blockquote p {
@@ -116,7 +127,14 @@ const Container = styled.article`
 const FormattedContent = ({content}: FormattedContentProps) => {
   return (
     <Container>
-      <ReactMarkdown>{content}</ReactMarkdown>
+      <ReactMarkdown
+        components={{
+          // eslint-disable-next-line @next/next/no-img-element
+          img: ({alt, src}) => <><img alt={alt} src={src}/><p className={'caption'}>{alt}</p></>
+        }}
+      >
+        {content}
+      </ReactMarkdown>
     </Container>
   )
 }

@@ -8,7 +8,6 @@ export interface ExternalMediasProps {
 }
 
 const IframeContainer = styled.div`
-  background-color: ${Colors.GREY['200']};
   position: relative;
   overflow: hidden;
   width: 100%;

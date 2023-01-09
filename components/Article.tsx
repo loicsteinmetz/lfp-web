@@ -49,7 +49,15 @@ const CoverContainer = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+`
+
+const Caption = styled.p`
   margin-bottom: ${Spacings.S3};
+  margin-top: 5px;
+  text-align: center;
+  font-size: 12px;
+  font-style: italic;
+  color: ${Colors.GREY['700']};
 `
 
 const InfoContainer = styled.div`
@@ -89,6 +97,7 @@ const Article = ({article, authors, relatedArticles}: ArticleProps) => {
       <CoverContainer>
         <Image src={article.cover!.url} alt={article.cover!.alternativeText} height={article.cover!.height} width={article.cover!.width}/>
       </CoverContainer>
+      <Caption>{article.cover!.alternativeText}</Caption>
       {article.info &&
         <InfoContainer>
           <FormattedContent content={article.info}/>
