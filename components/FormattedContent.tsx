@@ -72,6 +72,7 @@ const Container = styled.article`
   
   li {
     margin-left: 20px;
+    line-height: 18px;
     
     &:before {
       content: '';
