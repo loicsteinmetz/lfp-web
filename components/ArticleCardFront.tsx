@@ -159,7 +159,7 @@ const ArticleCardFront = ({article}: ArticleCardFrontProps) => {
       <Container>
         <CoverContainer>
           <Link href={link}>
-            <Image objectFit={'cover'} src={article.cover!.url} height={article.cover!.height} width={article.cover!.width}
+            <Image objectFit="cover" src={article.cover!.url} height={article.cover!.height} width={article.cover!.width}
                    alt={article.cover!.alternativeText}/>
           </Link>
           <Link href={link}>
