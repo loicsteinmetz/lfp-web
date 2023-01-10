@@ -31,7 +31,7 @@ const Container = styled.div`
 const CoverContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   margin-bottom: ${Spacings.S2};
   max-height: 350px;
