@@ -29,7 +29,7 @@ const Container = styled.div`
 const HeaderContainer = styled.div``
 
 const ItemsContainer = styled.div<{isOpen: boolean, itemsNumber: number}>`
-  max-height: ${({isOpen, itemsNumber}) => isOpen ? itemsNumber * 50 + 'px' : '0px'};
+  max-height: ${({isOpen, itemsNumber}) => isOpen ? itemsNumber * 45 + 'px' : '0px'};
   overflow: hidden;
   transition: max-height 350ms;
   pointer-events: ${({isOpen}) => isOpen ? 'all' : 'none'};
@@ -81,7 +81,7 @@ const ItemText = styled.a`
   text-decoration: none;
   transition: color 300ms;
   display: block;
-  padding: ${Spacings.S2} 0;
+  padding: 12px 0;
   
   &:hover {
     cursor: pointer;
