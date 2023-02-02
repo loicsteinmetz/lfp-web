@@ -12,7 +12,7 @@ const IframeContainer = styled.div`
   overflow: hidden;
   width: 100%;
   padding-top: 56.25%;
-  margin-bottom: ${Spacings.S2};
+  margin-bottom: ${Spacings.S3};
 
   iframe {
     position: absolute;
@@ -27,7 +27,6 @@ const IframeContainer = styled.div`
 `
 
 const MediaContainer = styled.div`
-  background-color: ${Colors.GREY['200']};
   border-radius: 10px;
   margin-bottom: ${Spacings.S2};
 
@@ -39,12 +38,11 @@ const MediaContainer = styled.div`
 const ExternalMedias = ({article}: ExternalMediasProps) => {
   return (article.externalMedia && article.externalMedia.length > 0) ? (
     <MediaContainer>
-      <IframeContainer>
         {article.externalMedia.map(externalMedia => (
-          <iframe key={`media-${externalMedia.url}`} src={`https://www.youtube.com/embed/${externalMedia.url}`} allowFullScreen>
-          </iframe>
+          <IframeContainer key={`media-${externalMedia.url}`}>
+            <iframe src={`https://www.youtube.com/embed/${externalMedia.url}`} allowFullScreen></iframe>
+          </IframeContainer>
         ))}
-      </IframeContainer>
     </MediaContainer>) : null
 }
 
