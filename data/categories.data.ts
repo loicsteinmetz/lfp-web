@@ -20,7 +20,8 @@ export const getCategories = async (populate?: PopulatedCategoryOption): Promise
     CATEGORIES_ROOT,
     {
       params: {
-        populate
+        populate,
+        sort: 'rank:asc'
       }
     })).data;
   return {

@@ -21,7 +21,8 @@ export const getTypes = async (populate?: PopulatedTypeOption): Promise<WithMeta
     TYPES_ROOT,
     {
       params: {
-        populate
+        populate,
+        sort: 'rank:asc'
       }
     })).data;
   return {
