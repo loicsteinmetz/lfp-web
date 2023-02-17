@@ -88,7 +88,7 @@ const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: ${Spacings.S1};
+  gap: 10px;
   margin-left: auto;
   margin-top: ${Spacings.S3};
 
@@ -107,7 +107,11 @@ const Button = styled.div`
 `
 
 const ButtonText = styled.p`
-  margin-top: -3px;
+  margin-top: -1px;
+
+  @media (${Devices.TABLET}) {
+    margin-top: -3px;
+  }
 
   @media (min-width: ${Breakpoints.MEDIUM}px) and (max-width: 1200px) {
     display: none;
@@ -149,7 +153,7 @@ const Menu = ({pages, categories, types, general}: MenuProps) => {
         ))}
         <Link href={'/livres'}>
           <Button onClick={() => setIsOpen(false)}>
-            <Icon icon={'book'} color={Colors.GREY['0']} hoverColor={Colors.GREY['0']} scale={0.35}/>
+            <Icon icon={'book'} color={Colors.GREY['0']} hoverColor={Colors.GREY['0']} scale={0.4}/>
             <ButtonText>Les livres de La Fabrique</ButtonText>
           </Button>
         </Link>

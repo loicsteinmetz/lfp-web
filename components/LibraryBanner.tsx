@@ -39,6 +39,7 @@ const HeadingText = styled.p`
   ${typos.OVERLINE1};
   color: ${Colors.GREY['0']};
   text-align: center;
+  margin-top: 2px;
 `
 
 const Button = styled.button`
