@@ -1,10 +1,13 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {Colors} from '../theme/colors';
 import {Spacings} from '../theme/spacings';
-import {Devices} from '../theme/breakpoints';
+import {Breakpoints, Devices} from '../theme/breakpoints';
 import Networks from './Networks';
 import Icon from './Icon';
+import typos from '../theme/typos';
+import Link from 'next/link';
+import Divider from './Divider';
 
 export interface BooksMenuProps {
   general: General;
@@ -57,12 +60,39 @@ const MenuContainer = styled.div<{ isOpen: boolean, isVisible: boolean }>`
 `
 
 const NetworksContainer = styled.div`
-  margin-top: ${Spacings.S3};
+  margin-top: ${Spacings.S2};
+
+  @media (${Devices.TABLET}) {
+    margin-top: 0;
+    margin-left: ${Spacings.S3};
+  }
+`
+
+const Button = styled.div`
+  ${typos.OVERLINE1};
+  color: ${Colors.GREY['0']};
+  background-color: ${Colors.PRIMARY['500']};
+  padding: ${Spacings.S1} ${Spacings.S2};
+  border: 1px solid ${Colors.PRIMARY['500']};
+  border-radius: 5px;
+  transition: background-color 300ms;
+  gap: ${Spacings.S1};
+  text-align: center;
+  margin-top: ${Spacings.S2};
+  
+  &:hover {
+    background-color: ${Colors.PRIMARY['700']};
+    cursor: pointer;
+  }
 
   @media (${Devices.TABLET}) {
     margin-top: 0;
     margin-left: auto;
   }
+`
+
+const ButtonText = styled.p`
+  margin-top: -2px;
 `
 
 const BooksMenu = ({general}: BooksMenuProps) => {
@@ -88,6 +118,10 @@ const BooksMenu = ({general}: BooksMenuProps) => {
         <QuitIconContainer onClick={() => setIsOpen(false)}>
           <Icon icon={'quit'}/>
         </QuitIconContainer>
+        <Link href={'/'}>
+          <Button onClick={() => setIsOpen(false)}><ButtonText>Retour au journal</ButtonText></Button>
+        </Link>
+        <Divider marginY={Spacings.S2} displayHide={{tablet: true}}/>
         <NetworksContainer>
           <Networks youtubeUrl={general.youtube} facebookUrl={general.facebook} instagramUrl={general.instagram} twitterUrl={general.twitter}
                     email={general.email}/>

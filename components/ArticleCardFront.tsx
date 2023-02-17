@@ -6,27 +6,14 @@ import Link from 'next/link';
 import {Spacings} from '../theme/spacings';
 import {Colors} from '../theme/colors';
 import typos from '../theme/typos';
-import Divider from './Divider';
 import Label from './Label';
 import {Devices} from '../theme/breakpoints';
 import {formatDate} from '../utils/date';
+import ExpandedContainer from './ExpandedContainer';
 
 export interface ArticleCardFrontProps {
   article: Article;
 }
-
-const Container = styled.div`
-  margin-bottom: ${Spacings.S2};
-  background-color: ${Colors.GREY['0']};
-  border-radius: 5px;
-  width: calc(100% + ${Spacings.S2} * 2);
-  margin-left: -${Spacings.S2};
-
-  @media (${Devices.TABLET}) {
-    width: 100%;
-    margin-left: 0;
-  }
-`
 
 const CoverContainer = styled.div`
   display: flex;
@@ -121,7 +108,7 @@ const PublicationDate = styled.p`
 
 const Authors = styled.div`
   ${typos.OVERLINE1};
-  
+
   @media (${Devices.TABLET}) {
     margin-left: ${Spacings.S1};
     display: flex;
@@ -156,48 +143,45 @@ const ArticleCardFront = ({article}: ArticleCardFrontProps) => {
   const date: Date = new Date(article.publishedAt);
 
   return (
-    <>
-      <Container>
-        <CoverContainer>
-          <Link href={link}>
-            <Image objectFit="cover" src={article.cover!.url} height={article.cover!.height} width={article.cover!.width}
-                   alt={article.cover!.alternativeText}/>
-          </Link>
-          <Link href={link}>
-            <TitleWrapper>
-              <Title>{article.title}</Title>
-            </TitleWrapper>
-          </Link>
-        </CoverContainer>
-        <SubContainer>
-          <Infos>
-            <Labels>
-              {article.categories && article.categories.map(category => (
-                <Label key={`article-${article.id}-cat-${category.id}`} label={category.name} url={`/thematiques/${category.slug}`}/>
-              ))}
-              {article.types && article.types.map(type => (
-                <Label type={'grey'} key={`article-${article.id}-type-${type.id}`} label={type.name} url={`/formats/${type.slug}`}/>
-              ))}
-            </Labels>
-            <Authors>
-              {article.authors!.map((author, i) => (
-                <>
-                  <Link href={`/auteurs/${author.slug}`} key={`author-${author.id}`}>
-                    <Author>{author.displayName}{i !== article.authors!.length - 1 && (',')}</Author>
-                  </Link>
-                </>
-              ))}
-            </Authors>
-            {(article.authors!.length > 0 || article.types!.length > 0 || article.categories!.length > 0) &&
-              <HorizontalSeparator/>
-            }
-            <PublicationDate>Publié le {formatDate(date)}</PublicationDate>
-          </Infos>
-          <Extract>{article.extract}</Extract>
-        </SubContainer>
-      </Container>
-      <Divider/>
-    </>
+    <ExpandedContainer radius={true}>
+      <CoverContainer>
+        <Link href={link}>
+          <Image objectFit="cover" src={article.cover!.url} height={article.cover!.height} width={article.cover!.width}
+                 alt={article.cover!.alternativeText}/>
+        </Link>
+        <Link href={link}>
+          <TitleWrapper>
+            <Title>{article.title}</Title>
+          </TitleWrapper>
+        </Link>
+      </CoverContainer>
+      <SubContainer>
+        <Infos>
+          <Labels>
+            {article.categories && article.categories.map(category => (
+              <Label key={`article-${article.id}-cat-${category.id}`} label={category.name} url={`/thematiques/${category.slug}`}/>
+            ))}
+            {article.types && article.types.map(type => (
+              <Label type={'grey'} key={`article-${article.id}-type-${type.id}`} label={type.name} url={`/formats/${type.slug}`}/>
+            ))}
+          </Labels>
+          <Authors>
+            {article.authors!.map((author, i) => (
+              <>
+                <Link href={`/auteurs/${author.slug}`} key={`author-${author.id}`}>
+                  <Author>{author.displayName}{i !== article.authors!.length - 1 && (',')}</Author>
+                </Link>
+              </>
+            ))}
+          </Authors>
+          {(article.authors!.length > 0 || article.types!.length > 0 || article.categories!.length > 0) &&
+            <HorizontalSeparator/>
+          }
+          <PublicationDate>Publié le {formatDate(date)}</PublicationDate>
+        </Infos>
+        <Extract>{article.extract}</Extract>
+      </SubContainer>
+    </ExpandedContainer>
   )
 }
 

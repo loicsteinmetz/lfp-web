@@ -3,6 +3,7 @@ import ArticleCard from './ArticleCard';
 import Pagination, {PaginatedPageProps} from './Pagination';
 import {useEffect, useState} from 'react';
 import ArticleCardFront from './ArticleCardFront';
+import LibraryBanner from './LibraryBanner';
 
 export interface ArticlesListProps extends PaginatedPageProps {
   articles: Article[];
@@ -23,7 +24,12 @@ const ArticlesList = ({articles, frontPageDisplay, currentPage, totalPages}: Art
     <Container>
       {articles.map((article, i) => {
         if (i === 0 && currentPage === 1 && frontPageDisplay) {
-          return <ArticleCardFront key={`article-${article.id}`} article={article}/>
+          return (
+            <>
+              <ArticleCardFront key={`article-${article.id}`} article={article}/>
+              <LibraryBanner/>
+            </>
+          );
         } else {
           return <ArticleCard key={`article-${article.id}`} article={article}/>
         }
