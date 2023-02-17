@@ -22,7 +22,7 @@ const ArticlesList = ({articles, frontPageDisplay, currentPage, totalPages}: Art
   return (
     <Container>
       {articles.map((article, i) => {
-        if (i === 0 && frontPageDisplay) {
+        if (i === 0 && currentPage === 1 && frontPageDisplay) {
           return <ArticleCardFront key={`article-${article.id}`} article={article}/>
         } else {
           return <ArticleCard key={`article-${article.id}`} article={article}/>
