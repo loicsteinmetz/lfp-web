@@ -58,6 +58,7 @@ const Layout: FC<LayoutProps> = ({url, title, description, cover, keywords, page
           <meta name="twitter:description" content={general.description}/>
           <meta name="twitter:image" content={general.cover?.url}/>
           <meta name="twitter:card" content="summary_large_image"/>
+          {general.mobile_logo?.url && (<link rel="apple-touch-icon" href={general.mobile_logo.url}/>)}
         </Head>
         <Maintenance general={general}/>
       </>
@@ -88,6 +89,7 @@ const Layout: FC<LayoutProps> = ({url, title, description, cover, keywords, page
         <meta name="twitter:description" content={description ?? general.description}/>
         <meta name="twitter:image" content={cover?.url ?? general.cover?.url}/>
         <meta name="twitter:card" content="summary_large_image"/>
+        {general.mobile_logo?.url && (<link rel="apple-touch-icon" href={general.mobile_logo.url}/>)}
       </Head>
       <Header pages={pages} categories={categories} types={types} general={general}/>
       <Container>

@@ -17,6 +17,7 @@ type General = {
   logo?: LFPMedia,
   logoLg?: LFPMedia,
   cover?: LFPMedia,
+  mobile_logo?: LFPMedia,
 }
 
 type PopulatedGeneralOption = '*';
