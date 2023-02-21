@@ -21,7 +21,7 @@ export const mapBook = (d: any): Book => ({
   editor: d.attributes.editor,
   year: d.attributes.year,
   cover: d.attributes.cover ? mapLFPMedia(d.attributes.cover) : undefined,
-  owner: d.attributes.owner ? mapOwner(d.attributes.owner) : undefined,
+  owner: d.attributes.owner ? mapOwner(d.attributes.owner.data) : undefined,
   authors: d.attributes.authors?.data.map(mapBookAuthor),
   loans: d.attributes.loans?.data.map(mapLoan),
   themes:  d.attributes.themes?.data.map(mapBookTheme),

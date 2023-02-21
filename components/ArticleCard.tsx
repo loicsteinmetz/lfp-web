@@ -207,7 +207,7 @@ const ArticleCard = ({article}: ArticleCardProps) => {
           <PublicationDate2>Publié le {formatDate(date)}</PublicationDate2>
           <Authors>
             {article.authors!.map(author => (
-              <Link href={`/auteurs/${author.slug}`} key={`author-${author.id}`}><Author>{author.displayName}</Author></Link>
+              <Link href={`/auteurs/${author.slug}`} key={`article-${article.id}-author-${author.id}`}><Author>{author.displayName}</Author></Link>
             ))}
           </Authors>
         </InfoContainer>

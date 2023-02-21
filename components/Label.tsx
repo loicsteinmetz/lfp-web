@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export interface LabelProps {
   label: string;
-  url: string;
+  url?: string;
   type?: 'primary' | 'grey';
 }
 
@@ -27,9 +27,9 @@ const Text = styled.p<{type?: 'primary' | 'grey'}>`
 `
 
 const Label = ({label, url, type = 'primary'}: LabelProps) => {
-  return (
+  return url ? (
     <Link href={url}><Text type={type}>{label}</Text></Link>
-  )
+  ) : <Text type={type}>{label}</Text>
 }
 
 export default Label;
