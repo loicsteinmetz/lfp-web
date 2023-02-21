@@ -157,7 +157,7 @@ const Menu = ({pages, categories, types, general}: MenuProps) => {
             <ButtonText>Les livres de La Fabrique</ButtonText>
           </Button>
         </Link>
-        <Divider displayHide={{tablet: true}}/>
+        <Divider displayHide={{tablet: true, desktop: true}}/>
         <NetworksContainer>
           <Networks youtubeUrl={general.youtube} facebookUrl={general.facebook} instagramUrl={general.instagram} twitterUrl={general.twitter}
                     email={general.email}/>

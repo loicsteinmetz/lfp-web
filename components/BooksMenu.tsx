@@ -121,7 +121,7 @@ const BooksMenu = ({general}: BooksMenuProps) => {
         <Link href={'/'}>
           <Button onClick={() => setIsOpen(false)}><ButtonText>Retour au journal</ButtonText></Button>
         </Link>
-        <Divider marginY={Spacings.S2} displayHide={{tablet: true}}/>
+        <Divider marginY={Spacings.S2} displayHide={{tablet: true, desktop: true}}/>
         <NetworksContainer>
           <Networks youtubeUrl={general.youtube} facebookUrl={general.facebook} instagramUrl={general.instagram} twitterUrl={general.twitter}
                     email={general.email}/>

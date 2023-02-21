@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {Colors} from '../theme/colors';
 import {Spacings} from '../theme/spacings';
-import {Devices} from '../theme/breakpoints';
+import {Breakpoints, Devices} from '../theme/breakpoints';
 
 export interface DividerProps {
   marginY?: string;
@@ -13,9 +13,12 @@ const Line = styled.div<{marginY?: string, mobile?: boolean, tablet?: boolean, d
   height: 1px;
   background-color: ${Colors.GREY['200']};
   margin: ${({marginY}) => marginY ?? Spacings.S3} 0;
-  display: ${({mobile}) => !mobile ? 'auto' : 'none'};
+
+  @media (${Devices.MOBILE}) and (max-width: ${Breakpoints.MEDIUM}px) {
+    display: ${({mobile}) => !mobile ? 'auto' : 'none'};
+  }
   
-  @media (${Devices.TABLET}) {
+  @media (${Devices.TABLET}) and (max-width: ${Breakpoints.LARGE}px) {
     display: ${({tablet}) => !tablet ? 'auto' : 'none'};
   }
 
