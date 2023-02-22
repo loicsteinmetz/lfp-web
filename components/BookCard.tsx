@@ -6,6 +6,8 @@ import {Colors} from '../theme/colors';
 import {Devices} from '../theme/breakpoints';
 import React from 'react';
 import Label from './Label';
+import Icon from './Icon';
+import Divider from './Divider';
 
 export interface BookCardProps {
   book: Book;
@@ -22,6 +24,7 @@ const Container = styled.div`
   }
 `
 const Labels = styled.div`
+  display: flex;
   gap: ${Spacings.S1};
   flex-wrap: wrap;
 `
@@ -97,12 +100,45 @@ const Authors = styled.div`
 `
 
 const Author = styled.p`
+  // &:hover {
+  //   color: ${Colors.PRIMARY['500']};
+  //   cursor: pointer;
+  //   transition: color 300ms;
+  // }
+`
+
+const ActionsContainer = styled.div`
+  display: flex;
+  gap: ${Spacings.S2};
+`
+
+const LoanButton = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${Spacings.S1};
+  padding: 5px 11px;
+  border-radius: 5px;
+  background-color: transparent;
+  border: 1px solid ${Colors.GREY['500']};
+  font-weight: bold;
+  ${typos.BODY1};
+  font-size: 14px;
+  
   &:hover {
-    color: ${Colors.PRIMARY['500']};
+    border: 1px solid ${Colors.PRIMARY['500']};
+    color:  ${Colors.PRIMARY['500']};
     cursor: pointer;
-    transition: color 300ms;
+  }
+  
+  &:hover svg *:nth-child(2) {
+    fill: ${Colors.PRIMARY['500']};
   }
 `
+
+const ButtonLabel = styled.p`
+  margin-top: -1px;
+`
+
 const BookCard = ({book}: BookCardProps) => {
 
   return (
@@ -124,6 +160,13 @@ const BookCard = ({book}: BookCardProps) => {
               <Label key={`book-${book.id}-cat-${theme.id}`} label={theme.name}/>
             ))}
           </Labels>
+          <Divider marginY={Spacings.S2}/>
+          <ActionsContainer>
+            <LoanButton>
+              <Icon icon={'book'} scale={0.3}/>
+              <ButtonLabel>Demander le livre</ButtonLabel>
+            </LoanButton>
+          </ActionsContainer>
         </InfoContainer>
       </FlexContainer>
     </Container>
