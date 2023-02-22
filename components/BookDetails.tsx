@@ -8,10 +8,8 @@ import React, {useState} from 'react';
 import Label from './Label';
 import Icon from './Icon';
 import Divider from './Divider';
-import Popup from './Popup';
-import BookDetails from './BookDetails';
 
-export interface BookCardProps {
+export interface BookDetailsProps {
   book: Book;
 }
 
@@ -20,7 +18,7 @@ type BookStatus = 'rent' | 'claimed' | 'available';
 const Container = styled.div`
   margin-bottom: ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
-  padding: ${Spacings.S2};
+  padding: ${Spacings.S1};
   border-radius: 5px;
 
   @media (${Devices.TABLET}) {
@@ -49,18 +47,12 @@ const Title = styled.h2`
 
 const FlexContainer = styled.div`
   display: flex;
+  flex-direction: column;
   gap: ${Spacings.S2};
-  justify-content: center;
-  align-items: center;
-
-  @media (${Devices.TABLET}) {
-    gap: ${Spacings.S3};
-    flex-direction: row-reverse;
-  }
 `
 
 const CoverContainer = styled.div<{height: number, width: number}>`
-  width: 25%;
+  width: 50%;
   height: fit-content;
   display: flex;
   justify-content: center;
@@ -79,7 +71,7 @@ const CoverContainer = styled.div<{height: number, width: number}>`
 `
 
 const InfoContainer = styled.div`
-  width: 75%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: ${Spacings.S1};
@@ -169,20 +161,22 @@ const StatusLabel = styled.p`
   font-size: 15px;
 `
 
-const BookCard = ({book}: BookCardProps) => {
+const Abstract = styled.p`
+  ${typos.BODY1};
+`
+
+const BookDetails = ({book}: BookDetailsProps) => {
   const [displayedBook] = useState<Book & {status: BookStatus, claims: number}>({
     ...book,
     status: book.loans?.some(b => b.status === 'ongoing') ? 'rent' : ((book.loans?.some(b => b.status === 'demand')) ? 'claimed' : 'available'),
     claims: book.loans ? book.loans.filter(b => b.status === 'demand')?.length : 0,
   })
 
-  const [isPopupVisible, setPopupVisible] = useState(false);
-
   return (
     <Container>
       <FlexContainer>
         <InfoContainer>
-          <Title onClick={() => setPopupVisible(true)}>{displayedBook.name}</Title>
+          <Title>{displayedBook.name}</Title>
           <Authors>
             {displayedBook.authors!.map(author => (
               <Author key={`book-${displayedBook.id}-author-${author.id}`}>{author.name}</Author>
@@ -211,15 +205,17 @@ const BookCard = ({book}: BookCardProps) => {
             </LoanButton>
           </ActionsContainer>
         </InfoContainer>
-        <CoverContainer onClick={() => setPopupVisible(true)} height={displayedBook.cover!.height} width={displayedBook.cover!.width}>
+        <Divider marginY={Spacings.S1}/>
+        <Abstract>
+          {book.abstract?.replaceJSX('\n', <br/>)}
+        </Abstract>
+        <Divider marginY={Spacings.S1}/>
+        <CoverContainer height={displayedBook.cover!.height} width={displayedBook.cover!.width}>
           <Image src={displayedBook.cover!.url} height={displayedBook.cover!.height} width={displayedBook.cover!.width} alt={displayedBook.cover!.alternativeText}/>
         </CoverContainer>
       </FlexContainer>
-      <Popup visible={isPopupVisible} onQuit={() => setPopupVisible(false)}>
-        <BookDetails book={book}/>
-      </Popup>
     </Container>
   )
 }
 
-export default BookCard;
+export default BookDetails;
