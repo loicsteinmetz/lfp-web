@@ -4,7 +4,7 @@ import {Spacings} from '../theme/spacings';
 import Image from 'next/image';
 import {Colors} from '../theme/colors';
 import {Devices} from '../theme/breakpoints';
-import React from 'react';
+import React, {useState} from 'react';
 import Label from './Label';
 import Icon from './Icon';
 import Divider from './Divider';
@@ -12,6 +12,8 @@ import Divider from './Divider';
 export interface BookCardProps {
   book: Book;
 }
+
+type BookStatus = 'rent' | 'claimed' | 'available';
 
 const Container = styled.div`
   margin-bottom: ${Spacings.S2};
@@ -46,19 +48,24 @@ const Title = styled.h2`
 const FlexContainer = styled.div`
   display: flex;
   gap: ${Spacings.S2};
+  justify-content: center;
+  align-items: center;
 
   @media (${Devices.TABLET}) {
     gap: ${Spacings.S3};
+    flex-direction: row-reverse;
   }
 `
 
-const CoverContainer = styled.div`
+const CoverContainer = styled.div<{height: number, width: number}>`
   width: 25%;
+  height: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+  aspect-ratio: ${({height, width}) => width / height} !important;
 
   &:hover {
     cursor: pointer;
@@ -108,6 +115,7 @@ const Author = styled.p`
 `
 
 const ActionsContainer = styled.div`
+  margin-top: ${Spacings.S1};
   display: flex;
   gap: ${Spacings.S2};
 `
@@ -139,28 +147,59 @@ const ButtonLabel = styled.p`
   margin-top: -1px;
 `
 
+const StatusContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${Spacings.S1};
+  margin-top: ${Spacings.S1};
+`
+
+const StatusIcon = styled.div<{status: BookStatus}>`
+  height: 10px;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  margin-top: 3px;
+  background-color: ${({status}) => status === 'available' ? 'green' : (status === 'claimed' ? 'orange' : 'red')};
+`
+
+const StatusLabel = styled.p`
+  ${typos.OVERLINE1};
+  font-size: 15px;
+`
+
 const BookCard = ({book}: BookCardProps) => {
+  const [displayedBook] = useState<Book & {status: BookStatus, claims: number}>({
+    ...book,
+    status: book.loans?.some(b => b.status === 'ongoing') ? 'rent' : ((book.loans?.some(b => b.status === 'demand')) ? 'claimed' : 'available'),
+    claims: book.loans ? book.loans.filter(b => b.status === 'demand')?.length : 0,
+  })
 
   return (
     <Container>
       <FlexContainer>
-        <CoverContainer>
-          <Image src={book.cover!.url} height={book.cover!.height} width={book.cover!.width} alt={book.cover!.alternativeText}/>
-        </CoverContainer>
         <InfoContainer>
-          <Title>{book.name}</Title>
+          <Title>{displayedBook.name}</Title>
           <Authors>
-            {book.authors!.map(author => (
-              <Author key={`book-${book.id}-author-${author.id}`}>{author.name}</Author>
+            {displayedBook.authors!.map(author => (
+              <Author key={`book-${displayedBook.id}-author-${author.id}`}>{author.name}</Author>
             ))}
           </Authors>
-          {(book.year || book.editor) && <Infos>{[book.year, book.editor].join(' - ')}</Infos>}
+          {(displayedBook.year || displayedBook.editor) && <Infos>{[displayedBook.year, displayedBook.editor].join(' - ')}</Infos>}
           <Labels>
-            {book.themes && book.themes.map(theme => (
-              <Label key={`book-${book.id}-cat-${theme.id}`} label={theme.name}/>
+            {displayedBook.themes && displayedBook.themes.map(theme => (
+              <Label key={`book-${displayedBook.id}-cat-${theme.id}`} label={theme.name}/>
             ))}
           </Labels>
-          <Divider marginY={Spacings.S2}/>
+          <Divider marginY={Spacings.S2} displayHide={{mobile: true, tablet: true}}/>
+          <StatusContainer>
+            <StatusIcon status={displayedBook.status}/>
+            <StatusLabel>
+              {displayedBook.status === 'rent' && 'Prêté'}
+              {(displayedBook.status === 'rent' && displayedBook.claims > 0) && ' - '}
+              {displayedBook.claims > 0 && `Déjà ${displayedBook.claims} demande(s)`}
+              {displayedBook.status === 'available' && 'Disponible'}
+            </StatusLabel>
+          </StatusContainer>
           <ActionsContainer>
             <LoanButton>
               <Icon icon={'book'} scale={0.3}/>
@@ -168,6 +207,9 @@ const BookCard = ({book}: BookCardProps) => {
             </LoanButton>
           </ActionsContainer>
         </InfoContainer>
+        <CoverContainer height={displayedBook.cover!.height} width={displayedBook.cover!.width}>
+          <Image src={displayedBook.cover!.url} height={displayedBook.cover!.height} width={displayedBook.cover!.width} alt={displayedBook.cover!.alternativeText}/>
+        </CoverContainer>
       </FlexContainer>
     </Container>
   )
