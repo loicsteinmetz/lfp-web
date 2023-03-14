@@ -61,6 +61,7 @@ const TitleWrapper = styled.div`
   margin-bottom: 30px;
   display: flex;
   justify-content: center;
+  max-width: 1000px;
 
   @media (${Devices.TABLET}) {
     margin-bottom: 50px;
