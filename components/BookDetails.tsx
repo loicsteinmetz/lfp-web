@@ -11,6 +11,7 @@ import Divider from './Divider';
 
 export interface BookDetailsProps {
   book: Book;
+  onDemand: () => void;
 }
 
 type BookStatus = 'rent' | 'claimed' | 'available';
@@ -79,7 +80,6 @@ const InfoContainer = styled.div`
 
   @media (${Devices.TABLET}) {
     gap: ${Spacings.S1};
-    width: 80%;
   }
 `
 
@@ -110,7 +110,7 @@ const Author = styled.p`
 `
 
 const ActionsContainer = styled.div`
-  margin-top: ${Spacings.S1};
+  margin: ${Spacings.S1} 0;
   display: flex;
   gap: ${Spacings.S2};
 `
@@ -166,7 +166,7 @@ const Abstract = styled.p`
   ${typos.BODY1};
 `
 
-const BookDetails = ({book}: BookDetailsProps) => {
+const BookDetails = ({book, onDemand}: BookDetailsProps) => {
   const [displayedBook] = useState<Book & {status: BookStatus, claims: number}>({
     ...book,
     status: book.loans?.some(b => b.status === 'ongoing') ? 'rent' : ((book.loans?.some(b => b.status === 'demand')) ? 'claimed' : 'available'),
@@ -200,7 +200,7 @@ const BookDetails = ({book}: BookDetailsProps) => {
             </StatusLabel>
           </StatusContainer>
           <ActionsContainer>
-            <LoanButton>
+            <LoanButton onClick={onDemand}>
               <Icon icon={'book'} scale={0.3}/>
               <ButtonLabel>Demander le livre</ButtonLabel>
             </LoanButton>

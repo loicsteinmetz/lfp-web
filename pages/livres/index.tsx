@@ -2,13 +2,14 @@ import {GetServerSideProps, NextPage} from 'next';
 import {getBooks} from '../../data/books.data';
 import {provideData} from '../../utils/requests';
 import {s} from '../../utils/serializer';
-import Layout from '../../components/Layout';
 import BooksLayout from '../../components/BooksLayout';
 import BookCard from '../../components/BookCard';
 import styled from 'styled-components';
 import typos from '../../theme/typos';
 import {Spacings} from '../../theme/spacings';
 import Divider from '../../components/Divider';
+import {useEffect, useState} from 'react';
+import {Colors} from '../../theme/colors';
 
 export interface BaseProps {
   general: General;
@@ -36,9 +37,58 @@ const Explanation = styled.p`
   font-style: italic;
 `
 
+const Confirmation = styled.p<{visible: boolean}>`
+  border: 1px solid ${Colors.GREEN['500']};
+  background-color: ${Colors.GREEN['200']};
+  color: ${Colors.GREEN['500']};
+  padding: ${Spacings.S2};
+  font-weight: bold;
+  border-radius: 5px;
+  display: ${({visible}) => visible ? 'block' : 'none'};
+  cursor: pointer;
+  position: fixed;
+  bottom: ${Spacings.S2};
+  min-width: 200px;
+  z-index: 999999;
+  left: ${Spacings.S2};
+`
+
+const Error = styled.p<{visible: boolean}>`
+  border: 1px solid ${Colors.PRIMARY['500']};
+  background-color: ${Colors.PRIMARY['50']};
+  color: ${Colors.PRIMARY['500']};
+  padding: ${Spacings.S2};
+  font-weight: bold;
+  border-radius: 5px;
+  display: ${({visible}) => visible ? 'block' : 'none'};
+  cursor: pointer;
+  position: fixed;
+  bottom: ${Spacings.S2};
+  min-width: 200px;
+  z-index: 999999;
+  left: ${Spacings.S2};
+`
+
 const HomePage: NextPage<BooksPageProps> = ({url, general, books}) => {
+  const [isConfirmationVisible, setConfirmationVisible] = useState(false);
+  const [isErrorVisible, setErrorVisible] = useState(false);
+
+  useEffect(() => {
+    if (isConfirmationVisible) {
+      setTimeout(() => setConfirmationVisible(false), 5000);
+    }
+  }, [isConfirmationVisible]);
+
+  useEffect(() => {
+    if (isErrorVisible) {
+      setTimeout(() => setErrorVisible(false), 5000);
+    }
+  }, [isErrorVisible]);
+
   return (
     <BooksLayout url={url} general={general}>
+      <Confirmation visible={isConfirmationVisible} onClick={() => setConfirmationVisible(false)}>Demande envoyée !</Confirmation>
+      <Error visible={isErrorVisible} onClick={() => setErrorVisible(false)}>Échec de la demande...</Error>
       <Title>Les livres de La Fabrique</Title>
       <Divider displayHide={{mobile: true}}/>
       <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
@@ -54,7 +104,7 @@ const HomePage: NextPage<BooksPageProps> = ({url, general, books}) => {
       <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
       {books.map((b, i) => (
         // <p style={{marginBottom: '10px'}} key={i}>{JSON.stringify(b)}</p>
-        <BookCard book={b} key={`book-${i}`}/>
+        <BookCard book={b} key={`book-${i}`} onDemandResult={(success) => success ? setConfirmationVisible(true) : setErrorVisible(true)}/>
       ))}
     </BooksLayout>
   )

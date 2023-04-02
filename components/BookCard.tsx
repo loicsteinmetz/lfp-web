@@ -4,15 +4,18 @@ import {Spacings} from '../theme/spacings';
 import Image from 'next/image';
 import {Colors} from '../theme/colors';
 import {Devices} from '../theme/breakpoints';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Label from './Label';
 import Icon from './Icon';
 import Divider from './Divider';
 import Popup from './Popup';
 import BookDetails from './BookDetails';
+import BookDemandForm from './BookDemandForm';
+import {getBook} from '../data/books.data';
 
 export interface BookCardProps {
   book: Book;
+  onDemandResult: (success: boolean) => void;
 }
 
 type BookStatus = 'rent' | 'claimed' | 'available';
@@ -169,14 +172,40 @@ const StatusLabel = styled.p`
   font-size: 15px;
 `
 
-const BookCard = ({book}: BookCardProps) => {
-  const [displayedBook] = useState<Book & {status: BookStatus, claims: number}>({
+const BookCard = ({book, onDemandResult}: BookCardProps) => {
+  const [displayedBook, setDisplayedBook] = useState<Book & {status: BookStatus, claims: number}>({
     ...book,
     status: book.loans?.some(b => b.status === 'ongoing') ? 'rent' : ((book.loans?.some(b => b.status === 'demand')) ? 'claimed' : 'available'),
     claims: book.loans ? book.loans.filter(b => b.status === 'demand')?.length : 0,
-  })
+  });
+
+  const [popup, setPopup] = useState<'details' | 'rentForm'>('details');
 
   const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const onQuitPopup = useCallback(() => {
+    setPopupVisible(false);
+    setPopup('details');
+  }, [setPopup]);
+
+  const onDemand = useCallback(() => {
+    setPopup('rentForm');
+    setPopupVisible(true);
+  }, [setPopup, setPopupVisible]);
+
+  const onDemandConfirmed = useCallback((success: boolean) => {
+    setPopupVisible(false);
+    onDemandResult(success);
+    setPopup('details');
+    getBook(displayedBook.id, '*')
+      .then((book) => {
+        setDisplayedBook({
+          ...book,
+          status: book.loans?.some(b => b.status === 'ongoing') ? 'rent' : ((book.loans?.some(b => b.status === 'demand')) ? 'claimed' : 'available'),
+          claims: book.loans ? book.loans.filter(b => b.status === 'demand')?.length : 0,
+        });
+      })
+  }, [displayedBook, onDemandResult]);
 
   return (
     <Container>
@@ -205,7 +234,7 @@ const BookCard = ({book}: BookCardProps) => {
             </StatusLabel>
           </StatusContainer>
           <ActionsContainer>
-            <LoanButton>
+            <LoanButton onClick={onDemand}>
               <Icon icon={'book'} scale={0.3}/>
               <ButtonLabel>Demander le livre</ButtonLabel>
             </LoanButton>
@@ -215,8 +244,10 @@ const BookCard = ({book}: BookCardProps) => {
           <Image src={displayedBook.cover!.url} height={displayedBook.cover!.height} width={displayedBook.cover!.width} alt={displayedBook.cover!.alternativeText}/>
         </CoverContainer>
       </FlexContainer>
-      <Popup visible={isPopupVisible} onQuit={() => setPopupVisible(false)}>
-        <BookDetails book={book}/>
+      <Popup visible={isPopupVisible} onQuit={onQuitPopup}>
+        {popup === 'details'
+          ? <BookDetails book={book} onDemand={onDemand}/>
+          : <BookDemandForm book={book} onBack={() => setPopup('details')} onDemandResult={onDemandConfirmed}/>}
       </Popup>
     </Container>
   )

@@ -1,9 +1,7 @@
 import axios from 'axios';
-import {mapArticle} from './articles.data';
 import {envLFP} from '../utils/envLFP';
 import {mapLFPMedia, mapMetadata} from './_lfp.data';
 import {NotFoundError} from '../utils/requests';
-import {mapCategory} from './categories.data';
 import {mapBookTheme} from './book-themes.data';
 import {mapOwner} from './owners.data';
 import {mapBookAuthor} from './book-authors.data';
@@ -25,7 +23,19 @@ export const mapBook = (d: any): Book => ({
   authors: d.attributes.authors?.data.map(mapBookAuthor),
   loans: d.attributes.loans?.data.map(mapLoan),
   themes:  d.attributes.themes?.data.map(mapBookTheme),
-})
+});
+
+export const getBook = async (id: number, populate?: PopulatedBookOption): Promise<Book> => {
+  const book = (await axios.get(
+    `${BOOKS_ROOT}/${id}`,
+    {
+      params: {
+        populate
+      }
+    })).data.data;
+  if (!book) throw new NotFoundError();
+  return mapBook(book);
+}
 
 export const getBooks = async (populate?: PopulatedBookOption): Promise<WithMetadata<Book[]>> => {
   const result = (await axios.get(

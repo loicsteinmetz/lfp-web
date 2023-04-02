@@ -16,7 +16,6 @@ const MainContainer = styled.div<{visible: boolean}>`
   opacity: ${({visible}) => visible ? 1 : 0};
   pointer-events: ${({visible}) => visible ? 'all' : 'none'};
   position: fixed;
-  transition: opacity 300ms;
   top: 0;
   bottom: 0;
   left: 0;
@@ -48,6 +47,7 @@ const Container = styled.div<{visible: boolean}>`
   flex-direction: column;
   padding: ${Spacings.S2} ${Spacings.S1};
   overflow-y: scroll;
+  align-items: center;
 
   @media (${Devices.TABLET}) {
     width: ${({visible}) => visible ? '80%' : '0'};
@@ -57,7 +57,6 @@ const Container = styled.div<{visible: boolean}>`
 
   @media (${Devices.TABLET}) {
     width: ${({visible}) => visible ? '70%' : '0'};
-    height:  ${({visible}) => visible ? '70%' : '0'};
   }
 `
 
@@ -75,7 +74,7 @@ const QuitContainer = styled.div`
   }
   
   @media (${Devices.TABLET}) {
-    top: 18%;
+    top: 12%;
     right: calc(${Spacings.S2} + 15%);
   }
 `
