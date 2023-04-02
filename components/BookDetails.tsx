@@ -33,6 +33,7 @@ const Labels = styled.div`
 const Title = styled.h2`
   ${typos.OVERLINE1};
   font-size: 20px;
+  width: 80%;
 
   &:hover {
     color: ${Colors.PRIMARY['500']};

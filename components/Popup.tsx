@@ -14,15 +14,24 @@ export interface PopupProps {
 
 const MainContainer = styled.div<{visible: boolean}>`
   opacity: ${({visible}) => visible ? 1 : 0};
+  pointer-events: ${({visible}) => visible ? 'all' : 'none'};
+  position: fixed;
   transition: opacity 300ms;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const Background = styled.div<{visible: boolean}>`
-  position: fixed;
+  position: absolute;
   top: 0;
-  bottom: ${({visible}) => visible ? 0 : '100vh'};
-  left: 0;
+  bottom: 0;
+  left: ${({visible}) => visible ? 0 : '150vw'};
   right: 0;
   background-color: ${Colors.GREY['200']};
   opacity: 0.5;
@@ -30,11 +39,8 @@ const Background = styled.div<{visible: boolean}>`
 `
 
 const Container = styled.div<{visible: boolean}>`
-  position: fixed;
-  top: ${({visible}) => visible ? '50px' : '-100vh'};
-  bottom:  ${({visible}) => visible ? '50px' : 'inherit'};
-  left: 5%;
-  right: 5%;
+  width: ${({visible}) => visible ? '90%' : '0'};
+  height:  ${({visible}) => visible ? '90%' : '0'};
   background-color: ${Colors.GREY['0']};
   border-radius: 5px;
   z-index: 999;
@@ -44,32 +50,32 @@ const Container = styled.div<{visible: boolean}>`
   overflow-y: scroll;
 
   @media (${Devices.TABLET}) {
-    top: ${({visible}) => visible ? '120px' : '-100vh'};
-    bottom:  ${({visible}) => visible ? '120px' : 'inherit'};
-    left: 10%;
-    right: 10%;
-    padding: ${Spacings.S2};
+    width: ${({visible}) => visible ? '80%' : '0'};
+    height:  ${({visible}) => visible ? '80%' : '0'};
+    padding: ${Spacings.S1} ${Spacings.S2};
   }
 
-  @media (${Devices.DESKTOP}) {
-    left: 15%;
-    right: 15%;
+  @media (${Devices.TABLET}) {
+    width: ${({visible}) => visible ? '70%' : '0'};
+    height:  ${({visible}) => visible ? '70%' : '0'};
   }
 `
 
 const QuitContainer = styled.div`
   position: fixed;
+  top: 5.5%;
   right: calc(${Spacings.S1} + 5%);
+  border: 1px solid ${Colors.GREY['200']};
+  border-radius: 5px;
+  background-color: ${Colors.GREY['0']};
   
   &:hover {
     cursor: pointer;
+    border: 1px solid ${Colors.PRIMARY['500']};
   }
   
   @media (${Devices.TABLET}) {
-    right: calc(${Spacings.S2} + 10%);
-  }
-
-  @media (${Devices.DESKTOP}) {
+    top: 18%;
     right: calc(${Spacings.S2} + 15%);
   }
 `
@@ -94,7 +100,7 @@ const Popup = ({visible, onQuit, children}: PopupProps) => {
       <Container visible={visible}>
         <Content>
           <QuitContainer onClick={onQuit}>
-            <Icon icon={'quit'}/>
+            <Icon icon={'quit'} scale={0.6}/>
           </QuitContainer>
           {children}
         </Content>
