@@ -7,6 +7,7 @@ import React, {useCallback, useState} from 'react';
 import Label from './Label';
 import Divider from './Divider';
 import Icon from './Icon';
+import {createLoanDemand} from '../data/loans.data';
 
 export interface BookDemandFormProps {
   book: Book;
@@ -158,6 +159,7 @@ const ContactConfirmationSelect = styled.div<{selected: boolean, error: boolean}
   border: 1px solid ${({error}) => error ? Colors.PRIMARY['500'] : Colors.GREY['300']};
   border-radius: 3px;
   transition: border 300ms;
+  position: relative;
   
   &:hover {
     cursor: pointer;
@@ -236,13 +238,19 @@ const BookDemandForm = ({book, onBack, onDemandResult}: BookDemandFormProps) => 
     if (!isContactConfirmationSelected) setConfirmationError(true);
     if (name && tel && isContactConfirmationSelected) {
       setLoading(true);
-      // TODO : requête POST
-      setTimeout(() => {
+      createLoanDemand({
+        name,
+        contact: tel,
+        bookId: displayedBook.id,
+      }).then(() => {
         setLoading(false);
         onDemandResult(true);
-      }, 2000);
+      }).catch((e) => {
+        console.log(e);
+        onDemandResult(false);
+      });
     }
-  }, [isContactConfirmationSelected, name, onDemandResult, tel]);
+  }, [displayedBook, isContactConfirmationSelected, name, onDemandResult, tel]);
 
   return (
     <Container>

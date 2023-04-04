@@ -1,10 +1,5 @@
 import axios from 'axios';
-import {mapArticle} from './articles.data';
 import {envLFP} from '../utils/envLFP';
-import {mapLFPMedia, mapMetadata} from './_lfp.data';
-import {NotFoundError} from '../utils/requests';
-import {mapCategory} from './categories.data';
-import {mapBookTheme} from './book-themes.data';
 import {mapBook} from './books.data';
 import {mapOwner} from './owners.data';
 
@@ -14,7 +9,7 @@ export const mapLoan = (d: any): Loan => ({
   id: d.id,
   createdAt: new Date(d.attributes.createdAt),
   updatedAt: new Date(d.attributes.updatedAt),
-  owner:  d.attributes.owner ? mapOwner(d.attributes.owner) : undefined,
+  owner: d.attributes.owner ? mapOwner(d.attributes.owner) : undefined,
   name: d.attributes.string,
   book: d.attributes.book ? mapBook(d.attributes.book) : undefined,
   contact_tel: d.attributes.contact_tel,
@@ -23,3 +18,20 @@ export const mapLoan = (d: any): Loan => ({
   loan_date: new Date(d.attributes.loan_date),
   estimated_return_date: new Date(d.attributes.estimated_return_date)
 });
+export const createLoanDemand = async (data: {
+  bookId: number,
+  contact: string,
+  name: string,
+}): Promise<Loan> => {
+  const result = (await axios.post(
+    LOANS_ROOT,
+    {
+      data: {
+        book: data.bookId,
+        status: 'demand',
+        contact_name: data.name,
+        contact_tel: data.contact,
+      }
+    })).data;
+  return mapLoan(result.data);
+}
