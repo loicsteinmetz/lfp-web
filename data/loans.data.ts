@@ -22,6 +22,7 @@ export const createLoanDemand = async (data: {
   bookId: number,
   contact: string,
   name: string,
+  recaptcha: string,
 }): Promise<Loan> => {
   const result = (await axios.post(
     LOANS_ROOT,
@@ -31,6 +32,7 @@ export const createLoanDemand = async (data: {
         status: 'demand',
         contact_name: data.name,
         contact_tel: data.contact,
+        recaptcha: data.recaptcha,
       }
     })).data;
   return mapLoan(result.data);

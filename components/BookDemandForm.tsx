@@ -8,6 +8,7 @@ import Label from './Label';
 import Divider from './Divider';
 import Icon from './Icon';
 import {createLoanDemand} from '../data/loans.data';
+import {ReCaptcha} from 'next-recaptcha-v3';
 
 export interface BookDemandFormProps {
   book: Book;
@@ -229,6 +230,8 @@ const BookDemandForm = ({book, onBack, onDemandResult}: BookDemandFormProps) => 
   const [telError, setTelError] = useState(false);
   const [confirmationError, setConfirmationError] = useState(false);
 
+  const [recaptcha, setRecaptcha] = useState<string>();
+
   const onDemand = useCallback(() => {
     setNameError(false);
     setTelError(false);
@@ -236,9 +239,10 @@ const BookDemandForm = ({book, onBack, onDemandResult}: BookDemandFormProps) => 
     if (!name) setNameError(true);
     if (!tel) setTelError(true);
     if (!isContactConfirmationSelected) setConfirmationError(true);
-    if (name && tel && isContactConfirmationSelected) {
+    if (name && tel && isContactConfirmationSelected && recaptcha) {
       setLoading(true);
       createLoanDemand({
+        recaptcha,
         name,
         contact: tel,
         bookId: displayedBook.id,
@@ -250,7 +254,7 @@ const BookDemandForm = ({book, onBack, onDemandResult}: BookDemandFormProps) => 
         onDemandResult(false);
       });
     }
-  }, [displayedBook, isContactConfirmationSelected, name, onDemandResult, tel]);
+  }, [displayedBook.id, isContactConfirmationSelected, name, onDemandResult, recaptcha, tel]);
 
   return (
     <Container>
@@ -312,6 +316,7 @@ const BookDemandForm = ({book, onBack, onDemandResult}: BookDemandFormProps) => 
             <ContactConfirmationSelect selected={isContactConfirmationSelected} error={confirmationError}/>
             <ContactConfirmationLabel error={confirmationError}>J&apos;accepte de transmettre mes coordonnées à La Fabrique Populaire *</ContactConfirmationLabel>
           </ContactConfirmationContainer>
+          <ReCaptcha onValidate={setRecaptcha} action={'page_view'}/>
           <LoanButton onClick={onDemand} loading={loading}>Envoyer la demande</LoanButton>
         </DemandForm>
       </FlexContainer>

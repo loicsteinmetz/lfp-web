@@ -9145,6 +9145,11 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
+next-recaptcha-v3@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/next-recaptcha-v3/-/next-recaptcha-v3-1.1.5.tgz#005b962ad8d919c3d6658bb046e75f1f8790bb97"
+  integrity sha512-CkhhGf4bSmy7/rnqOW9Wv55iO2tvZoOHvniDhVhX9hlBUmLTpEnQgnkc85ct9PyoBse6elQHUhzjg/c4z0yJbw==
+
 next@12.2.5:
   version "12.2.5"
   resolved "https://registry.yarnpkg.com/next/-/next-12.2.5.tgz#14fb5975e8841fad09553b8ef41fe1393602b717"
