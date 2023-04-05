@@ -3,8 +3,6 @@ import '../styles/fonts.css'
 import type {AppProps} from 'next/app'
 import {Analytics} from '@vercel/analytics/react';
 import React from 'react';
-import {ReCaptchaProvider} from 'next-recaptcha-v3';
-import {envLFP} from '../utils/envLFP';
 
 declare global {
   interface String {
@@ -18,10 +16,10 @@ String.prototype.replaceJSX = function(this: string, find, replace) {
 
 function MyApp({Component, pageProps}: AppProps) {
   return (
-    <ReCaptchaProvider reCaptchaKey={envLFP.RECAPTCHA_SITE_KEY}>
+    <>
       <Component {...pageProps} />
       <Analytics/>
-    </ReCaptchaProvider>
+    </>
   )
 }
 

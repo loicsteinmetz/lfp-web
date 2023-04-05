@@ -10,6 +10,8 @@ import {Spacings} from '../../theme/spacings';
 import Divider from '../../components/Divider';
 import {useEffect, useState} from 'react';
 import {Colors} from '../../theme/colors';
+import {ReCaptchaProvider} from 'next-recaptcha-v3';
+import {envLFP} from '../../utils/envLFP';
 
 export interface BaseProps {
   general: General;
@@ -69,7 +71,7 @@ const Error = styled.p<{visible: boolean}>`
   left: ${Spacings.S2};
 `
 
-const HomePage: NextPage<BooksPageProps> = ({url, general, books}) => {
+const BooksPage: NextPage<BooksPageProps> = ({url, general, books}) => {
   const [isConfirmationVisible, setConfirmationVisible] = useState(false);
   const [isErrorVisible, setErrorVisible] = useState(false);
 
@@ -86,27 +88,28 @@ const HomePage: NextPage<BooksPageProps> = ({url, general, books}) => {
   }, [isErrorVisible]);
 
   return (
-    <BooksLayout url={url} general={general}>
-      <Confirmation visible={isConfirmationVisible} onClick={() => setConfirmationVisible(false)}>Demande envoyée !</Confirmation>
-      <Error visible={isErrorVisible} onClick={() => setErrorVisible(false)}>Échec de la demande...</Error>
-      <Title>Les livres de La Fabrique</Title>
-      <Divider displayHide={{mobile: true}}/>
-      <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
-      <ExplanationTitle>Comment ça marche ?</ExplanationTitle>
-      <Explanation>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </Explanation>
-      <Divider displayHide={{mobile: true}}/>
-      <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
-      {books.map((b, i) => (
-        // <p style={{marginBottom: '10px'}} key={i}>{JSON.stringify(b)}</p>
-        <BookCard book={b} key={`book-${i}`} onDemandResult={(success) => success ? setConfirmationVisible(true) : setErrorVisible(true)}/>
-      ))}
-    </BooksLayout>
+    <ReCaptchaProvider reCaptchaKey={envLFP.RECAPTCHA_SITE_KEY}>
+      <BooksLayout url={url} general={general}>
+        <Confirmation visible={isConfirmationVisible} onClick={() => setConfirmationVisible(false)}>Demande envoyée !</Confirmation>
+        <Error visible={isErrorVisible} onClick={() => setErrorVisible(false)}>Échec de la demande...</Error>
+        <Title>Les livres de La Fabrique</Title>
+        <Divider displayHide={{mobile: true}}/>
+        <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
+        <ExplanationTitle>Comment ça marche ?</ExplanationTitle>
+        <Explanation>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+          laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+          voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+          non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </Explanation>
+        <Divider displayHide={{mobile: true}}/>
+        <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
+        {books.map((b, i) => (
+          <BookCard book={b} key={`book-${i}`} onDemandResult={(success) => success ? setConfirmationVisible(true) : setErrorVisible(true)}/>
+        ))}
+      </BooksLayout>
+    </ReCaptchaProvider>
   )
 }
 
@@ -121,4 +124,4 @@ export const getServerSideProps: GetServerSideProps<BooksPageProps, { page: stri
   );
 }
 
-export default HomePage;
+export default BooksPage;
