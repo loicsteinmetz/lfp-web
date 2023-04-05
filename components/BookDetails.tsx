@@ -184,11 +184,13 @@ const BookDetails = ({book, onDemand}: BookDetailsProps) => {
             ))}
           </Authors>
           {(displayedBook.year || displayedBook.editor) && <Infos>{[displayedBook.year, displayedBook.editor].join(' - ')}</Infos>}
-          <Labels>
-            {displayedBook.themes && displayedBook.themes.map(theme => (
-              <Label key={`book-${displayedBook.id}-cat-${theme.id}`} label={theme.name}/>
-            ))}
-          </Labels>
+          {(displayedBook.themes && displayedBook.themes.length > 0) && (
+              <Labels>
+              {displayedBook.themes && displayedBook.themes.map(theme => (
+                <Label key={`book-${displayedBook.id}-cat-${theme.id}`} label={theme.name}/>
+              ))}
+            </Labels>
+          )}
           <Divider marginY={Spacings.S2} displayHide={{mobile: true, tablet: true}}/>
           <StatusContainer>
             <StatusIcon status={displayedBook.status}/>

@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import typos from '../../theme/typos';
 import {Spacings} from '../../theme/spacings';
 import Divider from '../../components/Divider';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Colors} from '../../theme/colors';
 import {ReCaptchaProvider} from 'next-recaptcha-v3';
 import {envLFP} from '../../utils/envLFP';
@@ -40,7 +40,7 @@ const ExplanationTitle = styled.p`
 
 const Explanation = styled.p`
   ${typos.BODY1};
-  margin-top: ${Spacings.S1};
+  margin-top: ${Spacings.S2};
   font-size: 14px;
   line-height: 16px;
   font-style: italic;
@@ -108,7 +108,7 @@ const BooksPage: NextPage<BooksPageProps> = ({url, general, books, totalPages, c
           <>
             <ExplanationTitle>Comment ça marche ?</ExplanationTitle>
             <Explanation>
-              {general.books_how_to}
+              {general.books_how_to.replaceJSX('\n', <br/>)}
             </Explanation>
             <Divider displayHide={{mobile: true}}/>
             <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
