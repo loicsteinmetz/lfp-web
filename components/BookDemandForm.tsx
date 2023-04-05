@@ -138,6 +138,10 @@ const FormInput = styled.input<{error: boolean}>`
   padding: 5px 8px;
   letter-spacing: 1px;
   transition: border 300ms;
+  
+  &:first-of-type {
+    letter-spacing: initial;
+  }
 `
 
 const DemandLabel = styled.label<{error: boolean}>`
