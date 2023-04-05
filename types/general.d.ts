@@ -10,6 +10,7 @@ type General = {
   publishedAt: Date,
   maintenance: boolean,
   description: string,
+  books_how_to?: string,
 
   // Populated >>>
   banner?: LFPMedia,

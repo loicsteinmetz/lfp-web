@@ -15,6 +15,7 @@ export const mapGeneral = (d: any): General => ({
   createdAt: d.attributes.createdAt,
   updatedAt: d.attributes.updatedAt,
   publishedAt: d.attributes.publishedAt,
+  books_how_to: d.attributes.books_how_to,
   banner: d.attributes.banner ? mapLFPMedia(d.attributes.banner) : undefined,
   logo: d.attributes.logo ? mapLFPMedia(d.attributes.logo) : undefined,
   logoLg: d.attributes.logo ? mapLFPMedia(d.attributes.logo_lg) : undefined,

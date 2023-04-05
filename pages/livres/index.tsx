@@ -97,11 +97,7 @@ const BooksPage: NextPage<BooksPageProps> = ({url, general, books}) => {
         <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
         <ExplanationTitle>Comment ça marche ?</ExplanationTitle>
         <Explanation>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-          laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-          voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-          non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          {general.books_how_to}
         </Explanation>
         <Divider displayHide={{mobile: true}}/>
         <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
