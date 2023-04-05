@@ -4,7 +4,7 @@ import {Spacings} from '../theme/spacings';
 import Image from 'next/image';
 import {Colors} from '../theme/colors';
 import {Devices} from '../theme/breakpoints';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Label from './Label';
 import Icon from './Icon';
 import Divider from './Divider';
@@ -167,11 +167,19 @@ const Abstract = styled.p`
 `
 
 const BookDetails = ({book, onDemand}: BookDetailsProps) => {
-  const [displayedBook] = useState<Book & {status: BookStatus, claims: number}>({
+  const [displayedBook, setDisplayedBook] = useState<Book & {status: BookStatus, claims: number}>({
     ...book,
     status: book.loans?.some(b => b.status === 'ongoing') ? 'rent' : ((book.loans?.some(b => b.status === 'demand')) ? 'claimed' : 'available'),
     claims: book.loans ? book.loans.filter(b => b.status === 'demand')?.length : 0,
-  })
+  });
+
+  useEffect(() => {
+    setDisplayedBook({
+      ...book,
+      status: book.loans?.some(b => b.status === 'ongoing') ? 'rent' : ((book.loans?.some(b => b.status === 'demand')) ? 'claimed' : 'available'),
+      claims: book.loans ? book.loans.filter(b => b.status === 'demand')?.length : 0,
+    });
+  }, [book]);
 
   return (
     <Container>

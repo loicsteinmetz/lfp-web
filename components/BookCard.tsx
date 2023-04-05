@@ -12,6 +12,7 @@ import Popup from './Popup';
 import BookDetails from './BookDetails';
 import BookDemandForm from './BookDemandForm';
 import {getBook} from '../data/books.data';
+import {d} from '@pmmmwh/react-refresh-webpack-plugin/types/options';
 
 export interface BookCardProps {
   book: Book;
@@ -271,8 +272,8 @@ const BookCard = ({book, onDemandResult}: BookCardProps) => {
       </FlexContainer>
       <Popup visible={isPopupVisible} onQuit={onQuitPopup}>
         {popup === 'details'
-          ? <BookDetails book={book} onDemand={onDemand}/>
-          : <BookDemandForm book={book} onBack={() => setPopup('details')} onDemandResult={onDemandConfirmed}/>}
+          ? <BookDetails book={displayedBook} onDemand={onDemand}/>
+          : <BookDemandForm book={displayedBook} onBack={() => setPopup('details')} onDemandResult={onDemandConfirmed}/>}
       </Popup>
     </Container>
   )
