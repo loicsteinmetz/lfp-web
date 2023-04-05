@@ -50,6 +50,18 @@ const Title = styled.h2`
   }
 `
 
+// const NewLabel = styled.p`
+//   ${typos.OVERLINE1};
+//   font-size: 13px;
+//   line-height: 13px;
+//   background-color: ${Colors.GREEN['500']};
+//   color: ${Colors.GREY['0']};
+//   display: inline-block;
+//   width: fit-content;
+//   padding: 2px 6px 4px 6px;
+//   border-radius: 5px;
+// `
+
 const FlexContainer = styled.div`
   display: flex;
   gap: ${Spacings.S2};
@@ -157,13 +169,17 @@ const StatusContainer = styled.div`
   align-items: center;
   gap: ${Spacings.S1};
   margin-top: ${Spacings.S1};
+
+  @media (${Devices.DESKTOP}) {
+    margin-top: 0;
+  }
 `
 
 const StatusIcon = styled.div<{status: BookStatus}>`
   height: 10px;
   aspect-ratio: 1;
   border-radius: 100%;
-  margin-top: 3px;
+  margin-top: 2px;
   background-color: ${({status}) => status === 'available' ? 'green' : (status === 'claimed' ? 'orange' : 'red')};
 `
 
@@ -211,13 +227,20 @@ const BookCard = ({book, onDemandResult}: BookCardProps) => {
     <Container>
       <FlexContainer>
         <InfoContainer>
-          <Title onClick={() => setPopupVisible(true)}>{displayedBook.name}</Title>
+          {/*{new Date(displayedBook.publishedAt).getTime() > new Date().getTime() - 15 * 24 * 60 * 60 * 1000 && <NewLabel>NOUVEAU</NewLabel>}*/}
+          <Title onClick={() => setPopupVisible(true)}>
+            {displayedBook.name}
+          </Title>
           <Authors>
             {displayedBook.authors!.map(author => (
               <Author key={`book-${displayedBook.id}-author-${author.id}`}>{author.name}</Author>
             ))}
           </Authors>
-          {(displayedBook.year || displayedBook.editor) && <Infos>{[displayedBook.year, displayedBook.editor].join(' - ')}</Infos>}
+          {(displayedBook.year || displayedBook.editor) && (
+            <Infos>
+              {[displayedBook.year, displayedBook.editor].filter(i => !!i).join(' - ')}
+            </Infos>
+          )}
           <Labels>
             {displayedBook.themes && displayedBook.themes.map(theme => (
               <Label key={`book-${displayedBook.id}-cat-${theme.id}`} label={theme.name}/>

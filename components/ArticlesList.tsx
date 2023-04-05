@@ -4,6 +4,7 @@ import Pagination, {PaginatedPageProps} from './Pagination';
 import {useEffect, useState} from 'react';
 import ArticleCardFront from './ArticleCardFront';
 import LibraryBanner from './LibraryBanner';
+import useRootUrl from '../utils/rootUrl';
 
 export interface ArticlesListProps extends PaginatedPageProps {
   articles: Article[];
@@ -14,11 +15,7 @@ const Container = styled.div`
 `
 
 const ArticlesList = ({articles, frontPageDisplay, currentPage, totalPages}: ArticlesListProps) => {
-  const [rootUrl, setRootUrl] = useState('');
-
-  useEffect(() => {
-    setRootUrl(window.location.pathname);
-  }, [])
+  const rootUrl = useRootUrl();
 
   return (
     <Container>

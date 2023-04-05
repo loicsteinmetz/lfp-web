@@ -3,6 +3,7 @@ type Book = {
   name: string,
   createdAt: Date,
   updatedAt: Date,
+  publishedAt: Date,
   slug: string;
   editor?: string;
   abstract?: string;

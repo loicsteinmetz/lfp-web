@@ -12,13 +12,20 @@ import {useEffect, useState} from 'react';
 import {Colors} from '../../theme/colors';
 import {ReCaptchaProvider} from 'next-recaptcha-v3';
 import {envLFP} from '../../utils/envLFP';
+import Pagination from '../../components/Pagination';
+import useRootUrl from '../../utils/rootUrl';
 
-export interface BaseProps {
+export interface Books_BaseProps {
   general: General;
   url: string;
 }
 
-interface BooksPageProps extends BaseProps {
+export interface Books_PaginatedProps extends Books_BaseProps {
+  totalPages: number;
+  currentPage: number;
+}
+
+interface BooksPageProps extends Books_PaginatedProps {
   books: Book[];
 }
 
@@ -71,9 +78,11 @@ const Error = styled.p<{visible: boolean}>`
   left: ${Spacings.S2};
 `
 
-const BooksPage: NextPage<BooksPageProps> = ({url, general, books}) => {
+const BooksPage: NextPage<BooksPageProps> = ({url, general, books, totalPages, currentPage}) => {
   const [isConfirmationVisible, setConfirmationVisible] = useState(false);
   const [isErrorVisible, setErrorVisible] = useState(false);
+
+  const rootUrl = useRootUrl();
 
   useEffect(() => {
     if (isConfirmationVisible) {
@@ -95,15 +104,20 @@ const BooksPage: NextPage<BooksPageProps> = ({url, general, books}) => {
         <Title>Les livres de La Fabrique</Title>
         <Divider displayHide={{mobile: true}}/>
         <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
-        <ExplanationTitle>Comment ça marche ?</ExplanationTitle>
-        <Explanation>
-          {general.books_how_to}
-        </Explanation>
-        <Divider displayHide={{mobile: true}}/>
-        <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
+        {currentPage === 1 && (
+          <>
+            <ExplanationTitle>Comment ça marche ?</ExplanationTitle>
+            <Explanation>
+              {general.books_how_to}
+            </Explanation>
+            <Divider displayHide={{mobile: true}}/>
+            <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
+          </>
+        )}
         {books.map((b, i) => (
           <BookCard book={b} key={`book-${i}`} onDemandResult={(success) => success ? setConfirmationVisible(true) : setErrorVisible(true)}/>
         ))}
+        <Pagination currentPage={currentPage} totalPages={totalPages} rootUrl={rootUrl}/>
       </BooksLayout>
     </ReCaptchaProvider>
   )
@@ -113,9 +127,11 @@ export const getServerSideProps: GetServerSideProps<BooksPageProps, { page: stri
   return await provideData(
     context,
     async () => {
-      const booksRes = await getBooks('*');
+      const booksRes = await getBooks(context.query?.page ?? '1', '*');
       const books = s(booksRes.data);
-      return {books};
+      const totalPages = booksRes.meta.pageCount;
+      const currentPage = booksRes.meta.page;
+      return {books, totalPages, currentPage};
     }
   );
 }

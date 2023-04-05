@@ -8,12 +8,14 @@ import {mapBookAuthor} from './book-authors.data';
 import {mapLoan} from './loans.data';
 
 const BOOKS_ROOT = envLFP.API_ROOT + '/books';
+const PAGE_SIZE = 10;
 
 export const mapBook = (d: any): Book => ({
   id: d.id,
   name: d.attributes.name,
   createdAt: new Date(d.attributes.createdAt),
   updatedAt: new Date(d.attributes.updatedAt),
+  publishedAt: new Date(d.attributes.publishedAt),
   slug: d.attributes.slug,
   abstract: d.attributes.abstract,
   editor: d.attributes.editor,
@@ -22,7 +24,7 @@ export const mapBook = (d: any): Book => ({
   owner: d.attributes.owner ? mapOwner(d.attributes.owner.data) : undefined,
   authors: d.attributes.authors?.data.map(mapBookAuthor),
   loans: d.attributes.loans?.data.map(mapLoan),
-  themes:  d.attributes.themes?.data.map(mapBookTheme),
+  themes: d.attributes.themes?.data.map(mapBookTheme),
 });
 
 export const getBook = async (id: number, populate?: PopulatedBookOption): Promise<Book> => {
@@ -37,12 +39,15 @@ export const getBook = async (id: number, populate?: PopulatedBookOption): Promi
   return mapBook(book);
 }
 
-export const getBooks = async (populate?: PopulatedBookOption): Promise<WithMetadata<Book[]>> => {
+export const getBooks = async (page: string | string[], populate?: PopulatedBookOption): Promise<WithMetadata<Book[]>> => {
   const result = (await axios.get(
     BOOKS_ROOT,
     {
       params: {
+        sort: 'publishedAt:desc',
         populate,
+        'pagination[page]': page,
+        'pagination[pageSize]': PAGE_SIZE,
       }
     })).data;
   return {

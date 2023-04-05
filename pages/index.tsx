@@ -13,10 +13,13 @@ export interface BaseProps {
   url: string;
 }
 
-interface HomePageProps extends BaseProps {
-  articles: Article[];
+export interface PaginatedProps extends BaseProps {
   totalPages: number;
   currentPage: number;
+}
+
+interface HomePageProps extends PaginatedProps {
+  articles: Article[];
 }
 
 const HomePage: NextPage<HomePageProps> = ({url, general, pages, categories, types, articles, currentPage, totalPages}) => {
