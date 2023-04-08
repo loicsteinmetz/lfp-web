@@ -115,7 +115,7 @@ const BooksPage: NextPage<BooksPageProps> = ({url, general, books, totalPages, c
           </>
         )}
         {books.map((b, i) => (
-          <BookCard book={b} key={`book-${i}`} onDemandResult={(success) => success ? setConfirmationVisible(true) : setErrorVisible(true)}/>
+          <BookCard book={b} key={`book-${b.slug}`} onDemandResult={(success) => success ? setConfirmationVisible(true) : setErrorVisible(true)}/>
         ))}
         <Pagination currentPage={currentPage} totalPages={totalPages} rootUrl={rootUrl}/>
       </BooksLayout>
