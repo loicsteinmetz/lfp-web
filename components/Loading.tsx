@@ -41,7 +41,7 @@ const Background = styled.div`
   z-index: 999999998;
   opacity: 0.4;
 
-  @media (${Devices.TABLET}) {
+  @media (min-width: 1260px) {
     display: none;
   }
 `
