@@ -30,11 +30,30 @@ const Anim = styled.div`
   animation: anim 1s linear infinite;
 `
 
+const Background = styled.div`
+  position: fixed;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  z-index: 999999998;
+  opacity: 0.4;
+
+  @media (${Devices.TABLET}) {
+    display: none;
+  }
+`
+
 const Loading: FC = ({}) => {
   return (
-    <Container>
-        <Anim></Anim>
-    </Container>
+    <>
+      <Background/>
+      <Container>
+          <Anim></Anim>
+      </Container>
+    </>
   )
 };
 
