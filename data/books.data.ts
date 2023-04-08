@@ -6,6 +6,7 @@ import {mapBookTheme} from './book-themes.data';
 import {mapOwner} from './owners.data';
 import {mapBookAuthor} from './book-authors.data';
 import {mapLoan} from './loans.data';
+import {mapArticle} from './articles.data';
 
 const BOOKS_ROOT = envLFP.API_ROOT + '/books';
 const PAGE_SIZE = 10;
@@ -35,6 +36,19 @@ export const getBook = async (id: number, populate?: PopulatedBookOption): Promi
         populate
       }
     })).data.data;
+  if (!book) throw new NotFoundError();
+  return mapBook(book);
+}
+
+export const getBookBySlug = async (slug: string, populate?: PopulatedBookOption): Promise<Book> => {
+  const book = (await axios.get(
+    BOOKS_ROOT,
+    {
+      params: {
+        'filters[slug][$eq]': slug,
+        populate
+      }
+    })).data.data[0];
   if (!book) throw new NotFoundError();
   return mapBook(book);
 }

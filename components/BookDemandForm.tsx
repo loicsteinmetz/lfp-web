@@ -12,11 +12,11 @@ import {useReCaptcha} from 'next-recaptcha-v3';
 
 export interface BookDemandFormProps {
   book: Book;
-  onBack: () => void;
+  onBack?: () => void;
   onDemandResult: (success: boolean) => void;
 }
 
-type BookStatus = 'rent' | 'claimed' | 'available';
+export type BookStatus = 'rent' | 'claimed' | 'available';
 
 const Container = styled.div`
   margin-bottom: ${Spacings.S2};
@@ -288,9 +288,11 @@ const BookDemandForm = ({book, onBack, onDemandResult}: BookDemandFormProps) => 
           </StatusContainer>
         <Divider marginY={Spacings.S2} />
         <DemandTitleContainer>
-          <BackIconContainer onClick={onBack}>
-            <Icon icon={'back'} scale={0.5}/>
-          </BackIconContainer>
+          {onBack && (
+            <BackIconContainer onClick={onBack}>
+              <Icon icon={'back'} scale={0.5}/>
+            </BackIconContainer>
+          )}
           <DemandTitle>Demander le livre</DemandTitle>
         </DemandTitleContainer>
         <DemandForm>

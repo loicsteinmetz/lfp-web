@@ -4,7 +4,7 @@ import {Spacings} from '../theme/spacings';
 import Image from 'next/image';
 import {Colors} from '../theme/colors';
 import {Devices} from '../theme/breakpoints';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Label from './Label';
 import Icon from './Icon';
 import Divider from './Divider';
@@ -19,7 +19,7 @@ type BookStatus = 'rent' | 'claimed' | 'available';
 const Container = styled.div`
   margin-bottom: ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
-  padding: ${Spacings.S1};
+  padding: ${Spacings.S2};
   border-radius: 5px;
 
   @media (${Devices.TABLET}) {
@@ -112,7 +112,8 @@ const Author = styled.p`
 const ActionsContainer = styled.div`
   margin: ${Spacings.S1} 0;
   display: flex;
-  gap: ${Spacings.S2};
+  flex-wrap: wrap;
+  gap: ${Spacings.S1};
 `
 
 const LoanButton = styled.div`
@@ -139,7 +140,7 @@ const LoanButton = styled.div`
 `
 
 const ButtonLabel = styled.p`
-  margin-top: -1px;
+  margin-top: -2px;
 `
 
 const StatusContainer = styled.div`
@@ -166,6 +167,38 @@ const Abstract = styled.p`
   ${typos.BODY1};
 `
 
+const ShareButton = styled.div<{clicked: boolean}>`
+  display: flex;
+  gap: ${Spacings.S1};
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: 5px;
+  background-color: transparent;
+  border: 1px solid ${({clicked}) => clicked ? Colors.GREEN['500'] : Colors.GREY['500']};
+  font-weight: bold;
+  ${typos.BODY1};
+  color: ${({clicked}) => clicked ? Colors.GREEN['500'] : Colors.GREY['500']};
+  font-size: 14px;
+  
+  svg {
+    margin-bottom: -1px;
+  }
+
+  svg *:nth-child(1) {
+    fill: ${Colors.GREY['500']};
+  }
+  
+  &:hover {
+    border: 1px solid ${({clicked}) => clicked ? Colors.GREEN['500'] : Colors.PRIMARY['500']};
+    color:  ${({clicked}) => clicked ? Colors.GREEN['500'] : Colors.PRIMARY['500']};
+    cursor: pointer;
+  }
+
+  &:hover svg *:nth-child(1) {
+    fill: ${Colors.PRIMARY['500']};
+  }
+`
+
 const BookDetails = ({book, onDemand}: BookDetailsProps) => {
   const [displayedBook, setDisplayedBook] = useState<Book & {status: BookStatus, claims: number}>({
     ...book,
@@ -180,6 +213,16 @@ const BookDetails = ({book, onDemand}: BookDetailsProps) => {
       claims: book.loans ? book.loans.filter(b => b.status === 'demand')?.length : 0,
     });
   }, [book]);
+
+  const [isSharedClicked, setShareClicked] = useState(false);
+  
+  const onShare = useCallback(() => {
+    if (!isSharedClicked) {
+      setShareClicked(true);
+      navigator.clipboard.writeText(`https://fabrique-populaire.fr/livres/${displayedBook.slug}`);
+      setTimeout(() => setShareClicked(false), 3000);
+    }
+  }, [displayedBook.slug, isSharedClicked])
 
   return (
     <Container>
@@ -214,6 +257,14 @@ const BookDetails = ({book, onDemand}: BookDetailsProps) => {
               <Icon icon={'book'} scale={0.3}/>
               <ButtonLabel>Demander le livre</ButtonLabel>
             </LoanButton>
+            <ShareButton onClick={onShare} clicked={isSharedClicked}>
+              {!isSharedClicked ? (
+                <>
+                  <Icon icon={'share'} scale={0.3}/>
+                  <ButtonLabel>Partager</ButtonLabel>
+                </>
+              ) : <ButtonLabel>Lien copié !</ButtonLabel>}
+            </ShareButton>
           </ActionsContainer>
         </InfoContainer>
         <Divider marginY={Spacings.S1}/>
