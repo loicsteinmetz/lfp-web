@@ -9,6 +9,7 @@ import Divider from './Divider';
 import Icon from './Icon';
 import {createLoanDemand} from '../data/loans.data';
 import {useReCaptcha} from 'next-recaptcha-v3';
+import Loading from './Loading';
 
 export interface BookDemandFormProps {
   book: Book;
@@ -262,71 +263,74 @@ const BookDemandForm = ({book, onBack, onDemandResult}: BookDemandFormProps) => 
   }, [displayedBook.id, isContactConfirmationSelected, name, onDemandResult, recaptcha, tel]);
 
   return (
-    <Container>
-      <FlexContainer>
-          <Title>{displayedBook.name}</Title>
-          <Authors>
-            {displayedBook.authors!.map(author => (
-              <Author key={`book-${displayedBook.id}-author-${author.id}`}>{author.name}</Author>
-            ))}
-          </Authors>
-          {(displayedBook.year || displayedBook.editor) && <Infos>{[displayedBook.year, displayedBook.editor].join(' - ')}</Infos>}
-          <Labels>
-            {displayedBook.themes && displayedBook.themes.map(theme => (
-              <Label key={`book-${displayedBook.id}-cat-${theme.id}`} label={theme.name}/>
-            ))}
-          </Labels>
-          <Divider marginY={Spacings.S2} displayHide={{mobile: true, tablet: true}}/>
-          <StatusContainer>
-            <StatusIcon status={displayedBook.status}/>
-            <StatusLabel>
-              {displayedBook.status === 'rent' && 'Prêté'}
-              {(displayedBook.status === 'rent' && displayedBook.claims > 0) && ' - '}
-              {displayedBook.claims > 0 && `Déjà ${displayedBook.claims} demande(s)`}
-              {displayedBook.status === 'available' && 'Disponible'}
-            </StatusLabel>
-          </StatusContainer>
-        <Divider marginY={Spacings.S2} />
-        <DemandTitleContainer>
-          {onBack && (
-            <BackIconContainer onClick={onBack}>
-              <Icon icon={'back'} scale={0.5}/>
-            </BackIconContainer>
-          )}
-          <DemandTitle>Demander le livre</DemandTitle>
-        </DemandTitleContainer>
-        <DemandForm>
-          <DemandLabel error={nameError}>Nom *</DemandLabel>
-          <FormInput
-            type='text'
-            value={name}
-            onChange={(v) => {
-              setName(v.target.value);
-              setNameError(false);
-            }}
-            error={nameError}
-          />
-          <DemandLabel error={telError}>Contact (téléphone) *</DemandLabel>
-          <FormInput
-            type='tel'
-            value={tel}
-            onChange={(v) => {
-              setTel(v.target.value);
-              setTelError(false);
-            }}
-            error={telError}
-          />
-          <ContactConfirmationContainer onClick={() => {
-            setContactConfirmationSelected(!isContactConfirmationSelected);
-            setConfirmationError(false);
-          }}>
-            <ContactConfirmationSelect selected={isContactConfirmationSelected} error={confirmationError}/>
-            <ContactConfirmationLabel error={confirmationError}>J&apos;accepte de transmettre mes coordonnées à La Fabrique Populaire *</ContactConfirmationLabel>
-          </ContactConfirmationContainer>
-          <LoanButton onClick={onDemand} loading={loading}>Envoyer la demande</LoanButton>
-        </DemandForm>
-      </FlexContainer>
-    </Container>
+    <>
+      {loading && <Loading/>}
+      <Container>
+        <FlexContainer>
+            <Title>{displayedBook.name}</Title>
+            <Authors>
+              {displayedBook.authors!.map(author => (
+                <Author key={`book-${displayedBook.id}-author-${author.id}`}>{author.name}</Author>
+              ))}
+            </Authors>
+            {(displayedBook.year || displayedBook.editor) && <Infos>{[displayedBook.year, displayedBook.editor].join(' - ')}</Infos>}
+            <Labels>
+              {displayedBook.themes && displayedBook.themes.map(theme => (
+                <Label key={`book-${displayedBook.id}-cat-${theme.id}`} label={theme.name}/>
+              ))}
+            </Labels>
+            <Divider marginY={Spacings.S2} displayHide={{mobile: true, tablet: true}}/>
+            <StatusContainer>
+              <StatusIcon status={displayedBook.status}/>
+              <StatusLabel>
+                {displayedBook.status === 'rent' && 'Prêté'}
+                {(displayedBook.status === 'rent' && displayedBook.claims > 0) && ' - '}
+                {displayedBook.claims > 0 && `Déjà ${displayedBook.claims} demande(s)`}
+                {displayedBook.status === 'available' && 'Disponible'}
+              </StatusLabel>
+            </StatusContainer>
+          <Divider marginY={Spacings.S2} />
+          <DemandTitleContainer>
+            {onBack && (
+              <BackIconContainer onClick={onBack}>
+                <Icon icon={'back'} scale={0.5}/>
+              </BackIconContainer>
+            )}
+            <DemandTitle>Demander le livre</DemandTitle>
+          </DemandTitleContainer>
+          <DemandForm>
+            <DemandLabel error={nameError}>Nom *</DemandLabel>
+            <FormInput
+              type='text'
+              value={name}
+              onChange={(v) => {
+                setName(v.target.value);
+                setNameError(false);
+              }}
+              error={nameError}
+            />
+            <DemandLabel error={telError}>Contact (téléphone) *</DemandLabel>
+            <FormInput
+              type='tel'
+              value={tel}
+              onChange={(v) => {
+                setTel(v.target.value);
+                setTelError(false);
+              }}
+              error={telError}
+            />
+            <ContactConfirmationContainer onClick={() => {
+              setContactConfirmationSelected(!isContactConfirmationSelected);
+              setConfirmationError(false);
+            }}>
+              <ContactConfirmationSelect selected={isContactConfirmationSelected} error={confirmationError}/>
+              <ContactConfirmationLabel error={confirmationError}>J&apos;accepte de transmettre mes coordonnées à La Fabrique Populaire *</ContactConfirmationLabel>
+            </ContactConfirmationContainer>
+            <LoanButton onClick={onDemand} loading={loading}>Envoyer la demande</LoanButton>
+          </DemandForm>
+        </FlexContainer>
+      </Container>
+    </>
   )
 }
 
