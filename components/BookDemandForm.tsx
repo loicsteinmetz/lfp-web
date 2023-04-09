@@ -22,7 +22,7 @@ export type BookStatus = 'rent' | 'claimed' | 'available';
 const Container = styled.div`
   margin-bottom: ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
-  padding: ${Spacings.S1};
+  padding: ${Spacings.S2};
   border-radius: 5px;
 
   @media (${Devices.TABLET}) {
@@ -253,6 +253,9 @@ const BookDemandForm = ({book, onBack, onDemandResult}: BookDemandFormProps) => 
           bookId: displayedBook.id,
         }).then(() => {
           setLoading(false);
+          setName('');
+          setTel('');
+          setContactConfirmationSelected(false);
           onDemandResult(true);
         }).catch((e) => {
           console.log(e);

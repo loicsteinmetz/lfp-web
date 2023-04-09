@@ -34,7 +34,6 @@ const Confirmation = styled.p<{visible: boolean}>`
   cursor: pointer;
   position: fixed;
   bottom: ${Spacings.S2};
-  min-width: 200px;
   z-index: 999999;
   left: ${Spacings.S2};
 `
@@ -106,6 +105,18 @@ export default function BookPage({url, general, book}: BookProps) {
   const onQuitPopup = useCallback(() => {
     setPopupVisible(false);
   }, [setPopupVisible]);
+
+  useEffect(() => {
+    if (isConfirmationVisible) {
+      setTimeout(() => setConfirmationVisible(false), 5000);
+    }
+  }, [isConfirmationVisible]);
+
+  useEffect(() => {
+    if (isErrorVisible) {
+      setTimeout(() => setErrorVisible(false), 5000);
+    }
+  }, [isErrorVisible]);
 
   const onDemandConfirmed = useCallback((success: boolean) => {
     setPopupVisible(false);
