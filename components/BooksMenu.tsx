@@ -92,7 +92,6 @@ const Button = styled.div`
 `
 
 const ButtonText = styled.p`
-  margin-top: -2px;
 `
 
 const BooksMenu = ({general}: BooksMenuProps) => {

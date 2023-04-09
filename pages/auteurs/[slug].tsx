@@ -41,17 +41,16 @@ const AuthorContainer = styled.div`
 const Icons = styled.div`
   display: flex;
   gap: ${Spacings.S1};
+  margin-top: 2px;
 
   svg {
     @media (${Devices.TABLET}) {
-      margin-top: 4px;
       gap: ${Spacings.S2};
     }
   }
 `
 
 const Name = styled.h1`
-  margin-top: -3px;
   ${typos.SUBTITLE1};
 
   @media (${Devices.TABLET}) {

@@ -43,7 +43,6 @@ const Explanation = styled.p`
   margin-top: ${Spacings.S2};
   font-size: 14px;
   line-height: 16px;
-  font-style: italic;
 `
 
 const Confirmation = styled.p<{visible: boolean}>`

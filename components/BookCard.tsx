@@ -142,7 +142,7 @@ const LoanButton = styled.div`
   display: flex;
   align-items: center;
   gap: ${Spacings.S1};
-  padding: 5px 11px;
+  padding: 5px 13px 4px 11px;
   border-radius: 5px;
   background-color: transparent;
   border: 1px solid ${Colors.GREY['500']};
@@ -162,7 +162,6 @@ const LoanButton = styled.div`
 `
 
 const ButtonLabel = styled.p`
-  margin-top: -1px;
 `
 
 const StatusContainer = styled.div`
@@ -180,7 +179,7 @@ const StatusIcon = styled.div<{status: BookStatus}>`
   height: 10px;
   aspect-ratio: 1;
   border-radius: 100%;
-  margin-top: 2px;
+  margin-top: 1px;
   background-color: ${({status}) => status === 'available' ? 'green' : (status === 'claimed' ? 'orange' : 'red')};
 `
 

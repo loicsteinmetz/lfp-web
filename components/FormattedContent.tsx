@@ -111,7 +111,7 @@ const Container = styled.article`
     color: ${Colors.PRIMARY['500']};
     border-top: 1px solid ${Colors.PRIMARY['500']};
     border-bottom: 1px solid ${Colors.PRIMARY['500']};
-    padding: 15px 10px 20px 10px;
+    padding: 15px 10px 15px 10px;
     line-height: 25px;
     margin: 25px 0;
     text-align: center;

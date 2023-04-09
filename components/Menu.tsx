@@ -107,12 +107,6 @@ const Button = styled.div`
 `
 
 const ButtonText = styled.p`
-  margin-top: -1px;
-
-  @media (${Devices.TABLET}) {
-    margin-top: -3px;
-  }
-
   @media (min-width: ${Breakpoints.MEDIUM}px) and (max-width: 1200px) {
     display: none;
   }

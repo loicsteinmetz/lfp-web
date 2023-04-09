@@ -93,7 +93,7 @@ const StatusIcon = styled.div<{status: BookStatus}>`
   height: 10px;
   aspect-ratio: 1;
   border-radius: 100%;
-  margin-top: 3px;
+  margin-top: 1px;
   background-color: ${({status}) => status === 'available' ? 'green' : (status === 'claimed' ? 'orange' : 'red')};
 `
 
@@ -111,7 +111,6 @@ const DemandTitleContainer = styled.div`
 const DemandTitle = styled.h3`
   ${typos.H2};
   font-size: 20px;
-  margin-top: -2px;
 `
 
 const BackIconContainer = styled.div`

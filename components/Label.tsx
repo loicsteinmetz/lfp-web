@@ -10,7 +10,7 @@ export interface LabelProps {
 
 const Text = styled.p<{type?: 'primary' | 'grey'}>`
   display: inline-block;
-  padding: 3px 7px 4px 7px;
+  padding: 4px 7px 3px 7px;
   border-radius: 5px;
   font-size: 13px;
   background-color: ${({type}) => type === 'primary' ? Colors.PRIMARY['500'] : 'transparent'};

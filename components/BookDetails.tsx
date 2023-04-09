@@ -120,7 +120,7 @@ const LoanButton = styled.div`
   display: flex;
   align-items: center;
   gap: ${Spacings.S1};
-  padding: 5px 11px;
+  padding: 5px 13px 4px 11px;
   border-radius: 5px;
   background-color: transparent;
   border: 1px solid ${Colors.GREY['500']};
@@ -140,7 +140,6 @@ const LoanButton = styled.div`
 `
 
 const ButtonLabel = styled.p`
-  margin-top: -2px;
 `
 
 const StatusContainer = styled.div`
@@ -154,7 +153,7 @@ const StatusIcon = styled.div<{status: BookStatus}>`
   height: 10px;
   aspect-ratio: 1;
   border-radius: 100%;
-  margin-top: 3px;
+  margin-top: 1px;
   background-color: ${({status}) => status === 'available' ? 'green' : (status === 'claimed' ? 'orange' : 'red')};
 `
 
@@ -171,7 +170,7 @@ const ShareButton = styled.div<{clicked: boolean}>`
   display: flex;
   gap: ${Spacings.S1};
   align-items: center;
-  padding: 5px 11px;
+  padding: 6px 11px 5px 11px;
   border-radius: 5px;
   background-color: transparent;
   border: 1px solid ${({clicked}) => clicked ? Colors.GREEN['500'] : Colors.GREY['500']};
@@ -179,10 +178,6 @@ const ShareButton = styled.div<{clicked: boolean}>`
   ${typos.BODY1};
   color: ${({clicked}) => clicked ? Colors.GREEN['500'] : Colors.GREY['500']};
   font-size: 14px;
-  
-  svg {
-    margin-bottom: -1px;
-  }
 
   svg *:nth-child(1) {
     fill: ${Colors.GREY['500']};

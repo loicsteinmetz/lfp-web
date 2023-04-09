@@ -45,7 +45,6 @@ const AuthorContainer = styled.div`
 const AuthorName = styled.p`
   ${typos.OVERLINE1};
   font-size: 13px;
-  margin-top: -2px;
   margin-left: ${Spacings.S2};
 
   &:hover {
