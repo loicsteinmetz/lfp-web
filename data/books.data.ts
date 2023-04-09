@@ -6,10 +6,9 @@ import {mapBookTheme} from './book-themes.data';
 import {mapOwner} from './owners.data';
 import {mapBookAuthor} from './book-authors.data';
 import {mapLoan} from './loans.data';
-import {mapArticle} from './articles.data';
 
 const BOOKS_ROOT = envLFP.API_ROOT + '/books';
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 15;
 
 export const mapBook = (d: any): Book => ({
   id: d.id,
