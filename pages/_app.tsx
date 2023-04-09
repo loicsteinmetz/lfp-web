@@ -2,7 +2,7 @@ import '../styles/reset.css'
 import '../styles/fonts.css'
 import type {AppProps} from 'next/app'
 import {Analytics} from '@vercel/analytics/react';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Router} from 'next/router';
 import Loading from '../components/Loading';
 
@@ -17,8 +17,18 @@ String.prototype.replaceJSX = function(this: string, find, replace) {
 }
 
 function MyApp({Component, pageProps}: AppProps) {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const loader = document.getElementById('loadingScreen');
+      if (loader) {
+        loader.remove();
+      }
+    }
+  }, []);
+
   const [loading, setLoading] = React.useState(false);
-  React.useEffect(() => {
+
+  useEffect(() => {
     const start = () => {
       setLoading(true);
     };

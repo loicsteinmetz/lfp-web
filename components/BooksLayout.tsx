@@ -64,12 +64,12 @@ const BooksLayout: FC<BooksLayoutProps> = ({url, title, description, cover, keyw
   return (
     <>
       <Head>
-        <title>La Fabrique Populaire {title ? `| ${title}` : ''}</title>
+        <title>La Fabrique Populaire | {title ? `${title}` : 'Les livres de La Fabrique'}</title>
         <link rel="icon" type="image/png" href={general.favicon!.url}/>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
         <meta charSet="utf-8"/>
         <meta name="description" content={description ?? general.description}/>
-        <meta name="keywords" content={"journal saint-avold st-avold naborien militant association" + (keywords ? keywords.join(' ') : '')}/>
+        <meta name="keywords" content={"bibliotheque saint-avold st-avold naborien militant association" + (keywords ? keywords.join(' ') : '')}/>
         {keywords && (<meta name="news_keywords" content={keywords.join(' ')}/>)}
         <meta property="og:title" content={title ?? 'La Fabrique Populaire'}/>
         <meta property="og:type" content="website"/>
