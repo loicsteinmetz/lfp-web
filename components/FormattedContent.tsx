@@ -68,11 +68,26 @@ const Container = styled.article`
     display: flex;
     flex-direction: column;
     gap: 6px;
+    line-height: 20px;
   }
   
   li {
     margin-left: 20px;
-    line-height: 18px;
+  }
+  
+  ol li {
+    list-style-type: none;
+    counter-increment: item;
+    
+    &:before {
+      content: counter(item) ". ";
+      position: absolute;
+      margin-left: -25px;
+    }
+  }
+  
+  ul li {
+    margin-left: 20px;
     
     &:before {
       content: '';
