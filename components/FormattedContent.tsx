@@ -138,6 +138,13 @@ const Container = styled.article`
     background-color: ${Colors.GREY['200']};
     margin: ${Spacings.S3} 0;
   }
+  
+  pre {
+    white-space: pre-wrap;
+    font-size: 13px;
+    line-height: 16px;
+    color: ${Colors.GREY['500']};
+  }
 `
 
 const FormattedContent = ({content}: FormattedContentProps) => {
