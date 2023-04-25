@@ -4,9 +4,6 @@ import ReactMarkdown from 'react-markdown';
 import {Colors} from '../theme/colors';
 import {Spacings} from '../theme/spacings';
 import {Devices} from '../theme/breakpoints';
-import Image from 'next/image';
-import typos from '../theme/typos';
-
 export interface FormattedContentProps {
   content: string;
 }

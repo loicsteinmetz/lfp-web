@@ -10,6 +10,7 @@ import Icon from './Icon';
 import typos from '../theme/typos';
 import Link from 'next/link';
 import Divider from './Divider';
+import {BOOKS_TITLE} from '../theme/constants';
 
 export interface MenuProps {
   pages: Page[];
@@ -148,7 +149,7 @@ const Menu = ({pages, categories, types, general}: MenuProps) => {
         <Link href={'/livres'}>
           <Button onClick={() => setIsOpen(false)}>
             <Icon icon={'book'} color={Colors.GREY['0']} hoverColor={Colors.GREY['0']} scale={0.4}/>
-            <ButtonText>Les livres de La Fabrique</ButtonText>
+            <ButtonText>{BOOKS_TITLE}</ButtonText>
           </Button>
         </Link>
         <Divider displayHide={{tablet: true, desktop: true}}/>

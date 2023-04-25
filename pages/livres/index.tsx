@@ -14,6 +14,7 @@ import {ReCaptchaProvider} from 'next-recaptcha-v3';
 import {envLFP} from '../../utils/envLFP';
 import Pagination from '../../components/Pagination';
 import useRootUrl from '../../utils/rootUrl';
+import {BOOKS_TITLE} from '../../theme/constants';
 
 export interface Books_BaseProps {
   general: General;
@@ -100,7 +101,7 @@ const BooksPage: NextPage<BooksPageProps> = ({url, general, books, totalPages, c
       <BooksLayout url={url} general={general}>
         <Confirmation visible={isConfirmationVisible} onClick={() => setConfirmationVisible(false)}>Demande envoyée !</Confirmation>
         <Error visible={isErrorVisible} onClick={() => setErrorVisible(false)}>Échec de la demande...</Error>
-        <Title>Les livres de La Fabrique</Title>
+        <Title>{BOOKS_TITLE}</Title>
         <Divider displayHide={{mobile: true}}/>
         <Divider displayHide={{tablet: true, desktop: true}} marginY={Spacings.S2}/>
         {currentPage === 1 && (

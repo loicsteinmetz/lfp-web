@@ -8,6 +8,7 @@ import ExpandedContainer from './ExpandedContainer';
 import Divider from './Divider';
 import Icon from './Icon';
 import Link from 'next/link';
+import {BOOKS_TITLE} from '../theme/constants';
 
 export interface LibraryBannerProps {
 }
@@ -62,7 +63,7 @@ const LibraryBanner = ({}: LibraryBannerProps) => {
       <SubContainer>
         <Heading>
           <Icon scale={0.4} icon={'book'} color={Colors.GREY['0']} hoverColor={Colors.GREY['0']}/>
-          <HeadingText>Les livres de La Fabrique</HeadingText>
+          <HeadingText>{BOOKS_TITLE}</HeadingText>
         </Heading>
         <Divider marginY={Spacings.S2} displayHide={{desktop: true}}/>
         <Link href={'/livres'}>

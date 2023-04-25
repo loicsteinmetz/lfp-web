@@ -7,6 +7,7 @@ import Footer from './Footer';
 import {Devices} from '../theme/breakpoints';
 import Maintenance from './Maintenance';
 import BooksHeader from './BooksHeader';
+import {BOOKS_TITLE} from '../theme/constants';
 
 export interface BooksLayoutProps {
   url: string;
@@ -64,7 +65,7 @@ const BooksLayout: FC<BooksLayoutProps> = ({url, title, description, cover, keyw
   return (
     <>
       <Head>
-        <title>La Fabrique Populaire | {title ? `${title}` : 'Les livres de La Fabrique'}</title>
+        <title>La Fabrique Populaire | {title ? `${title}` : BOOKS_TITLE}</title>
         <link rel="icon" type="image/png" href={general.favicon!.url}/>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
         <meta charSet="utf-8"/>

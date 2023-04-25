@@ -18,6 +18,7 @@ import {Devices} from '../../theme/breakpoints';
 import Icon from '../../components/Icon';
 import Link from 'next/link';
 import Divider from '../../components/Divider';
+import {BOOKS_TITLE} from '../../theme/constants';
 
 interface BookProps extends Books_BaseProps {
   book: Book;
@@ -154,7 +155,7 @@ export default function BookPage({url, general, book}: BookProps) {
       >
         <Confirmation visible={isConfirmationVisible} onClick={() => setConfirmationVisible(false)}>Demande envoyée !</Confirmation>
         <Error visible={isErrorVisible} onClick={() => setErrorVisible(false)}>Échec de la demande...</Error>
-        <Title>Les livres de la Fabrique</Title>
+        <Title>{BOOKS_TITLE}</Title>
         <Link href='/livres'><Back><Icon icon={'back'} scale={0.3}/> Retour à la liste des livres</Back></Link>
         <Divider marginY={Spacings.S2}/>
         <BookDetails book={displayedBook} onDemand={onDemand}/>
