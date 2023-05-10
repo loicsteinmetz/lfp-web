@@ -5,6 +5,7 @@ type Book = {
   updatedAt: Date,
   publishedAt: Date,
   slug: string;
+  priority: 'A' | 'B' | 'C',
   editor?: string;
   abstract?: string;
   year?: number

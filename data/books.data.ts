@@ -25,6 +25,7 @@ export const mapBook = (d: any): Book => ({
   authors: d.attributes.authors?.data.map(mapBookAuthor),
   loans: d.attributes.loans?.data.map(mapLoan),
   themes: d.attributes.themes?.data.map(mapBookTheme),
+  priority: d.attributes.priority,
 });
 
 export const getBook = async (id: number, populate?: PopulatedBookOption): Promise<Book> => {
@@ -57,7 +58,8 @@ export const getBooks = async (page: string | string[], populate?: PopulatedBook
     BOOKS_ROOT,
     {
       params: {
-        sort: 'publishedAt:desc',
+        'sort[0]': 'priority:asc',
+        'sort[1]': 'publishedAt:desc',
         populate,
         'pagination[page]': page,
         'pagination[pageSize]': PAGE_SIZE,
