@@ -79,7 +79,6 @@ const Text = styled.p<{isOpen: boolean}>`
 const ItemText = styled.a`
   ${typos.BODY1};
   text-decoration: none;
-  transition: color 300ms;
   display: block;
   padding: 12px 0;
   

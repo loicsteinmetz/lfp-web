@@ -27,7 +27,6 @@ const SubContainer = styled.div`
   align-items: center;
   background-color: ${Colors.GREY['25']};
   padding: ${Spacings.S2} ${Spacings.S3} calc(${Spacings.S2} + 6px) ${Spacings.S3};
-  border-radius: 5px;
 
   @media(${Devices.TABLET}) {
     flex-direction: row;
@@ -59,7 +58,6 @@ const Message = styled.p`
 
 const Home = styled.a`
   text-decoration: underline;
-  transition: color 300ms;
   
   &:hover {
     cursor: pointer;

@@ -26,7 +26,6 @@ const CoverContainer = styled.div`
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
-    transition: color 300ms;
   }
 
   @media (${Devices.TABLET}) {
@@ -67,7 +66,6 @@ const Title = styled.h2`
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
-    transition: color 300ms;
   }
 
   @media (${Devices.TABLET}) {
@@ -122,7 +120,6 @@ const Author = styled.p`
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
-    transition: color 300ms;
   }
 `
 
@@ -143,7 +140,7 @@ const ArticleCardFront = ({article}: ArticleCardFrontProps) => {
   const date: Date = new Date(article.publishedAt);
 
   return (
-    <ExpandedContainer radius={true}>
+    <ExpandedContainer>
       <CoverContainer>
         <Link href={link}>
           <Image objectFit="cover" src={article.cover!.url} height={article.cover!.height} width={article.cover!.width}

@@ -28,12 +28,10 @@ const AuthorContainer = styled.div`
   gap: ${Spacings.S2};
   padding: ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
-  border-radius: 10px;
   margin-top: ${Spacings.S2};
 
   @media (${Devices.TABLET}) {
     padding: ${Spacings.S2} ${Spacings.S3} ${Spacings.S2} ${Spacings.S2};
-    border-radius: 20px;
     gap: ${Spacings.S3};
   }
 `

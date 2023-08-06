@@ -52,7 +52,6 @@ const Confirmation = styled.p<{visible: boolean}>`
   color: ${Colors.GREEN['500']};
   padding: ${Spacings.S2};
   font-weight: bold;
-  border-radius: 5px;
   display: ${({visible}) => visible ? 'block' : 'none'};
   cursor: pointer;
   position: fixed;
@@ -68,7 +67,6 @@ const Error = styled.p<{visible: boolean}>`
   color: ${Colors.PRIMARY['500']};
   padding: ${Spacings.S2};
   font-weight: bold;
-  border-radius: 5px;
   display: ${({visible}) => visible ? 'block' : 'none'};
   cursor: pointer;
   position: fixed;

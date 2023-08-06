@@ -14,7 +14,7 @@ export interface LibraryBannerProps {
 }
 
 const SubContainer = styled.div`
-  margin-bottom: ${Spacings.S2};
+  margin: ${Spacings.S3} 0;
   padding: ${Spacings.S2};
   display: flex;
   flex-direction: column;
@@ -49,8 +49,6 @@ const Button = styled.button`
   background-color: ${Colors.GREY['0']};
   padding: ${Spacings.S1} ${Spacings.S2};
   border: 1px solid ${Colors.GREY['0']};
-  border-radius: 5px;
-  transition: background-color 300ms;
   
   &:hover {
     background-color: ${Colors.GREY['25']};

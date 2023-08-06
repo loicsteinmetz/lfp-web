@@ -17,7 +17,6 @@ const Container = styled.div`
   margin-bottom: ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
   padding: ${Spacings.S2};
-  border-radius: 5px;
 
   @media (${Devices.TABLET}) {
     padding: ${Spacings.S3};
@@ -54,7 +53,6 @@ const Title1 = styled.h2`
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
-    transition: color 300ms;
   }
 
   @media (${Devices.TABLET}) {
@@ -78,7 +76,6 @@ const Title2 = styled.h2`
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
-    transition: color 300ms;
   }
 
   @media (${Devices.DESKTOP}) {
@@ -101,7 +98,6 @@ const CoverContainer = styled.div`
   align-items: center;
   overflow: hidden;
   margin-bottom: ${Spacings.S2};
-  border-radius: 3px;
 
   &:hover {
     cursor: pointer;
@@ -147,7 +143,6 @@ const Author = styled.p`
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
-    transition: color 300ms;
   }
 `
 

@@ -36,7 +36,6 @@ const AuthorsContainer = styled.div`
 const AuthorContainer = styled.div`
   display: inline-flex;
   padding: ${Spacings.S1};
-  border-radius: 10px;
   background-color: ${Colors.GREY['0']};
   align-items: center;
   flex-wrap: wrap;

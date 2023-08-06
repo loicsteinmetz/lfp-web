@@ -25,7 +25,6 @@ const Container = styled.div`
 const Text = styled.a`
   ${typos.OVERLINE1};
   text-decoration: none;
-  transition: color 300ms;
   display: block;
   user-select: none;
   

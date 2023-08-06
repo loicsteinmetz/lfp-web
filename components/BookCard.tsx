@@ -25,7 +25,6 @@ const Container = styled.div`
   margin-bottom: ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
   padding: ${Spacings.S2};
-  border-radius: 5px;
 
   @media (${Devices.TABLET}) {
     padding: ${Spacings.S3};
@@ -43,7 +42,6 @@ const Title = styled.h2`
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
-    transition: color 300ms;
   }
 
   @media (${Devices.TABLET}) {
@@ -60,7 +58,6 @@ const Title = styled.h2`
 //   display: inline-block;
 //   width: fit-content;
 //   padding: 2px 6px 4px 6px;
-//   border-radius: 5px;
 // `
 
 const FlexContainer = styled.div`
@@ -128,7 +125,6 @@ const Author = styled.p`
   // &:hover {
   //   color: ${Colors.PRIMARY['500']};
   //   cursor: pointer;
-  //   transition: color 300ms;
   // }
 `
 
@@ -143,7 +139,6 @@ const LoanButton = styled.div`
   align-items: center;
   gap: ${Spacings.S1};
   padding: 5px 13px 4px 11px;
-  border-radius: 5px;
   background-color: transparent;
   border: 1px solid ${Colors.GREY['500']};
   font-weight: bold;

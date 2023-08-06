@@ -20,7 +20,6 @@ const Container = styled.div`
   margin-bottom: ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
   padding: ${Spacings.S2};
-  border-radius: 5px;
 
   @media (${Devices.TABLET}) {
     padding: ${Spacings.S3};
@@ -39,7 +38,6 @@ const Title = styled.h2`
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
-    transition: color 300ms;
   }
 
   @media (${Devices.TABLET}) {
@@ -105,7 +103,6 @@ const Author = styled.p`
   // &:hover {
   //   color: ${Colors.PRIMARY['500']};
   //   cursor: pointer;
-  //   transition: color 300ms;
   // }
 `
 
@@ -121,7 +118,6 @@ const LoanButton = styled.div`
   align-items: center;
   gap: ${Spacings.S1};
   padding: 5px 13px 4px 11px;
-  border-radius: 5px;
   background-color: transparent;
   border: 1px solid ${Colors.GREY['500']};
   font-weight: bold;
@@ -171,7 +167,6 @@ const ShareButton = styled.div<{clicked: boolean}>`
   gap: ${Spacings.S1};
   align-items: center;
   padding: 6px 11px 5px 11px;
-  border-radius: 5px;
   background-color: transparent;
   border: 1px solid ${({clicked}) => clicked ? Colors.GREEN['500'] : Colors.GREY['500']};
   font-weight: bold;

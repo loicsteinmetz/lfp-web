@@ -20,7 +20,6 @@ const Container = styled.div`
 
   a {
     outline: none;
-    transition: transform 100ms;
   }
 `
 

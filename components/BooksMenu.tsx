@@ -74,8 +74,6 @@ const Button = styled.div`
   background-color: ${Colors.PRIMARY['500']};
   padding: ${Spacings.S1} ${Spacings.S2};
   border: 1px solid ${Colors.PRIMARY['500']};
-  border-radius: 5px;
-  transition: background-color 300ms;
   gap: ${Spacings.S1};
   text-align: center;
   margin-top: ${Spacings.S2};

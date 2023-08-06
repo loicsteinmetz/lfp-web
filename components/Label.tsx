@@ -11,12 +11,10 @@ export interface LabelProps {
 const Text = styled.p<{type?: 'primary' | 'grey'}>`
   display: inline-block;
   padding: 4px 7px 3px 7px;
-  border-radius: 5px;
   font-size: 13px;
   background-color: ${({type}) => type === 'primary' ? Colors.PRIMARY['500'] : 'transparent'};
   color: ${({type}) => type === 'primary' ? Colors.GREY['0'] : Colors.GREY['500']};;
   border: 1px solid ${({type}) => type === 'primary' ? Colors.PRIMARY['500'] : Colors.GREY['500']};;
-  transition: color 300ms, background-color 300ms;
   font-weight: bold;
   
   &:hover {

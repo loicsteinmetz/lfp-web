@@ -19,10 +19,9 @@ export interface ExpandedContainerProps {
   radius?: boolean;
 }
 
-const Container = styled.div<{backgroundColor?: string, radius?: boolean}>`
+const Container = styled.div<{backgroundColor?: string}>`
   margin-bottom: ${Spacings.S2};
   background-color: ${({backgroundColor}) => backgroundColor ?? Colors.GREY['0']};
-  border-radius: ${({radius}) => radius ? '5px' : '0'};
   width: calc(100% + ${Spacings.S2} * 2);
   margin-left: -${Spacings.S2};
 
@@ -34,7 +33,7 @@ const Container = styled.div<{backgroundColor?: string, radius?: boolean}>`
 `
 const ExpandedContainer = ({children, backgroundColor, radius}: ExpandedContainerProps) => {
   return (
-      <Container backgroundColor={backgroundColor} radius={radius}>
+      <Container backgroundColor={backgroundColor}>
         {children}
       </Container>
   )

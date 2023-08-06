@@ -70,22 +70,20 @@ const NetworksContainer = styled.div`
 
   @media (${Devices.TABLET}) {
     margin-top: 0;
-    margin-left: ${Spacings.S3};
-  }
-
-  @media (min-width: ${Breakpoints.MEDIUM}px) and (max-width: 1200px) {
     margin-left: ${Spacings.S2};
   }
+
+  // @media (min-width: ${Breakpoints.MEDIUM}px) and (max-width: 1200px) {
+  //   margin-left: ${Spacings.S2};
+  // }
 `
 
 const Button = styled.div`
   ${typos.OVERLINE1};
   color: ${Colors.GREY['0']};
   background-color: ${Colors.PRIMARY['500']};
-  padding: ${Spacings.S1} ${Spacings.S2};
+  padding: ${Spacings.S1};
   border: 1px solid ${Colors.PRIMARY['500']};
-  border-radius: 5px;
-  transition: background-color 300ms;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,15 +100,16 @@ const Button = styled.div`
     cursor: pointer;
   }
 
-  @media (min-width: ${Breakpoints.MEDIUM}px) and (max-width: 1200px) {
-    padding: ${Spacings.S1};
-  }
+  // @media (min-width: ${Breakpoints.MEDIUM}px) and (max-width: 1200px) {
+  //   padding: ${Spacings.S1};
+  // }
 `
 
 const ButtonText = styled.p`
-  @media (min-width: ${Breakpoints.MEDIUM}px) and (max-width: 1200px) {
-    display: none;
-  }
+  display: none;
+  // @media (min-width: ${Breakpoints.MEDIUM}px) and (max-width: 1200px) {
+  //   display: none;
+  // }
 `
 
 const Menu = ({pages, categories, types, general}: MenuProps) => {

@@ -41,7 +41,6 @@ const Container = styled.div<{visible: boolean}>`
   width: ${({visible}) => visible ? '90%' : '0'};
   height:  ${({visible}) => visible ? '90%' : '0'};
   background-color: ${Colors.GREY['0']};
-  border-radius: 5px;
   z-index: 999;
   display: flex;
   flex-direction: column;
@@ -65,7 +64,6 @@ const QuitContainer = styled.div`
   top: 5.5%;
   right: calc(${Spacings.S1} + 5%);
   border: 1px solid ${Colors.GREY['200']};
-  border-radius: 5px;
   background-color: ${Colors.GREY['0']};
   
   &:hover {

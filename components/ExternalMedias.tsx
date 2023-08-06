@@ -22,12 +22,10 @@ const IframeContainer = styled.div`
     right: 0;
     width: 100%;
     height: 100%;
-    border-radius: 8px;
   }
 `
 
 const MediaContainer = styled.div`
-  border-radius: 10px;
   margin-bottom: ${Spacings.S2};
 
   @media(${Devices.TABLET}) {

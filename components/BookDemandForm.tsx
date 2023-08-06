@@ -23,7 +23,6 @@ const Container = styled.div`
   margin-bottom: ${Spacings.S2};
   background-color: ${Colors.GREY['0']};
   padding: ${Spacings.S2};
-  border-radius: 5px;
 
   @media (${Devices.TABLET}) {
     padding: ${Spacings.S3};
@@ -42,7 +41,6 @@ const Title = styled.h2`
   &:hover {
     color: ${Colors.PRIMARY['500']};
     cursor: pointer;
-    transition: color 300ms;
   }
 
   @media (${Devices.TABLET}) {
@@ -78,7 +76,6 @@ const Author = styled.p`
   // &:hover {
   //   color: ${Colors.PRIMARY['500']};
   //   cursor: pointer;
-  //   transition: color 300ms;
   // }
 `
 
@@ -115,7 +112,6 @@ const DemandTitle = styled.h3`
 
 const BackIconContainer = styled.div`
   border: 1px solid ${Colors.GREY['200']};
-  border-radius: 5px;
 
   &:hover {
     cursor: pointer;
@@ -133,11 +129,9 @@ const DemandForm = styled.div`
 
 const FormInput = styled.input<{error: boolean}>`
   margin-bottom: ${Spacings.S1};
-  border-radius: 5px;
   border: 1px solid ${({error}) => error ? Colors.PRIMARY['500'] : Colors.GREY['300']};
   padding: 5px 8px;
   letter-spacing: 1px;
-  transition: border 300ms;
   
   &:first-of-type {
     letter-spacing: initial;
@@ -149,7 +143,6 @@ const DemandLabel = styled.label<{error: boolean}>`
   font-size: 14px;
   line-height: 10px;
   color: ${({error}) => error ? Colors.PRIMARY['500'] : Colors.GREY['600']};
-  transition: color 300ms;
 `
 
 const ContactConfirmationContainer = styled.div`
@@ -162,9 +155,7 @@ const ContactConfirmationSelect = styled.div<{selected: boolean, error: boolean}
   height: 15px;
   min-width: 15px;
   border: 1px solid ${({error}) => error ? Colors.PRIMARY['500'] : Colors.GREY['300']};
-  border-radius: 3px;
   transition: border 300ms;
-  position: relative;
   
   &:hover {
     cursor: pointer;
@@ -176,7 +167,6 @@ const ContactConfirmationSelect = styled.div<{selected: boolean, error: boolean}
     position: absolute;
     height: 13px;
     width: 13px;
-    border-radius: 3px;
     margin-top: 1px;
     margin-left: 1px;
     background-color: ${({selected}) => selected ? Colors.PRIMARY['500'] : 'inital'};
@@ -189,7 +179,6 @@ const ContactConfirmationLabel = styled.label<{error: boolean}>`
   line-height: 14px;
   color: ${({error}) => error ? Colors.PRIMARY['500'] : Colors.GREY['600']};
   user-select: none;
-  transition: color 300ms;
 `
 const LoanButton = styled.button<{loading: boolean}>`
   ${typos.OVERLINE1}
@@ -199,10 +188,8 @@ const LoanButton = styled.button<{loading: boolean}>`
   line-height: 20px;
   margin-top: ${Spacings.S2};
   border: 1px solid ${({loading}) => loading ? Colors.GREY['400'] : Colors.GREY['700']};
-  border-radius: 5px;
   color: ${({loading}) => loading ? Colors.GREY['400'] : Colors.GREY['700']};
   background-color: ${({loading}) => loading ? Colors.GREY['50'] : Colors.GREY['0']};
-  transition: color 300ms, background-color 300ms, border 300ms;
   
   &:hover {
     color: ${({loading}) => loading ? Colors.GREY['400'] : Colors.GREY['0']};
