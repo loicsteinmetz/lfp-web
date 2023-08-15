@@ -98,6 +98,7 @@ const CoverContainer = styled.div`
   align-items: center;
   overflow: hidden;
   margin-bottom: ${Spacings.S2};
+  position: relative;
 
   &:hover {
     cursor: pointer;
@@ -111,6 +112,15 @@ const CoverContainer = styled.div`
     margin-bottom: 0;
     flex: 0.6;
   }
+`
+
+const CoverBackground = styled.div<{category: string}>`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: ${({category}) => category === 'Politique' ? Colors.GREEN['500'] : Colors.PRIMARY['500']};
+  z-index: 1;
+  mix-blend-mode: multiply;
 `
 
 const InfoContainer = styled.div`
@@ -187,6 +197,7 @@ const ArticleCard = ({article}: ArticleCardProps) => {
       <PublicationDate1>Publié le {formatDate(date)}</PublicationDate1>
       <FlexContainer>
         <CoverContainer>
+          <CoverBackground category={article.categories && article.categories[0] ? article.categories[0].name : ''}/>
           <Link href={link}><Image src={article.cover!.url} height={article.cover!.height} width={article.cover!.width} alt={article.cover!.alternativeText}/></Link>
         </CoverContainer>
         <InfoContainer>
